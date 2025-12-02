@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,6 +19,7 @@
       margin: 40px auto;
       background: #000;
     }
+
     .iframe-container iframe {
       width: 100%;
       height: 100%;
@@ -60,10 +62,7 @@
       <p>以下為實際可操作的 3D Dog Interaction Demo。如瀏覽器未正常載入，建議重新整理或以桌機模式開啟。</p>
 
       <div class="iframe-container">
-        <iframe 
-          src="./behaviorTree/behaviorTree_dog.html"
-          loading="lazy"
-          allowfullscreen>
+        <iframe src="./behaviorTree/behaviorTree_dog.html" loading="lazy" allowfullscreen>
         </iframe>
       </div>
       <p class="demo-caption">▲ 使用滑鼠左鍵 / 右鍵蓄力丟球，觀察狗狗依行為樹回應行為。</p>
@@ -88,11 +87,13 @@
       </p>
 
       <h2 class="case-section-title">我的角色</h2>
+      <p>此為我獨立完成的個人 Side Project，負責從概念、邏輯到程式的完整製作：</p>
       <ul>
-        <li>規劃整體體驗：從「丟球 → 狗狗追球 → 撿起 → 帶回」的互動流程</li>
-        <li>設計狗狗行為樹（Behavior Tree）節點與條件</li>
-        <li>定義使用者操作方式與 UI 提示</li>
-        <li>與前端工程師協作 Three.js 場景、動畫與事件邏輯</li>
+        <li>規劃整體互動體驗（丟球 → 追球 → 撿起 → 帶回 → 放球）</li>
+        <li>設計並實作狗狗行為樹（Behavior Tree）的節點邏輯</li>
+        <li>以 Three.js 建立 3D 場景、模型載入、物理、動畫與互動事件</li>
+        <li>設計 UI、音效回饋、蓄力 HUD、球種切換等互動細節</li>
+        <li>自行調整角色動畫銜接、轉向 smoothing、碰撞行為與整體手感</li>
       </ul>
 
       <h2 class="case-section-title">行為樹設計（Behavior Tree）</h2>
@@ -143,17 +144,26 @@
         </li>
       </ul>
 
-      <h2 class="case-section-title">與工程協作方式</h2>
+      <h2 class="case-section-title">製作流程</h2>
       <p>
-        我以 Flow、行為樹與操作邏輯定義與工程師協作，將動作、狀態轉換與 UI 整合成一致體驗。
+        這個 Side Project 從 0 到 1 由我獨立完成。我以「真實動物動作」與
+        「可理解的狀態邏輯」為基礎，規劃並實作完整流程：
       </p>
+      <ul>
+        <li>繪製 Flow 與 Behavior Tree，拆解每個節點的觸發條件</li>
+        <li>實作角色邏輯（追蹤、撿球、迴避邊界、回玩家、放球行为）</li>
+        <li>建立玩家操作系統（蓄力、Raycast、投擲方向、速度映射）</li>
+        <li>整合物理（Ammo.js）、動畫（AnimationMixer）與模型行為</li>
+        <li>調整速度、轉向、停止距離、動作切換、心情泡泡等細節</li>
+      </ul>
+
 
       <h2 class="case-section-title">Impact / 成效</h2>
       <ul>
-        <li>建立可重複使用的 3D 行為樹互動範例</li>
-        <li>讓團隊快速理解 Behavior Tree 在真實場景中的應用</li>
-        <li>方便與利害關係人展示「AI 行為 × 使用者操作」整合成品</li>
-        <li>成為作品集中最能代表 3D + UX 邏輯思維的案例之一</li>
+        <li>建立一個具有互動性與 AI 行為的 3D Demo，可作為個人技術展示</li>
+        <li>以實作方式將 Behavior Tree 具象化，提升理解度與可視化效果</li>
+        <li>展示我在 3D、互動體驗、動畫、物理與行為邏輯的整合能力</li>
+        <li>成為作品集中的「複雜互動 × 邏輯思維 × 技術深度」代表案例</li>
       </ul>
     </div>
   </main>
@@ -166,4 +176,5 @@
 
   <script src="../src/main.js" defer></script>
 </body>
+
 </html>
