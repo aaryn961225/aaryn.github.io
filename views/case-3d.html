@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Case – 三維互動介面與操作流程</title>
+  <title>Case – 3D Dog Interaction Demo｜狗狗行為樹 × 使用者互動設計</title>
   <link rel="stylesheet" href="../styles/main.css" />
 </head>
 <body>
@@ -20,31 +20,104 @@
     <div class="container">
       <a href="../index.html" class="back-link">← Back to Home</a>
 
-      <h1>三維互動介面與操作流程</h1>
-      <p class="case-meta">Role：UX / UI / Interaction · Type：3D / Three.js / WebXR 協作</p>
+      <h1>3D Dog Interaction Demo｜狗狗行為樹 × 使用者互動設計</h1>
+      <p class="case-meta">
+        Role：UX / UI / Interaction Design · Type：3D / Behavior Tree / Three.js Demo
+      </p>
 
       <h2 class="case-section-title">背景與目標</h2>
-      <p>（說明 3D 場景、訓練內容、使用者需求。）</p>
+      <p>
+        在公司開發 3D 訓練與模擬系統的過程中，我希望有一個<strong>輕量但完整</strong>的互動範例，
+        可以同時展示：
+      </p>
+      <ul>
+        <li>行為樹（Behavior Tree）如何拆解角色行為</li>
+        <li>使用者操作與 3D 場景中的互動流程</li>
+        <li>UX 設計與前端 / 3D 工程協作的方式</li>
+      </ul>
+      <p>
+        因此我以「狗狗撿球」作為主題，實作一個 3D Dog Interaction Demo，讓使用者可以丟球，
+        而狗狗會依照行為樹邏輯做出反應，形成一個可視化的 AI 行為示範。
+      </p>
 
       <h2 class="case-section-title">我的角色</h2>
       <ul>
-        <li>3D 互動流程與控制面板規劃</li>
-        <li>將 3D 操作抽象為 2D UI 可理解的結構</li>
-        <li>與前端共同討論事件、效能與資料 flow</li>
-        <li>製作互動 Demo（HTML / JS / Three.js）</li>
+        <li>規劃整體體驗：從「丟球 → 狗狗追球 → 撿起 → 帶回」的互動流程</li>
+        <li>設計狗狗行為樹（Behavior Tree）節點與條件</li>
+        <li>定義使用者操作方式與 UI 提示</li>
+        <li>與前端工程師協作 Three.js 場景、動畫與事件邏輯</li>
       </ul>
 
-      <h2 class="case-section-title">操作流程設計</h2>
-      <p>（放 User Flow：登入 → 場景 → 控制 → 回傳結果。）</p>
+      <h2 class="case-section-title">行為樹設計（Behavior Tree）</h2>
+      <p>
+        我先把「狗狗撿球」拆解成可以被程式理解的狀態與條件，並整理成 Behavior Tree：
+      </p>
+      <ul>
+        <li><strong>Idle：</strong>狗狗待在主人附近，等待指令或球出現</li>
+        <li><strong>Locate Ball：</strong>偵測場景中是否有可追蹤的球</li>
+        <li><strong>Chase：</strong>朝球的方向移動，持續調整朝向與速度</li>
+        <li><strong>Fetch：</strong>在接近球時切換成「撿起」狀態，播放對應動畫</li>
+        <li><strong>Return：</strong>叼著球回到玩家附近，避開障礙物</li>
+        <li><strong>Drop：</strong>在玩家前方一定距離放下球，回到 Idle</li>
+      </ul>
+      <p>
+        在行為樹設計上，我將邏輯拆分為 <strong>Selector / Sequence / Condition</strong> 等節點，
+        讓工程師可以針對每個節點獨立調整參數，例如追逐速度、最小停距、可接球距離等，
+        也提升後續維護與擴充（例如替換成其他動物或角色）的彈性。
+      </p>
 
-      <h2 class="case-section-title">介面與互動</h2>
-      <p>（放 UI 截圖與互動細節說明。）</p>
+      <h2 class="case-section-title">使用者互動流程（User Flow）</h2>
+      <p>從使用者視角出發，我把互動流程整理成以下步驟：</p>
+      <ol>
+        <li>使用者透過按鍵或滑鼠操作，決定丟球方向與力度</li>
+        <li>系統顯示拋物線預覽，降低使用者對 3D 空間距離的猜測成本</li>
+        <li>球被拋出後，進入「可追蹤」狀態</li>
+        <li>狗狗偵測到球 → 切換到 <strong>Chase</strong> 節點，開始追球</li>
+        <li>接近球時，自動切換到 <strong>Fetch</strong>，並播放撿起動作</li>
+        <li>狗狗進入 <strong>Return</strong>，沿路回到玩家附近</li>
+        <li>在安全距離內放下球，流程結束，回到 Idle，等待下一次互動</li>
+      </ol>
 
-      <h2 class="case-section-title">技術協作與調整</h2>
-      <p>（描述如何和工程一起處理效能、事件、狀態。）</p>
+      <h2 class="case-section-title">互動細節與 UX 考量</h2>
+      <p>在設計過程中，我特別處理了幾個影響體驗的細節：</p>
+      <ul>
+        <li>
+          <strong>平滑轉向：</strong>若狗狗瞬間轉身，使用者會覺得不自然。
+          我與工程師共同調整以插值（LERP）方式更新朝向，讓轉頭與追逐動作看起來更接近真實動物。
+        </li>
+        <li>
+          <strong>停止距離：</strong>狗狗不會直接「撞」到球或玩家，而是維持一段最小距離，
+          再播放撿起或放下的動畫，避免穿模與不合理的碰撞。
+        </li>
+        <li>
+          <strong>接球區間：</strong>在真實世界，狗狗不可能精準咬到同一點。
+          因此我設定一個「可接球範圍」，只要進入此範圍即可觸發撿起，兼顧真實感與可玩性。
+        </li>
+        <li>
+          <strong>視覺回饋：</strong>為了讓使用者理解目前狀態，我在 UI 中設計狀態標示（如 Idle / Chasing / Fetching），
+          並搭配顏色或簡單文字提示。
+        </li>
+      </ul>
+
+      <h2 class="case-section-title">與工程協作方式</h2>
+      <p>
+        在這個 Demo 中，我不是只畫畫面，而是從邏輯層開始規劃，
+        再與工程師對齊具體行為與資料結構：
+      </p>
+      <ul>
+        <li>以 Flow 與狀態圖方式描述 Behavior Tree 結構與轉換條件</li>
+        <li>討論狗狗與球之間的座標更新頻率與碰撞偵測方式</li>
+        <li>將「使用者可以感知的狀態」轉成 UI 元件與提示設計</li>
+        <li>在瀏覽器中實際測試互動節奏，微調速度、轉向與停頓時間</li>
+      </ul>
 
       <h2 class="case-section-title">Impact / 成效</h2>
-      <p>（描述使用者理解度、操作流暢度、Demo 說服力等。）</p>
+      <ul>
+        <li>建立一個可重複使用的 3D 互動範例，方便未來展示 AI 行為或訓練邏輯</li>
+        <li>讓團隊成員更容易理解 Behavior Tree 的概念與實際效果</li>
+        <li>在與利害關係人溝通 3D 系統時，有一個具體且有趣的 Demo，可以快速說明「互動 + 行為邏輯」如何結合</li>
+        <li>也成為我在作品集中展示「行為邏輯 × UX × 3D 協作」能力的一個代表案例</li>
+      </ul>
     </div>
   </main>
 
