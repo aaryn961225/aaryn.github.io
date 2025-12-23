@@ -1,147 +1,152 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jinghuei – UI/UX Portfolio</title>
+  <title>Jinghuei | UX Designer & System Architect</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="styles/main.css" />
 </head>
+
 <body>
+
   <header class="site-header">
     <div class="container header-inner">
       <div class="logo">
         <span class="logo-mark">JH</span>
-        <span class="logo-text">Jinghuei / UI·UX</span>
+        <span class="logo-text">Jinghuei / <strong>UX Design</strong></span>
       </div>
       <nav class="nav">
         <a href="#about">About</a>
-        <a href="#cases">Cases</a>
+        <a href="#cases">Case Studies</a>
         <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
+        <a href="#contact" class="nav-cta">Contact</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- Hero -->
     <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-text">
-          <p class="hero-tag">UI/UX Designer · Product Thinking</p>
-          <h1>Turning complex systems<br>into clear, usable experiences.</h1>
+      <div class="container">
+        <div class="hero-content">
+          <div class="badge">Psychology × Engineering × Design</div>
+          <h1>以心理學洞察為核心，<br>構建嚴謹、流暢的系統體驗。</h1>
           <p class="hero-sub">
-            心理學背景的 UI/UX 設計師，擅長拆解複雜需求、規劃流程與後台介面，並與工程協作落地。
+            具備 4-5 年資歷，擅長將複雜的商業需求轉譯為高效的<strong>資訊架構 (IA)</strong> 與<strong>開發規格</strong>。
+            從心理學背景出發，我專注於使用者決策邏輯，並透過 Figma 與 Three.js 確保設計在技術層面完美落地。
           </p>
           <div class="hero-actions">
-            <a href="#cases" class="btn primary">View Case Studies</a>
-            <a href="#contact" class="btn ghost">Contact</a>
+            <a href="#cases" class="btn primary">探索作品集</a>
+            <a href="#about" class="btn ghost">關於我</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="section">
-      <div class="container">
-        <h2 class="section-title">About</h2>
-        <p>
-          畢業於臺大心理系，曾任出版企畫與軟體公司助理工程師。現主要負責
-          <strong>UI/UX 設計、系統流程規劃、後台介面、三維互動 Demo 與設計驗證</strong>。
-        </p>
-        <p>
-          喜歡將抽象需求轉成具體的使用者流程與介面規格，並在與 PO、工程師協作中，把產品慢慢推向更清楚、好維護的狀態。
-        </p>
-      </div>
-    </section>
-
-    <!-- Case Studies -->
     <section id="cases" class="section section-alt">
       <div class="container">
         <h2 class="section-title">Case Studies</h2>
 
-        <div class="case-list">
+        <div class="case-grid">
           <article class="case-card">
-            <p class="case-tag">SaaS · Dashboard</p>
-            <h3>後台 Dashboard 系統重構</h3>
-            <p class="case-desc">
-              整理複雜權限與多模組資料，重設資訊架構與使用流程，建立可維護的 Design System 與 Design Spec。
-            </p>
-            <a href="views/case-dashboard.html" class="case-link">View case →</a>
+            <div class="case-image placeholder">B2B Dashboard</div>
+            <div class="case-body">
+              <p class="case-tag">SaaS / System Design</p>
+              <h3>後台 Dashboard 系統重構</h3>
+              <p>整理複雜權限與多模組資料，重塑資訊架構，建立高可維護性的 Design System 與元件庫。</p>
+              <a href="#" class="case-link">查看詳情 →</a>
+            </div>
           </article>
 
           <article class="case-card">
-            <p class="case-tag">3D · Interaction</p>
-            <h3>三維互動介面與操作流程</h3>
-            <p class="case-desc">
-              與工程協作 Three.js / WebXR，規劃 3D 場景內的控制面板與操作動線，兼顧效能與可用性。
-            </p>
-            <a href="views/case-3d.html" class="case-link">View case →</a>
+            <div class="case-image placeholder">Flow & Specs</div>
+            <div class="case-body">
+              <p class="case-tag">Logic / Documentation</p>
+              <h3>系統流程與 PRD 規格拆解</h3>
+              <p>從需求探索出發，拆解複雜功能路徑與例外狀況 (Edge Cases)，產出開發導向的精準規格文件。</p>
+              <a href="#" class="case-link">查看詳情 →</a>
+            </div>
           </article>
 
           <article class="case-card">
-            <p class="case-tag">Flow · PRD</p>
-            <h3>複雜功能 Flow × PRD 拆解</h3>
-            <p class="case-desc">
-              從使用情境出發拆解需求，規劃多步驟流程與例外狀況，撰寫工程可直接實作的規格文件。
-            </p>
-            <a href="views/case-flow.html" class="case-link">View case →</a>
+            <div class="case-image placeholder">3D Behavior Tree</div>
+            <div class="case-body">
+              <p class="case-tag">Three.js / Interaction</p>
+              <h3>3D 交互行為樹：小狗撿球</h3>
+              <p>結合 Three.js 與行為樹邏輯，規劃三維空間中的控制面板與動態行為邏輯驗證。</p>
+              <a href="#" class="case-link">查看詳情 →</a>
+              <a href="views/case-3d.html" class="case-link">查看詳情 →</a>
+            </div>
+          </article>
+
+          <article class="case-card">
+            <div class="case-image placeholder">Volleyball App</div>
+            <div class="case-body">
+              <p class="case-tag">App Design / Animation</p>
+              <h3>排球訓練 App 介面與動態原型</h3>
+              <p>運用 Figma 繪製完整介面並製作高保真動畫原型，優化運動訓練流程中的資訊反饋。</p>
+              <a href="#" class="case-link">查看詳情 →</a>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Skills -->
     <section id="skills" class="section">
       <div class="container">
-        <h2 class="section-title">Skills</h2>
-        <div class="skills-grid">
-          <div class="skill-block">
-            <h3>Product & UX</h3>
-            <ul>
-              <li>需求拆解、User Flow、Wireflow</li>
-              <li>資訊架構、後台 / Dashboard 規劃</li>
-              <li>PRD 與功能規格撰寫</li>
-              <li>Usability review、流程驗證</li>
-            </ul>
+        <div class="skills-wrapper">
+          <div class="skills-info">
+            <h2 class="section-title">Professional Skills</h2>
+            <p>融合出版企劃的細膩與軟體工程的嚴謹，提供全方位的設計方案。</p>
           </div>
-          <div class="skill-block">
-            <h3>UI & Interaction</h3>
-            <ul>
-              <li>Wireframe / Prototype（Figma）</li>
-              <li>Design System / Components</li>
-              <li>狀態設計與錯誤處理</li>
-              <li>Responsive Web</li>
-            </ul>
-          </div>
-          <div class="skill-block">
-            <h3>Dev Collaboration</h3>
-            <ul>
-              <li>HTML / CSS / JavaScript</li>
-              <li>Three.js / WebXR（基礎協作）</li>
-              <li>API / Data flow 溝通</li>
-              <li>Design QA 與跨部門協作</li>
-            </ul>
+          <div class="skills-list-grid">
+            <div class="skill-group">
+              <h4>UX Strategy</h4>
+              <ul>
+                <li>使用者研究與可用性測試</li>
+                <li>資訊架構 (IA) 與導航設計</li>
+                <li>User Flow / Wireflow</li>
+              </ul>
+            </div>
+            <div class="skill-group">
+              <h4>Technical</h4>
+              <ul>
+                <li>Figma Prototyping</li>
+                <li>HTML / CSS / JavaScript</li>
+                <li>Three.js 3D 協作</li>
+              </ul>
+            </div>
+            <div class="skill-group">
+              <h4>Product</h4>
+              <ul>
+                <li>PRD 規格文件撰寫</li>
+                <li>跨團隊溝通 (PM/RD)</li>
+                <li>Design System 維護</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" class="section section-alt">
-      <div class="container">
-        <h2 class="section-title">Contact</h2>
-        <p>如果對我的經驗或作品有興趣，很歡迎與我聯繫。</p>
-        <p>Email：<a href="mailto:b04207009@gmail.com">b04207009@gmail.com</a></p>
+    <section id="contact" class="section section-dark">
+      <div class="container contact-inner">
+        <h2>準備好一起打造更好的產品了嗎？</h2>
+        <p>歡迎聯繫我討論 UX 設計或跨部門協作的心得。</p>
+        <a href="mailto:b04207009@gmail.com" class="email-btn">b04207009@gmail.com</a>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="footer">
     <div class="container">
-      <p>© <span id="year"></span> Jinghuei Ruan. All rights reserved.</p>
+      <p>&copy; 2025 Jinghuei. Optimized for PChomeSEA Application.</p>
     </div>
   </footer>
 
-  <script src="src/main.js" defer></script>
 </body>
+
 </html>

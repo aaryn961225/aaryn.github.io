@@ -1,5 +1,5 @@
 # 不要被版本控制的資料夾
-node_modules/
+# node_modules/
 dist/
 temp/
 .cache/

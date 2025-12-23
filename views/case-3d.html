@@ -4,20 +4,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Case – 3D Dog Interaction Demo｜狗狗行為樹 × 使用者互動設計</title>
+  <title>Case – 3D Dog Interaction Demo｜行為樹 × 物理模擬互動設計</title>
   <link rel="stylesheet" href="../styles/main.css" />
 
   <style>
-    /* iframe 外框樣式 */
     .iframe-container {
       width: 100%;
       max-width: 1000px;
       aspect-ratio: 16 / 9;
-      border: 1px solid #ddd;
-      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
       overflow: hidden;
       margin: 40px auto;
-      background: #000;
+      background: #0f172a;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     }
 
     .iframe-container iframe {
@@ -29,8 +29,17 @@
     .demo-caption {
       text-align: center;
       font-size: 14px;
-      margin-top: 8px;
-      color: #666;
+      margin-top: 12px;
+      color: #64748b;
+      font-style: italic;
+    }
+
+    .code-highlight {
+      background: #f8fafc;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #e11d48;
     }
   </style>
 </head>
@@ -40,7 +49,7 @@
     <div class="container header-inner">
       <div class="logo">
         <span class="logo-mark">JH</span>
-        <span class="logo-text">Jinghuei / UI·UX</span>
+        <span class="logo-text">Jinghuei / <strong>UX Design</strong></span>
       </div>
     </div>
   </header>
@@ -49,132 +58,69 @@
     <div class="container">
       <a href="../index.html" class="back-link">← Back to Home</a>
 
-      <h1>3D Dog Interaction Demo｜狗狗行為樹 × 使用者互動設計</h1>
+      <h1>Meadow Fetch Time｜行為樹 AI × 3D 物理互動實驗</h1>
       <p class="case-meta">
-        Role：UX / UI / Interaction Design · Type：3D / Behavior Tree / Three.js Demo
+        <strong>Role：</strong>全棧開發 (UX / Logic Architecture / Three.js Implementation)<br>
+        <strong>Tech Stack：</strong>Three.js, Ammo.js (Physics), Vanilla JS (Behavior Tree), GLTF/Draco
       </p>
 
-      <!-- ============================= -->
-      <!-- 🐶 🎮 Demo iframe（插入區） -->
-      <!-- ============================= -->
-
-      <h2 class="case-section-title">Demo – 可互動 3D 範例</h2>
-      <p>以下為實際可操作的 3D Dog Interaction Demo。如瀏覽器未正常載入，建議重新整理或以桌機模式開啟。</p>
+      <h2 class="case-section-title">可互動 3D Demo</h2>
+      <p>這是我獨立開發的一個 3D 互動實驗，旨在探索如何將複雜的 AI 行為拆解為可維護的邏輯節點，並結合物理引擎提升互動的真實感。</p>
 
       <div class="iframe-container">
-        <iframe src="./behaviorTree/behaviorTree_dog.html" loading="lazy" allowfullscreen>
-        </iframe>
+        <iframe src="./behaviorTree/behaviorTree_dog.html" loading="lazy" allowfullscreen></iframe>
       </div>
-      <p class="demo-caption">▲ 使用滑鼠左鍵 / 右鍵蓄力丟球，觀察狗狗依行為樹回應行為。</p>
+      <p class="demo-caption">▲ 操作指南：長按滑鼠左/右鍵進行「蓄力丟球」，觀察狗狗如何根據行為樹決策路徑。</p>
 
-      <!-- ============================= -->
-      <!-- 以下維持你原本的內容不變 -->
-      <!-- ============================= -->
-
-      <h2 class="case-section-title">背景與目標</h2>
+      <h2 class="case-section-title">核心設計：行為樹架構 (Behavior Tree)</h2>
       <p>
-        在公司開發 3D 訓練與模擬系統的過程中，我希望有一個<strong>輕量但完整</strong>的互動範例，
-        可以同時展示：
-      </p>
-      <ul>
-        <li>行為樹（Behavior Tree）如何拆解角色行為</li>
-        <li>使用者操作與 3D 場景中的互動流程</li>
-        <li>UX 設計與前端 / 3D 工程協作的方式</li>
-      </ul>
-      <p>
-        因此我以「狗狗撿球」作為主題，實作一個 3D Dog Interaction Demo，讓使用者可以丟球，
-        而狗狗會依照行為樹邏輯做出反應，形成一個可視化的 AI 行為示範。
+        為了讓狗狗的行為看起來自然且具備擴充性，我實作了一套行為樹系統。將邏輯拆分為 <span class="code-highlight">Selector</span> (選擇分支) 與 <span
+          class="code-highlight">Sequence</span> (順序執行) 節點：
       </p>
 
-      <h2 class="case-section-title">我的角色</h2>
-      <p>此為我獨立完成的個人 Side Project，負責從概念、邏輯到程式的完整製作：</p>
-      <ul>
-        <li>規劃整體互動體驗（丟球 → 追球 → 撿起 → 帶回 → 放球）</li>
-        <li>設計並實作狗狗行為樹（Behavior Tree）的節點邏輯</li>
-        <li>以 Three.js 建立 3D 場景、模型載入、物理、動畫與互動事件</li>
-        <li>設計 UI、音效回饋、蓄力 HUD、球種切換等互動細節</li>
-        <li>自行調整角色動畫銜接、轉向 smoothing、碰撞行為與整體手感</li>
-      </ul>
 
-      <h2 class="case-section-title">行為樹設計（Behavior Tree）</h2>
-      <p>
-        我先把「狗狗撿球」拆解成可以被程式理解的狀態與條件，並整理成 Behavior Tree：
-      </p>
-      <ul>
-        <li><strong>Idle：</strong>狗狗待在主人附近，等待指令或球出現</li>
-        <li><strong>Locate Ball：</strong>偵測場景中是否有可追蹤的球</li>
-        <li><strong>Chase：</strong>朝球的方向移動，持續調整朝向與速度</li>
-        <li><strong>Fetch：</strong>在接近球時切換成「撿起」狀態，播放對應動畫</li>
-        <li><strong>Return：</strong>叼著球回到玩家附近，避開障礙物</li>
-        <li><strong>Drop：</strong>在玩家前方一定距離放下球，回到 Idle</li>
-      </ul>
-      <p>
-        在行為樹設計上，我將邏輯拆分為 <strong>Selector / Sequence / Condition</strong> 等節點，
-        讓工程師可以針對每個節點獨立調整參數，例如追逐速度、最小停距、可接球距離等，
-        也提升後續維護與擴充（例如替換成其他動物或角色）的彈性。
-      </p>
 
-      <h2 class="case-section-title">使用者互動流程（User Flow）</h2>
-      <p>從使用者視角出發，我把互動流程整理成以下步驟：</p>
-      <ol>
-        <li>使用者透過按鍵或滑鼠操作，決定丟球方向與力度</li>
-        <li>系統顯示拋物線預覽，降低使用者對 3D 空間距離的猜測成本</li>
-        <li>球被拋出後，進入「可追蹤」狀態</li>
-        <li>狗狗偵測到球 → 切換到 <strong>Chase</strong> 節點，開始追球</li>
-        <li>接近球時，自動切換到 <strong>Fetch</strong>，並播放撿起動作</li>
-        <li>狗狗進入 <strong>Return</strong>，沿路回到玩家附近</li>
-        <li>在安全距離內放下球，流程結束，回到 Idle，等待下一次互動</li>
-      </ol>
-
-      <h2 class="case-section-title">互動細節與 UX 考量</h2>
-      <p>在設計過程中，我特別處理了幾個影響體驗的細節：</p>
       <ul>
-        <li>
-          <strong>平滑轉向：</strong>若狗狗瞬間轉身，使用者會覺得不自然。
-          以插值（LERP）方式更新朝向，讓動物行為更真實。
-        </li>
-        <li>
-          <strong>停止距離：</strong>避免狗狗直接「撞」到球或玩家，提升自然度並避免穿模。
-        </li>
-        <li>
-          <strong>接球區間：</strong>設定可掉落與接到的容忍範圍，平衡真實感與可玩性。
-        </li>
-        <li>
-          <strong>視覺回饋：</strong>以簡易文字與 UI 標示讓使用者理解狗狗狀態。
+        <li><strong>決策優先順序：</strong>系統優先檢查狗狗嘴裡是否有球。若有，優先啟動 <span
+            class="code-highlight">ReturnHomeNode</span>；若無，則進入尋球分支。</li>
+        <li><strong>環境感應 (Blackboard)：</strong>狗狗會持續監控場景資料（如球的位置、是否即將掉出邊界），這些資料存儲於 Blackboard 中，供所有節點共享判斷。</li>
+        <li><strong>自動化路徑：</strong>當球被丟出，<span class="code-highlight">SeekBallNode</span> 會計算最優追逐路徑，並在接近時無縫切換至動畫與物理撿拾邏輯。
         </li>
       </ul>
 
-      <h2 class="case-section-title">製作流程</h2>
-      <p>
-        這個 Side Project 從 0 到 1 由我獨立完成。我以「真實動物動作」與
-        「可理解的狀態邏輯」為基礎，規劃並實作完整流程：
-      </p>
+      <h2 class="case-section-title">UX 考量與物理細節</h2>
+      <p>在實作過程中，我透過程式碼解決了多個影響「感受」的設計問題：</p>
       <ul>
-        <li>繪製 Flow 與 Behavior Tree，拆解每個節點的觸發條件</li>
-        <li>實作角色邏輯（追蹤、撿球、迴避邊界、回玩家、放球行为）</li>
-        <li>建立玩家操作系統（蓄力、Raycast、投擲方向、速度映射）</li>
-        <li>整合物理（Ammo.js）、動畫（AnimationMixer）與模型行為</li>
-        <li>調整速度、轉向、停止距離、動作切換、心情泡泡等細節</li>
+        <li><strong>蓄力回饋 (HUD)：</strong>設計了視效與蓄力映射公式（Min/Max Speed 映射），讓使用者能直覺感受丟球力度。</li>
+        <li><strong>邊界預測 (Edge Safety)：</strong>在程式中加入 <span class="code-highlight">PREDICT_T</span> 預測邏輯。若球的物理速度過快即將掉出
+          40x40 的地圖邊界，狗狗會判斷為「不可追蹤」，避免產生無效行為。</li>
+        <li><strong>物理銜接 (Reparenting)：</strong>當狗狗撿起球時，我實作了 <span
+            class="code-highlight">reparentPreserveWorldScale</span> 函式，確保球在從物理世界切換到狗狗嘴巴（骨骼掛載）時，視覺大小與座標保持平滑一致。</li>
+        <li><strong>情感化設計：</strong>整合隨機吠叫音效與隨機觸發的「愛心泡泡」動畫，增加互動中的心理情緒反饋。</li>
       </ul>
 
-
-      <h2 class="case-section-title">Impact / 成效</h2>
+      <h2 class="case-section-title">技術實現與工程協作價值</h2>
+      <p>這個專案展現了我作為 UX 設計師在技術團隊中的特殊價值：</p>
       <ul>
-        <li>建立一個具有互動性與 AI 行為的 3D Demo，可作為個人技術展示</li>
-        <li>以實作方式將 Behavior Tree 具象化，提升理解度與可視化效果</li>
-        <li>展示我在 3D、互動體驗、動畫、物理與行為邏輯的整合能力</li>
-        <li>成為作品集中的「複雜互動 × 邏輯思維 × 技術深度」代表案例</li>
+        <li><strong>降低開發溝通成本：</strong>我能直接理解並撰寫 Three.js 與物理引擎代碼，能精準與工程師討論動態行為的技術限制。</li>
+        <li><strong>規格可視化：</strong>行為樹的設計方式可以直接轉化為開發規格文件，讓複雜的 AI 互動變得可測試、可預測。</li>
+        <li><strong>效能與體驗平衡：</strong>透過實作如 KTX2 貼圖載入、草地執行優化等，我在追求視覺體驗的同時也兼顧了瀏覽器的運作效能。</li>
+      </ul>
+
+      <h2 class="case-section-title">成效與收穫</h2>
+      <ul>
+        <li>成功將抽象的行為邏輯具象化，建立一套可重複使用的 3D 互動開發範式。</li>
+        <li>深入掌握了物理引擎 (Ammo.js) 與動畫狀態機 (AnimationMixer) 的結合應用。</li>
+        <li><strong>這是我在處理複雜邏輯與跨維度互動設計時，最具代表性的實踐案例。</strong></li>
       </ul>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>© <span id="year"></span> Jinghuei Ruan. All rights reserved.</p>
+      <p>© <span id="year">2024</span> Jinghuei. Optimized for System UX Showcase.</p>
     </div>
   </footer>
-
-  <script src="../src/main.js" defer></script>
 </body>
 
 </html>
