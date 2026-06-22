@@ -72,6 +72,16 @@
       scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
     }
 
+    /* Hide the main page scrollbar; scroll-driven animation still works */
+    html {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    html::-webkit-scrollbar {
+      display: none;
+    }
+
     ::-webkit-scrollbar {
       width: 9px;
       height: 9px;
@@ -126,7 +136,7 @@
       position: fixed;
       top: 0;
       right: 56px;
-      z-index: 200;
+      z-index: 60;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -137,7 +147,9 @@
       transition: opacity .9s ease;
     }
 
-    .theme-cord.is-visible { opacity: 1; }
+    .theme-cord.is-visible {
+      opacity: 1;
+    }
 
     .theme-cord:focus-visible {
       outline: 2px solid var(--brand);
@@ -155,7 +167,9 @@
     }
 
     .theme-cord:hover .cord-line,
-    .theme-cord:focus-visible .cord-line { opacity: 0.9; }
+    .theme-cord:focus-visible .cord-line {
+      opacity: 0.9;
+    }
 
     .cord-gem {
       width: 20px;
@@ -186,26 +200,61 @@
     }
 
     .theme-cord:hover .cord-icon,
-    .theme-cord:focus-visible .cord-icon { color: var(--brand); }
+    .theme-cord:focus-visible .cord-icon {
+      color: var(--brand);
+    }
 
     @keyframes gemBounce {
-      0%   { transform: rotate(45deg) translateY(0); }
-      20%  { transform: rotate(45deg) translateY(14px); }
-      45%  { transform: rotate(45deg) translateY(-6px); }
-      67%  { transform: rotate(45deg) translateY(3px); }
-      83%  { transform: rotate(45deg) translateY(-1px); }
-      100% { transform: rotate(45deg) translateY(0); }
+      0% {
+        transform: rotate(45deg) translateY(0);
+      }
+
+      20% {
+        transform: rotate(45deg) translateY(14px);
+      }
+
+      45% {
+        transform: rotate(45deg) translateY(-6px);
+      }
+
+      67% {
+        transform: rotate(45deg) translateY(3px);
+      }
+
+      83% {
+        transform: rotate(45deg) translateY(-1px);
+      }
+
+      100% {
+        transform: rotate(45deg) translateY(0);
+      }
     }
 
     @keyframes linePull {
-      0%   { transform: scaleY(1); }
-      20%  { transform: scaleY(1.20); }
-      45%  { transform: scaleY(0.90); }
-      100% { transform: scaleY(1); }
+      0% {
+        transform: scaleY(1);
+      }
+
+      20% {
+        transform: scaleY(1.20);
+      }
+
+      45% {
+        transform: scaleY(0.90);
+      }
+
+      100% {
+        transform: scaleY(1);
+      }
     }
 
-    .cord-gem.is-pulling { animation: gemBounce 0.55s cubic-bezier(.36,.07,.19,.97) forwards; }
-    .cord-line.is-pulling { animation: linePull 0.55s cubic-bezier(.36,.07,.19,.97) forwards; }
+    .cord-gem.is-pulling {
+      animation: gemBounce 0.55s cubic-bezier(.36, .07, .19, .97) forwards;
+    }
+
+    .cord-line.is-pulling {
+      animation: linePull 0.55s cubic-bezier(.36, .07, .19, .97) forwards;
+    }
 
     /* ---------- theme scan ---------- */
     .theme-scan {
@@ -218,14 +267,27 @@
       pointer-events: none;
       background: var(--brand);
       box-shadow: 0 0 18px 6px rgba(0, 124, 195, .38),
-                  0 0 50px 18px rgba(0, 124, 195, .12);
+        0 0 50px 18px rgba(0, 124, 195, .12);
     }
 
     @keyframes themeScanDown {
-      0%   { top: -2px; opacity: 0; }
-      6%   { opacity: 1; }
-      90%  { opacity: 1; }
-      100% { top: 100vh; opacity: 0; }
+      0% {
+        top: -2px;
+        opacity: 0;
+      }
+
+      6% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        top: 100vh;
+        opacity: 0;
+      }
     }
 
     /* ---------- light theme ---------- */
@@ -248,16 +310,236 @@
         linear-gradient(90deg, rgba(0, 0, 0, .10) 1px, transparent 1px);
     }
 
-    body.theme-light .modal-overlay    { background: rgba(180, 200, 220, .82); }
-    body.theme-light .modal-plain      { background: color-mix(in srgb, var(--accent-modal, var(--brand)) 8%, #f8fafb); }
-    body.theme-light .scenario-card    { background: #f5f8fb; }
-    body.theme-light .scenario-head    { color: var(--text); background: transparent; }
-    body.theme-light .check-group-btn  { background: #f5f8fb; color: var(--text); }
-    body.theme-light .toast-local      { background: #1c2a3d; color: #e8f0f8; }
-    body.theme-light .start-card       { box-shadow: 0 18px 40px -20px rgba(0, 0, 0, .15); }
+    body.theme-light .modal-overlay {
+      background: rgba(180, 200, 220, .82);
+    }
+
+    body.theme-light .modal-plain {
+      background: color-mix(in srgb, var(--accent-modal, var(--brand)) 8%, #f8fafb);
+    }
+
+    body.theme-light .scenario-card {
+      background: #f5f8fb;
+    }
+
+    body.theme-light .scenario-head {
+      color: var(--text);
+      background: transparent;
+    }
+
+    body.theme-light .check-group-btn {
+      background: #f5f8fb;
+      color: var(--text);
+    }
+
+    body.theme-light .toast-local {
+      background: #1c2a3d;
+      color: #e8f0f8;
+    }
+
+    body.theme-light .start-card {
+      box-shadow: 0 18px 40px -20px rgba(0, 0, 0, .15);
+    }
+
+    /* artifact workspace & all inner panels */
+    body.theme-light .artifact-workspace {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .artifact-toolbar {
+      background: #edf1f8;
+      border-bottom-color: rgba(0, 0, 0, .09);
+    }
+
+    body.theme-light .artifact-toolbar strong {
+      color: var(--text);
+    }
+
+    body.theme-light .artifact-toolbar small {
+      color: var(--text-dim);
+    }
+
+    body.theme-light .tool-btn,
+    body.theme-light .tool-input,
+    body.theme-light .tool-select {
+      background: #ffffff;
+      color: var(--text);
+      border-color: rgba(0, 0, 0, .12);
+    }
+
+    body.theme-light .tool-btn:hover {
+      background: #e4ecf8;
+    }
+
+    /* metric cards & banners */
+    body.theme-light .metric-card {
+      background: #ffffff;
+    }
+
+    body.theme-light .metric-card strong {
+      color: var(--text);
+    }
+
+    body.theme-light .metric-card span {
+      color: var(--text-dim);
+    }
+
+    body.theme-light .dog-context-banner {
+      background: #edf1f8;
+      border-color: rgba(0, 0, 0, .10);
+      color: var(--text);
+    }
+
+    body.theme-light .dog-context-banner strong {
+      color: var(--text);
+    }
+
+    /* tables */
+    body.theme-light .data-table th {
+      background: #dde8f2;
+      color: var(--text);
+    }
+
+    body.theme-light .data-table td {
+      color: var(--text);
+      border-color: rgba(0, 0, 0, .07);
+    }
+
+    body.theme-light .data-table tr:hover td {
+      background: rgba(0, 124, 195, .06);
+    }
+
+    body.theme-light .data-table strong {
+      color: var(--text) !important;
+    }
+
+    /* analysis, scope, flow */
+    body.theme-light .analysis-section {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .analysis-section-head {
+      background: #edf1f8;
+      color: var(--text);
+    }
+
+    body.theme-light .scope-card {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .flow-step-card {
+      background: #f5f8fc;
+    }
+
+    /* test case detail cells */
+    body.theme-light .vt-case-meta div {
+      background: #f0f4f8;
+    }
+
+    /* checklist */
+    body.theme-light .check-progress {
+      background: rgba(0, 0, 0, .09);
+    }
+
+    /* cards & lists */
+    body.theme-light .media-card {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .thumb-card {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .chart-card {
+      background: #ffffff;
+    }
+
+    body.theme-light .dashboard-card {
+      background: #ffffff;
+    }
+
+    body.theme-light .plus-node {
+      background: #f0f4f8;
+    }
+
+    body.theme-light .bt-node {
+      background: #edf1f8;
+    }
+
+    /* record / data management */
+    body.theme-light .record-layout {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .record-detail {
+      background: #f8fafc;
+      border-color: rgba(0, 0, 0, .09);
+    }
+
+    body.theme-light .record-multi-menu {
+      background: #ffffff;
+      border-color: rgba(0, 0, 0, .12);
+    }
+
+    /* state demo / feedback */
+    body.theme-light .state-lab,
+    body.theme-light .message-lab {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .live-message {
+      background: #f0f4f8;
+    }
+
+    /* automation panels */
+    body.theme-light .run-mode-card {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .run-guide-section {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .run-guide-head {
+      background: #edf1f8;
+      color: var(--text);
+    }
+
+    body.theme-light .run-step {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .run-result {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .automation-step {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .resource-link {
+      background: #f5f8fc;
+    }
+
+    body.theme-light .code-panel-head {
+      background: #edf1f8;
+      color: var(--text);
+    }
+
+    /* code/terminal blocks stay dark regardless of theme */
+    body.theme-light .gwt-block {
+      background: #1a2232;
+      color: #c7d2e1;
+    }
+
+    body.theme-light .code-panel pre {
+      background: #070b10;
+    }
 
     /* Page background fades smoothly on theme switch */
-    body { transition: background-color .35s ease; }
+    body {
+      transition: background-color .35s ease;
+    }
 
     /* ---------- intro veil: signal emergence ---------- */
     .intro-veil {
@@ -373,17 +655,19 @@
       z-index: 2;
       padding: 8px 13px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(17,22,31,.78);
+      border: 1px solid rgba(255, 255, 255, .18);
+      background: rgba(17, 22, 31, .78);
       color: var(--text-dim);
-      font: 600 11px/1 'Noto Sans TC','Space Grotesk',sans-serif;
+      font: 600 11px/1 'Noto Sans TC', 'Space Grotesk', sans-serif;
       cursor: pointer;
       backdrop-filter: blur(8px);
     }
-    .intro-skip:hover, .intro-skip:focus-visible {
+
+    .intro-skip:hover,
+    .intro-skip:focus-visible {
       color: #fff;
       border-color: var(--brand);
-      outline: 2px solid rgba(0,124,195,.45);
+      outline: 2px solid rgba(0, 124, 195, .45);
       outline-offset: 2px;
     }
 
@@ -2132,15 +2416,55 @@
     }
 
 
-    .vt-test-list { display:grid; gap:8px; margin-top:12px; }
-    .vt-test-case summary { list-style:none; }
-    .vt-test-case summary::-webkit-details-marker { display:none; }
-    .vt-test-case[open] .scenario-body { display:block; }
-    .vt-case-meta { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-bottom:10px; }
-    .vt-case-meta div { padding:8px 10px; border:1px solid var(--border); border-radius:8px; background:#0c121a; }
-    .vt-case-meta span { display:block; color:var(--text-faint); font-size:9px; margin-bottom:3px; }
-    .vt-case-meta strong { color:var(--text); font-size:10.5px; }
-    @media(max-width:640px){ .vt-case-meta{grid-template-columns:1fr;} }
+    .vt-test-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .vt-test-case summary {
+      list-style: none;
+    }
+
+    .vt-test-case summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .vt-test-case[open] .scenario-body {
+      display: block;
+    }
+
+    .vt-case-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .vt-case-meta div {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #0c121a;
+    }
+
+    .vt-case-meta span {
+      display: block;
+      color: var(--text-faint);
+      font-size: 9px;
+      margin-bottom: 3px;
+    }
+
+    .vt-case-meta strong {
+      color: var(--text);
+      font-size: 10.5px;
+    }
+
+    @media(max-width:640px) {
+      .vt-case-meta {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .scenario-list {
       display: grid;
@@ -2573,7 +2897,10 @@
     }
 
     @keyframes recordDetailIn {
-      from { opacity: 0; transform: translateX(14px); }
+      from {
+        opacity: 0;
+        transform: translateX(14px);
+      }
     }
 
     .record-detail-head {
@@ -3670,145 +3997,185 @@
 
 
       var VTRAINER_REQUIREMENTS = [
-        { id:'REQ-01', module:'Authentication', requirement:'有效帳號登入成功後進入首頁，並建立可識別的使用者 Session。', actor:'學員／教練', priority:'High', testability:'Testable' },
-        { id:'REQ-02', module:'Authentication', requirement:'登入失敗、停用帳號或 Session 逾時時，不得進入受保護頁面。', actor:'學員／教練', priority:'High', testability:'Testable' },
-        { id:'REQ-03', module:'Recording', requirement:'未取得相機權限時不得開始錄影，並提供可操作的授權引導。', actor:'學員', priority:'High', testability:'Testable' },
-        { id:'REQ-04', module:'Recording', requirement:'影片長度、格式與必要品質須符合辨識輸入條件。', actor:'學員', priority:'High', testability:'Needs threshold' },
-        { id:'REQ-05', module:'Recognition', requirement:'辨識成功後顯示總分、動作指標與本次訓練結果。', actor:'學員', priority:'High', testability:'Testable' },
-        { id:'REQ-06', module:'Recognition', requirement:'辨識失敗時保留可重試資訊，不得產生不完整的訓練紀錄。', actor:'學員', priority:'High', testability:'Testable' },
-        { id:'REQ-07', module:'Retry', requirement:'上傳或處理中斷後可安全重試，且不得重複建立同一筆紀錄。', actor:'學員／系統', priority:'High', testability:'Needs idempotency rule' },
-        { id:'REQ-08', module:'Sharing', requirement:'訓練紀錄僅在使用者明確同意分享時公開。', actor:'學員', priority:'High', testability:'Testable' },
-        { id:'REQ-09', module:'Coach Feedback', requirement:'僅授權教練可新增或修改其權限範圍內的評語。', actor:'教練', priority:'High', testability:'Testable' },
-        { id:'REQ-10', module:'Leaderboard', requirement:'排行榜僅納入有效且符合公開條件的完成紀錄。', actor:'系統', priority:'Medium', testability:'Needs inclusion rule' },
-        { id:'REQ-11', module:'History', requirement:'個人紀錄需顯示訓練時間、模式、分數、狀態與教練回饋。', actor:'學員', priority:'Medium', testability:'Testable' },
-        { id:'REQ-12', module:'Notification', requirement:'教練完成回饋後，學員應能辨識新回饋狀態並查看內容。', actor:'學員／教練', priority:'Medium', testability:'Needs timing rule' },
-        { id:'REQ-13', module:'Training Setup', requirement:'選擇訓練模式後，後續錄影設定與評分規則應依所選模式執行。', actor:'學員', priority:'Medium', testability:'Testable' }
+        { id: 'REQ-01', module: 'Authentication', requirement: '有效帳號登入成功後進入首頁，並建立可識別的使用者 Session。', actor: '學員／教練', priority: 'High', testability: 'Testable' },
+        { id: 'REQ-02', module: 'Authentication', requirement: '登入失敗、停用帳號或 Session 逾時時，不得進入受保護頁面。', actor: '學員／教練', priority: 'High', testability: 'Testable' },
+        { id: 'REQ-03', module: 'Recording', requirement: '未取得相機權限時不得開始錄影，並提供可操作的授權引導。', actor: '學員', priority: 'High', testability: 'Testable' },
+        { id: 'REQ-04', module: 'Recording', requirement: '影片長度、格式與必要品質須符合辨識輸入條件。', actor: '學員', priority: 'High', testability: 'Needs threshold' },
+        { id: 'REQ-05', module: 'Recognition', requirement: '辨識成功後顯示總分、動作指標與本次訓練結果。', actor: '學員', priority: 'High', testability: 'Testable' },
+        { id: 'REQ-06', module: 'Recognition', requirement: '辨識失敗時保留可重試資訊，不得產生不完整的訓練紀錄。', actor: '學員', priority: 'High', testability: 'Testable' },
+        { id: 'REQ-07', module: 'Retry', requirement: '上傳或處理中斷後可安全重試，且不得重複建立同一筆紀錄。', actor: '學員／系統', priority: 'High', testability: 'Needs idempotency rule' },
+        { id: 'REQ-08', module: 'Sharing', requirement: '訓練紀錄僅在使用者明確同意分享時公開。', actor: '學員', priority: 'High', testability: 'Testable' },
+        { id: 'REQ-09', module: 'Coach Feedback', requirement: '僅授權教練可新增或修改其權限範圍內的評語。', actor: '教練', priority: 'High', testability: 'Testable' },
+        { id: 'REQ-10', module: 'Leaderboard', requirement: '排行榜僅納入有效且符合公開條件的完成紀錄。', actor: '系統', priority: 'Medium', testability: 'Needs inclusion rule' },
+        { id: 'REQ-11', module: 'History', requirement: '個人紀錄需顯示訓練時間、模式、分數、狀態與教練回饋。', actor: '學員', priority: 'Medium', testability: 'Testable' },
+        { id: 'REQ-12', module: 'Notification', requirement: '教練完成回饋後，學員應能辨識新回饋狀態並查看內容。', actor: '學員／教練', priority: 'Medium', testability: 'Needs timing rule' },
+        { id: 'REQ-13', module: 'Training Setup', requirement: '選擇訓練模式後，後續錄影設定與評分規則應依所選模式執行。', actor: '學員', priority: 'Medium', testability: 'Testable' }
       ];
 
       var VTRAINER_OPEN_QUESTIONS = [
-        { id:'Q-01', topic:'影片門檻', question:'允許送出辨識的最短與最長影片長度為何？', status:'Open' },
-        { id:'Q-02', topic:'辨識逾時', question:'辨識處理超過多久應顯示逾時，是否允許背景繼續處理？', status:'Open' },
-        { id:'Q-03', topic:'失敗保留', question:'上傳或辨識失敗後，原始影片應保留多久，重試是否沿用相同識別碼？', status:'Open' },
-        { id:'Q-04', topic:'分享預設值', question:'分享設定的預設值為關閉或沿用前次選擇？', status:'Working assumption' },
-        { id:'Q-05', topic:'教練權限', question:'教練可否修改其他教練建立的評語，權限範圍如何判定？', status:'Open' },
-        { id:'Q-06', topic:'排行更新', question:'排行榜採即時、批次或審核後更新？同分排序規則為何？', status:'Open' },
-        { id:'Q-07', topic:'紀錄作廢', question:'訓練紀錄作廢後，排行榜、歷史紀錄與已分享內容如何同步？', status:'Open' },
-        { id:'Q-08', topic:'重複提交', question:'連續點擊送出或網路重送時，系統採何種冪等機制避免重複紀錄？', status:'Open' }
+        { id: 'Q-01', topic: '影片門檻', question: '允許送出辨識的最短與最長影片長度為何？', status: 'Open' },
+        { id: 'Q-02', topic: '辨識逾時', question: '辨識處理超過多久應顯示逾時，是否允許背景繼續處理？', status: 'Open' },
+        { id: 'Q-03', topic: '失敗保留', question: '上傳或辨識失敗後，原始影片應保留多久，重試是否沿用相同識別碼？', status: 'Open' },
+        { id: 'Q-04', topic: '分享預設值', question: '分享設定的預設值為關閉或沿用前次選擇？', status: 'Working assumption' },
+        { id: 'Q-05', topic: '教練權限', question: '教練可否修改其他教練建立的評語，權限範圍如何判定？', status: 'Open' },
+        { id: 'Q-06', topic: '排行更新', question: '排行榜採即時、批次或審核後更新？同分排序規則為何？', status: 'Open' },
+        { id: 'Q-07', topic: '紀錄作廢', question: '訓練紀錄作廢後，排行榜、歷史紀錄與已分享內容如何同步？', status: 'Open' },
+        { id: 'Q-08', topic: '重複提交', question: '連續點擊送出或網路重送時，系統採何種冪等機制避免重複紀錄？', status: 'Open' }
       ];
 
       var VTRAINER_FLOWS = [
-        { id:'happy', label:'正常訓練流程', description:'從登入、錄影、辨識到保存結果的主要成功路徑。', steps:[
-          { id:'F-H01', name:'登入並進入首頁', behavior:'驗證帳號狀態與 Session，載入可用訓練模式。', risk:'錯誤角色或過期 Session 進入受保護頁面。', trace:'REQ-01／REQ-02 · TC-VT-01' },
-          { id:'F-H02', name:'選擇訓練模式', behavior:'顯示模式說明與必要裝置條件。', risk:'模式與後續評分規則未同步。', trace:'REQ-04 · TC-VT-02' },
-          { id:'F-H03', name:'授權並開始錄影', behavior:'取得相機權限後啟動預覽與錄影。', risk:'權限拒絕仍進入錄影或畫面無回饋。', trace:'REQ-03 · TC-VT-03' },
-          { id:'F-H04', name:'送出影片並辨識', behavior:'檢核輸入後上傳，顯示處理狀態。', risk:'重複送出、處理逾時或錯誤狀態不明。', trace:'REQ-04／REQ-05／REQ-07 · TC-VT-04' },
-          { id:'F-H05', name:'顯示評分結果', behavior:'呈現總分、動作指標與結果狀態。', risk:'分數、指標或紀錄資料不一致。', trace:'REQ-05 · TC-VT-05' },
-          { id:'F-H06', name:'保存至個人紀錄', behavior:'建立單一有效紀錄並更新歷史列表。', risk:'建立重複紀錄或欄位缺漏。', trace:'REQ-07／REQ-11 · TC-VT-06' }
-        ]},
-        { id:'failure', label:'失敗與重試流程', description:'針對權限、輸入、網路與辨識失敗的回復路徑。', steps:[
-          { id:'F-E01', name:'相機權限遭拒', behavior:'停止錄影流程並提供重新授權入口。', risk:'留在不可操作的空白預覽。', trace:'REQ-03 · TC-VT-07' },
-          { id:'F-E02', name:'影片不符合門檻', behavior:'阻擋送出並指出長度或格式問題。', risk:'無效影片進入辨識並消耗處理資源。', trace:'REQ-04 · TC-VT-08' },
-          { id:'F-E03', name:'上傳中斷', behavior:'保留可重試狀態，不建立正式紀錄。', risk:'重試後產生多筆資料。', trace:'REQ-07 · TC-VT-09' },
-          { id:'F-E04', name:'辨識失敗或逾時', behavior:'呈現可判定錯誤，保留必要資訊供重試。', risk:'無限等待、顯示部分結果或遺失影片。', trace:'REQ-06／REQ-07 · TC-VT-10' },
-          { id:'F-E05', name:'重新送出', behavior:'沿用同一操作脈絡並以冪等規則建立單一紀錄。', risk:'前次狀態殘留或重複計分。', trace:'REQ-07 · TC-VT-11' }
-        ]},
-        { id:'cross-role', label:'跨角色回饋流程', description:'學員完成訓練後，教練回饋、通知與排行榜更新的跨角色路徑。', steps:[
-          { id:'F-C01', name:'學員完成訓練', behavior:'紀錄進入可供授權教練檢視的狀態。', risk:'未完成或不屬於該教練的紀錄被存取。', trace:'REQ-09／REQ-11 · TC-VT-12' },
-          { id:'F-C02', name:'教練查看紀錄', behavior:'依角色與資源範圍顯示可操作內容。', risk:'前端隱藏但後端仍允許越權操作。', trace:'REQ-09 · TC-VT-13' },
-          { id:'F-C03', name:'新增或修改評語', behavior:'保存評語、作者、時間與版本狀態。', risk:'覆寫他人評語或產生重複通知。', trace:'REQ-09 · TC-VT-14' },
-          { id:'F-C04', name:'學員查看新回饋', behavior:'顯示新回饋提示並可查看完整內容。', risk:'通知狀態與實際評語不同步。', trace:'REQ-12 · TC-VT-15' },
-          { id:'F-C05', name:'分享與排行更新', behavior:'僅依分享設定與有效紀錄更新公開內容。', risk:'私人或作廢紀錄被公開。', trace:'REQ-08／REQ-10 · TC-VT-16' }
-        ]}
+        {
+          id: 'happy', label: '正常訓練流程', description: '從登入、錄影、辨識到保存結果的主要成功路徑。', steps: [
+            { id: 'F-H01', name: '登入並進入首頁', behavior: '驗證帳號狀態與 Session，載入可用訓練模式。', risk: '錯誤角色或過期 Session 進入受保護頁面。', trace: 'REQ-01／REQ-02 · TC-VT-01' },
+            { id: 'F-H02', name: '選擇訓練模式', behavior: '顯示模式說明與必要裝置條件。', risk: '模式與後續評分規則未同步。', trace: 'REQ-04 · TC-VT-02' },
+            { id: 'F-H03', name: '授權並開始錄影', behavior: '取得相機權限後啟動預覽與錄影。', risk: '權限拒絕仍進入錄影或畫面無回饋。', trace: 'REQ-03 · TC-VT-03' },
+            { id: 'F-H04', name: '送出影片並辨識', behavior: '檢核輸入後上傳，顯示處理狀態。', risk: '重複送出、處理逾時或錯誤狀態不明。', trace: 'REQ-04／REQ-05／REQ-07 · TC-VT-04' },
+            { id: 'F-H05', name: '顯示評分結果', behavior: '呈現總分、動作指標與結果狀態。', risk: '分數、指標或紀錄資料不一致。', trace: 'REQ-05 · TC-VT-05' },
+            { id: 'F-H06', name: '保存至個人紀錄', behavior: '建立單一有效紀錄並更新歷史列表。', risk: '建立重複紀錄或欄位缺漏。', trace: 'REQ-07／REQ-11 · TC-VT-06' }
+          ]
+        },
+        {
+          id: 'failure', label: '失敗與重試流程', description: '針對權限、輸入、網路與辨識失敗的回復路徑。', steps: [
+            { id: 'F-E01', name: '相機權限遭拒', behavior: '停止錄影流程並提供重新授權入口。', risk: '留在不可操作的空白預覽。', trace: 'REQ-03 · TC-VT-07' },
+            { id: 'F-E02', name: '影片不符合門檻', behavior: '阻擋送出並指出長度或格式問題。', risk: '無效影片進入辨識並消耗處理資源。', trace: 'REQ-04 · TC-VT-08' },
+            { id: 'F-E03', name: '上傳中斷', behavior: '保留可重試狀態，不建立正式紀錄。', risk: '重試後產生多筆資料。', trace: 'REQ-07 · TC-VT-09' },
+            { id: 'F-E04', name: '辨識失敗或逾時', behavior: '呈現可判定錯誤，保留必要資訊供重試。', risk: '無限等待、顯示部分結果或遺失影片。', trace: 'REQ-06／REQ-07 · TC-VT-10' },
+            { id: 'F-E05', name: '重新送出', behavior: '沿用同一操作脈絡並以冪等規則建立單一紀錄。', risk: '前次狀態殘留或重複計分。', trace: 'REQ-07 · TC-VT-11' }
+          ]
+        },
+        {
+          id: 'cross-role', label: '跨角色回饋流程', description: '學員完成訓練後，教練回饋、通知與排行榜更新的跨角色路徑。', steps: [
+            { id: 'F-C01', name: '學員完成訓練', behavior: '紀錄進入可供授權教練檢視的狀態。', risk: '未完成或不屬於該教練的紀錄被存取。', trace: 'REQ-09／REQ-11 · TC-VT-12' },
+            { id: 'F-C02', name: '教練查看紀錄', behavior: '依角色與資源範圍顯示可操作內容。', risk: '前端隱藏但後端仍允許越權操作。', trace: 'REQ-09 · TC-VT-13' },
+            { id: 'F-C03', name: '新增或修改評語', behavior: '保存評語、作者、時間與版本狀態。', risk: '覆寫他人評語或產生重複通知。', trace: 'REQ-09 · TC-VT-14' },
+            { id: 'F-C04', name: '學員查看新回饋', behavior: '顯示新回饋提示並可查看完整內容。', risk: '通知狀態與實際評語不同步。', trace: 'REQ-12 · TC-VT-15' },
+            { id: 'F-C05', name: '分享與排行更新', behavior: '僅依分享設定與有效紀錄更新公開內容。', risk: '私人或作廢紀錄被公開。', trace: 'REQ-08／REQ-10 · TC-VT-16' }
+          ]
+        }
       ];
 
       var VTRAINER_RULES = [
-        { id:'DT-RR-01', domain:'recording', domainLabel:'錄影與辨識', conditions:'相機允許／影片有效／網路正常／辨識成功', expected:'顯示分數與動作指標，建立一筆完成紀錄。', risk:'High' },
-        { id:'DT-RR-02', domain:'recording', domainLabel:'錄影與辨識', conditions:'相機權限拒絕', expected:'不得進入錄影狀態；提供授權引導與返回操作。', risk:'High' },
-        { id:'DT-RR-03', domain:'recording', domainLabel:'錄影與辨識', conditions:'影片低於最低長度或格式不符', expected:'阻擋送出並指出不符合的輸入條件。', risk:'Medium' },
-        { id:'DT-RR-04', domain:'recording', domainLabel:'錄影與辨識', conditions:'上傳成功／辨識失敗', expected:'不建立完成紀錄；保留可重試資訊並顯示明確原因。', risk:'High' },
-        { id:'DT-RR-05', domain:'recording', domainLabel:'錄影與辨識', conditions:'上傳或處理期間網路中斷', expected:'顯示可重試狀態；重試後僅建立一筆紀錄。', risk:'High' },
-        { id:'DT-RR-06', domain:'recording', domainLabel:'錄影與辨識', conditions:'辨識超過逾時門檻', expected:'結束等待狀態並顯示逾時；不得顯示部分結果。', risk:'High' },
-        { id:'DT-RR-07', domain:'recording', domainLabel:'錄影與辨識', conditions:'短時間重複送出相同影片', expected:'以冪等規則接受一次，其餘請求不得重複計分或建檔。', risk:'High' },
-        { id:'DT-RR-08', domain:'recording', domainLabel:'錄影與辨識', conditions:'媒體檔案損毀或無法解析', expected:'拒絕處理並提供可判定錯誤，不進入無限 Loading。', risk:'Medium' },
-        { id:'DT-SP-01', domain:'sharing', domainLabel:'分享與隱私', conditions:'訓練完成／分享開啟／紀錄有效', expected:'允許公開至指定範圍，且公開資料符合隱私規則。', risk:'Medium' },
-        { id:'DT-SP-02', domain:'sharing', domainLabel:'分享與隱私', conditions:'訓練完成／分享關閉', expected:'紀錄僅保留於個人歷史，不得出現在公開動態或排行。', risk:'High' },
-        { id:'DT-SP-03', domain:'sharing', domainLabel:'分享與隱私', conditions:'紀錄作廢或結果無效／分享任意', expected:'不得公開；既有公開內容需依規則同步移除。', risk:'High' },
-        { id:'DT-CP-01', domain:'permission', domainLabel:'教練與權限', conditions:'授權教練／資源屬於權限範圍／新增評語', expected:'允許新增並保存作者、時間與內容。', risk:'Medium' },
-        { id:'DT-CP-02', domain:'permission', domainLabel:'教練與權限', conditions:'非教練或越權教練／新增或修改評語', expected:'前後端均拒絕操作，且不洩漏其他學員資料。', risk:'High' },
-        { id:'DT-CP-03', domain:'permission', domainLabel:'教練與權限', conditions:'授權教練／修改既有評語', expected:'依版本與作者規則更新，不得覆寫未授權內容。', risk:'High' },
-        { id:'DT-CP-04', domain:'permission', domainLabel:'教練與權限', conditions:'學員／查看教練評語', expected:'允許讀取自身回饋，但不得新增、修改或刪除。', risk:'Medium' }
+        { id: 'DT-RR-01', domain: 'recording', domainLabel: '錄影與辨識', conditions: '相機允許／影片有效／網路正常／辨識成功', expected: '顯示分數與動作指標，建立一筆完成紀錄。', risk: 'High' },
+        { id: 'DT-RR-02', domain: 'recording', domainLabel: '錄影與辨識', conditions: '相機權限拒絕', expected: '不得進入錄影狀態；提供授權引導與返回操作。', risk: 'High' },
+        { id: 'DT-RR-03', domain: 'recording', domainLabel: '錄影與辨識', conditions: '影片低於最低長度或格式不符', expected: '阻擋送出並指出不符合的輸入條件。', risk: 'Medium' },
+        { id: 'DT-RR-04', domain: 'recording', domainLabel: '錄影與辨識', conditions: '上傳成功／辨識失敗', expected: '不建立完成紀錄；保留可重試資訊並顯示明確原因。', risk: 'High' },
+        { id: 'DT-RR-05', domain: 'recording', domainLabel: '錄影與辨識', conditions: '上傳或處理期間網路中斷', expected: '顯示可重試狀態；重試後僅建立一筆紀錄。', risk: 'High' },
+        { id: 'DT-RR-06', domain: 'recording', domainLabel: '錄影與辨識', conditions: '辨識超過逾時門檻', expected: '結束等待狀態並顯示逾時；不得顯示部分結果。', risk: 'High' },
+        { id: 'DT-RR-07', domain: 'recording', domainLabel: '錄影與辨識', conditions: '短時間重複送出相同影片', expected: '以冪等規則接受一次，其餘請求不得重複計分或建檔。', risk: 'High' },
+        { id: 'DT-RR-08', domain: 'recording', domainLabel: '錄影與辨識', conditions: '媒體檔案損毀或無法解析', expected: '拒絕處理並提供可判定錯誤，不進入無限 Loading。', risk: 'Medium' },
+        { id: 'DT-SP-01', domain: 'sharing', domainLabel: '分享與隱私', conditions: '訓練完成／分享開啟／紀錄有效', expected: '允許公開至指定範圍，且公開資料符合隱私規則。', risk: 'Medium' },
+        { id: 'DT-SP-02', domain: 'sharing', domainLabel: '分享與隱私', conditions: '訓練完成／分享關閉', expected: '紀錄僅保留於個人歷史，不得出現在公開動態或排行。', risk: 'High' },
+        { id: 'DT-SP-03', domain: 'sharing', domainLabel: '分享與隱私', conditions: '紀錄作廢或結果無效／分享任意', expected: '不得公開；既有公開內容需依規則同步移除。', risk: 'High' },
+        { id: 'DT-CP-01', domain: 'permission', domainLabel: '教練與權限', conditions: '授權教練／資源屬於權限範圍／新增評語', expected: '允許新增並保存作者、時間與內容。', risk: 'Medium' },
+        { id: 'DT-CP-02', domain: 'permission', domainLabel: '教練與權限', conditions: '非教練或越權教練／新增或修改評語', expected: '前後端均拒絕操作，且不洩漏其他學員資料。', risk: 'High' },
+        { id: 'DT-CP-03', domain: 'permission', domainLabel: '教練與權限', conditions: '授權教練／修改既有評語', expected: '依版本與作者規則更新，不得覆寫未授權內容。', risk: 'High' },
+        { id: 'DT-CP-04', domain: 'permission', domainLabel: '教練與權限', conditions: '學員／查看教練評語', expected: '允許讀取自身回饋，但不得新增、修改或刪除。', risk: 'Medium' }
       ];
 
       var VTRAINER_TRACE = [
-        ['REQ-01','有效登入與 Session','F-H01','DT-RR-01','TC-VT-01 有效帳號登入後進入首頁','Designed'],
-        ['REQ-03','相機權限處理','F-H03／F-E01','DT-RR-02','TC-VT-03／TC-VT-07 權限允許與拒絕分流','Designed'],
-        ['REQ-04','影片輸入條件','F-H04／F-E02','DT-RR-03／DT-RR-08','TC-VT-08 驗證長度、格式與損毀檔案','Designed'],
-        ['REQ-05','辨識成功結果','F-H04／F-H05','DT-RR-01','TC-VT-05 分數與指標正確顯示','Designed'],
-        ['REQ-06','辨識失敗處理','F-E04','DT-RR-04／DT-RR-06','TC-VT-10 失敗與逾時不得產生不完整結果','Designed'],
-        ['REQ-07','安全重試與冪等','F-E03／F-E05','DT-RR-05／DT-RR-07','TC-VT-09／TC-VT-11 重試後僅建立一筆紀錄','Designed'],
-        ['REQ-08','分享與隱私','F-C05','DT-SP-01／DT-SP-02／DT-SP-03','TC-VT-16 私人或作廢紀錄不得公開','Designed'],
-        ['REQ-09','教練評語權限','F-C02／F-C03','DT-CP-01／DT-CP-02／DT-CP-03','TC-VT-13／TC-VT-14 驗證授權與越權操作','Designed'],
-        ['REQ-10','排行榜有效性','F-C05','DT-SP-01／DT-SP-03','TC-VT-17 僅有效公開紀錄納入排行','Designed'],
-        ['REQ-12','回饋通知狀態','F-C04','DT-CP-01','TC-VT-15 新回饋提示與內容一致','Designed'],
-        ['REQ-02','登入失敗與 Session 保護','F-H01 失敗路徑','—','TC-VT-18 無效帳號不得進入受保護頁面','Designed'],
-        ['REQ-13','訓練模式同步','F-H02','—','TC-VT-02 模式選擇後規則同步驗證','Designed']
+        ['REQ-01', '有效登入與 Session', 'F-H01', 'DT-RR-01', 'TC-VT-01 有效帳號登入後進入首頁', 'Designed'],
+        ['REQ-03', '相機權限處理', 'F-H03／F-E01', 'DT-RR-02', 'TC-VT-03／TC-VT-07 權限允許與拒絕分流', 'Designed'],
+        ['REQ-04', '影片輸入條件', 'F-H04／F-E02', 'DT-RR-03／DT-RR-08', 'TC-VT-08 驗證長度、格式與損毀檔案', 'Designed'],
+        ['REQ-05', '辨識成功結果', 'F-H04／F-H05', 'DT-RR-01', 'TC-VT-05 分數與指標正確顯示', 'Designed'],
+        ['REQ-06', '辨識失敗處理', 'F-E04', 'DT-RR-04／DT-RR-06', 'TC-VT-10 失敗與逾時不得產生不完整結果', 'Designed'],
+        ['REQ-07', '安全重試與冪等', 'F-E03／F-E05', 'DT-RR-05／DT-RR-07', 'TC-VT-09／TC-VT-11 重試後僅建立一筆紀錄', 'Designed'],
+        ['REQ-08', '分享與隱私', 'F-C05', 'DT-SP-01／DT-SP-02／DT-SP-03', 'TC-VT-16 私人或作廢紀錄不得公開', 'Designed'],
+        ['REQ-09', '教練評語權限', 'F-C02／F-C03', 'DT-CP-01／DT-CP-02／DT-CP-03', 'TC-VT-13／TC-VT-14 驗證授權與越權操作', 'Designed'],
+        ['REQ-10', '排行榜有效性', 'F-C05', 'DT-SP-01／DT-SP-03', 'TC-VT-17 僅有效公開紀錄納入排行', 'Designed'],
+        ['REQ-12', '回饋通知狀態', 'F-C04', 'DT-CP-01', 'TC-VT-15 新回饋提示與內容一致', 'Designed'],
+        ['REQ-02', '登入失敗與 Session 保護', 'F-H01 失敗路徑', '—', 'TC-VT-18 無效帳號不得進入受保護頁面', 'Designed'],
+        ['REQ-13', '訓練模式同步', 'F-H02', '—', 'TC-VT-02 模式選擇後規則同步驗證', 'Designed']
       ];
 
 
 
       var VTRAINER_CASES = [
-        { id:'TC-VT-01', title:'有效帳號登入後進入首頁', priority:'High', status:'Designed', pre:'帳號有效且未被停用。', gwt:`Given 使用者位於登入頁且帳號有效
+        {
+          id: 'TC-VT-01', title: '有效帳號登入後進入首頁', priority: 'High', status: 'Designed', pre: '帳號有效且未被停用。', gwt: `Given 使用者位於登入頁且帳號有效
 When 輸入正確帳密並送出
-Then 系統應建立有效 Session 並導向首頁`, expected:'首頁顯示正確角色與可用訓練模式；不得殘留前一使用者資料。' },
-        { id:'TC-VT-02', title:'選擇訓練模式後同步規則', priority:'Medium', status:'Designed', pre:'使用者已登入且首頁載入完成。', gwt:`Given 首頁顯示多種訓練模式
+Then 系統應建立有效 Session 並導向首頁`, expected: '首頁顯示正確角色與可用訓練模式；不得殘留前一使用者資料。'
+        },
+        {
+          id: 'TC-VT-02', title: '選擇訓練模式後同步規則', priority: 'Medium', status: 'Designed', pre: '使用者已登入且首頁載入完成。', gwt: `Given 首頁顯示多種訓練模式
 When 使用者切換至指定模式
-Then 模式說明、裝置需求與後續評分規則應同步更新`, expected:'選取狀態與後續流程使用同一模式設定。' },
-        { id:'TC-VT-03', title:'允許相機權限後開始錄影', priority:'High', status:'Designed', pre:'瀏覽器尚未授權相機。', gwt:`Given 使用者已選擇需要錄影的訓練
+Then 模式說明、裝置需求與後續評分規則應同步更新`, expected: '選取狀態與後續流程使用同一模式設定。'
+        },
+        {
+          id: 'TC-VT-03', title: '允許相機權限後開始錄影', priority: 'High', status: 'Designed', pre: '瀏覽器尚未授權相機。', gwt: `Given 使用者已選擇需要錄影的訓練
 When 允許相機權限
-Then 系統應顯示預覽並啟用錄影控制`, expected:'錄影功能僅於權限成功且媒體串流 Ready 後可操作。' },
-        { id:'TC-VT-04', title:'有效影片送出後進入辨識', priority:'High', status:'Designed', pre:'影片符合長度與格式門檻。', gwt:`Given 使用者已完成一段有效錄影
+Then 系統應顯示預覽並啟用錄影控制`, expected: '錄影功能僅於權限成功且媒體串流 Ready 後可操作。'
+        },
+        {
+          id: 'TC-VT-04', title: '有效影片送出後進入辨識', priority: 'High', status: 'Designed', pre: '影片符合長度與格式門檻。', gwt: `Given 使用者已完成一段有效錄影
 When 送出影片
-Then 系統應顯示處理狀態並只建立一次辨識請求`, expected:'不得因重複點擊產生多筆請求或多筆紀錄。' },
-        { id:'TC-VT-05', title:'辨識成功後顯示分數與指標', priority:'High', status:'Designed', pre:'辨識服務回傳成功結果。', gwt:`Given 辨識結果包含總分與動作指標
+Then 系統應顯示處理狀態並只建立一次辨識請求`, expected: '不得因重複點擊產生多筆請求或多筆紀錄。'
+        },
+        {
+          id: 'TC-VT-05', title: '辨識成功後顯示分數與指標', priority: 'High', status: 'Designed', pre: '辨識服務回傳成功結果。', gwt: `Given 辨識結果包含總分與動作指標
 When 結果頁完成載入
-Then 畫面應顯示一致的總分、明細與結果狀態`, expected:'畫面數值、儲存資料與後續排行榜來源一致。' },
-        { id:'TC-VT-06', title:'成功結果只建立一筆個人紀錄', priority:'High', status:'Designed', pre:'辨識成功且尚未建立正式紀錄。', gwt:`Given 本次訓練已取得成功結果
+Then 畫面應顯示一致的總分、明細與結果狀態`, expected: '畫面數值、儲存資料與後續排行榜來源一致。'
+        },
+        {
+          id: 'TC-VT-06', title: '成功結果只建立一筆個人紀錄', priority: 'High', status: 'Designed', pre: '辨識成功且尚未建立正式紀錄。', gwt: `Given 本次訓練已取得成功結果
 When 系統保存結果
-Then 個人歷史應新增且僅新增一筆完整紀錄`, expected:'紀錄包含模式、時間、分數與狀態，且可重新查詢。' },
-        { id:'TC-VT-07', title:'拒絕相機權限時阻擋錄影', priority:'High', status:'Designed', pre:'瀏覽器詢問相機權限。', gwt:`Given 使用者尚未授權相機
+Then 個人歷史應新增且僅新增一筆完整紀錄`, expected: '紀錄包含模式、時間、分數與狀態，且可重新查詢。'
+        },
+        {
+          id: 'TC-VT-07', title: '拒絕相機權限時阻擋錄影', priority: 'High', status: 'Designed', pre: '瀏覽器詢問相機權限。', gwt: `Given 使用者尚未授權相機
 When 拒絕權限
-Then 系統不得開始錄影，並應提供重新授權說明`, expected:'不得停留空白預覽，也不得進入辨識流程。' },
-        { id:'TC-VT-08', title:'無效媒體不得進入辨識', priority:'High', status:'Designed', pre:'影片過短、格式不符或檔案損毀。', gwt:`Given 使用者準備送出不符合規則的媒體
+Then 系統不得開始錄影，並應提供重新授權說明`, expected: '不得停留空白預覽，也不得進入辨識流程。'
+        },
+        {
+          id: 'TC-VT-08', title: '無效媒體不得進入辨識', priority: 'High', status: 'Designed', pre: '影片過短、格式不符或檔案損毀。', gwt: `Given 使用者準備送出不符合規則的媒體
 When 系統執行輸入檢核
-Then 應阻擋送出並指出可理解的錯誤原因`, expected:'不建立辨識請求與正式訓練紀錄。' },
-        { id:'TC-VT-09', title:'上傳中斷後保留可重試狀態', priority:'High', status:'Designed', pre:'影片上傳進行中。', gwt:`Given 上傳尚未完成
+Then 應阻擋送出並指出可理解的錯誤原因`, expected: '不建立辨識請求與正式訓練紀錄。'
+        },
+        {
+          id: 'TC-VT-09', title: '上傳中斷後保留可重試狀態', priority: 'High', status: 'Designed', pre: '影片上傳進行中。', gwt: `Given 上傳尚未完成
 When 網路連線中斷
-Then 系統應顯示失敗狀態並保留安全重試入口`, expected:'失敗期間不得產生正式紀錄或部分結果。' },
-        { id:'TC-VT-10', title:'辨識失敗或逾時不產生不完整結果', priority:'High', status:'Designed', pre:'影片已送出辨識。', gwt:`Given 辨識服務回傳失敗或超過逾時門檻
+Then 系統應顯示失敗狀態並保留安全重試入口`, expected: '失敗期間不得產生正式紀錄或部分結果。'
+        },
+        {
+          id: 'TC-VT-10', title: '辨識失敗或逾時不產生不完整結果', priority: 'High', status: 'Designed', pre: '影片已送出辨識。', gwt: `Given 辨識服務回傳失敗或超過逾時門檻
 When 系統接收錯誤狀態
-Then 應停止 Loading 並顯示可判定錯誤`, expected:'不得顯示部分分數或建立不完整紀錄。' },
-        { id:'TC-VT-11', title:'重試後維持冪等並只建立一筆紀錄', priority:'High', status:'Designed', pre:'前一次上傳或辨識失敗。', gwt:`Given 使用者位於可重試狀態
+Then 應停止 Loading 並顯示可判定錯誤`, expected: '不得顯示部分分數或建立不完整紀錄。'
+        },
+        {
+          id: 'TC-VT-11', title: '重試後維持冪等並只建立一筆紀錄', priority: 'High', status: 'Designed', pre: '前一次上傳或辨識失敗。', gwt: `Given 使用者位於可重試狀態
 When 再次送出相同訓練
-Then 系統應沿用同一操作脈絡並避免重複計分`, expected:'最終只保留一筆有效結果；前次失敗狀態可追溯。' },
-        { id:'TC-VT-12', title:'完成紀錄才可供授權教練檢視', priority:'Medium', status:'Designed', pre:'學員有已完成與未完成紀錄。', gwt:`Given 教練進入學員紀錄列表
+Then 系統應沿用同一操作脈絡並避免重複計分`, expected: '最終只保留一筆有效結果；前次失敗狀態可追溯。'
+        },
+        {
+          id: 'TC-VT-12', title: '完成紀錄才可供授權教練檢視', priority: 'Medium', status: 'Designed', pre: '學員有已完成與未完成紀錄。', gwt: `Given 教練進入學員紀錄列表
 When 系統載入可查看資料
-Then 僅顯示符合狀態與資源範圍的紀錄`, expected:'未完成或不屬於該教練的紀錄不得被存取。' },
-        { id:'TC-VT-13', title:'授權教練可查看所屬學員紀錄', priority:'High', status:'Designed', pre:'教練角色有效且與學員具授權關係。', gwt:`Given 教練已登入
+Then 僅顯示符合狀態與資源範圍的紀錄`, expected: '未完成或不屬於該教練的紀錄不得被存取。'
+        },
+        {
+          id: 'TC-VT-13', title: '授權教練可查看所屬學員紀錄', priority: 'High', status: 'Designed', pre: '教練角色有效且與學員具授權關係。', gwt: `Given 教練已登入
 When 開啟所屬學員的完成紀錄
-Then 前後端皆應允許讀取並顯示可操作內容`, expected:'角色與資源範圍皆通過時才允許存取。' },
-        { id:'TC-VT-14', title:'未授權教練不得新增或修改評語', priority:'High', status:'Designed', pre:'使用者具教練角色但不屬於該學員。', gwt:`Given 未授權教練取得紀錄識別碼
+Then 前後端皆應允許讀取並顯示可操作內容`, expected: '角色與資源範圍皆通過時才允許存取。'
+        },
+        {
+          id: 'TC-VT-14', title: '未授權教練不得新增或修改評語', priority: 'High', status: 'Designed', pre: '使用者具教練角色但不屬於該學員。', gwt: `Given 未授權教練取得紀錄識別碼
 When 嘗試直接呼叫新增或修改評語操作
-Then 系統應拒絕請求並保持原資料不變`, expected:'不可只依前端隱藏按鈕；後端必須執行資源層級驗證。' },
-        { id:'TC-VT-15', title:'新回饋提示與評語內容一致', priority:'Medium', status:'Designed', pre:'授權教練已成功新增評語。', gwt:`Given 學員存在一筆尚未閱讀的新評語
+Then 系統應拒絕請求並保持原資料不變`, expected: '不可只依前端隱藏按鈕；後端必須執行資源層級驗證。'
+        },
+        {
+          id: 'TC-VT-15', title: '新回饋提示與評語內容一致', priority: 'Medium', status: 'Designed', pre: '授權教練已成功新增評語。', gwt: `Given 學員存在一筆尚未閱讀的新評語
 When 進入首頁或回饋頁
-Then 新回饋提示、未讀狀態與實際內容應一致`, expected:'閱讀後狀態依規則更新，不得重複通知。' },
-        { id:'TC-VT-16', title:'私人或作廢紀錄不得公開', priority:'High', status:'Designed', pre:'紀錄為分享關閉、作廢或無效狀態。', gwt:`Given 訓練紀錄不符合公開條件
+Then 新回饋提示、未讀狀態與實際內容應一致`, expected: '閱讀後狀態依規則更新，不得重複通知。'
+        },
+        {
+          id: 'TC-VT-16', title: '私人或作廢紀錄不得公開', priority: 'High', status: 'Designed', pre: '紀錄為分享關閉、作廢或無效狀態。', gwt: `Given 訓練紀錄不符合公開條件
 When 公開動態或排行重新整理
-Then 該紀錄不得出現在任何公開範圍`, expected:'若曾公開，狀態變更後應依規則同步移除。' },
-        { id:'TC-VT-17', title:'排行榜僅納入有效公開紀錄', priority:'High', status:'Designed', pre:'同時存在有效、私人、作廢與無效紀錄。', gwt:`Given 排行榜準備重新計算
+Then 該紀錄不得出現在任何公開範圍`, expected: '若曾公開，狀態變更後應依規則同步移除。'
+        },
+        {
+          id: 'TC-VT-17', title: '排行榜僅納入有效公開紀錄', priority: 'High', status: 'Designed', pre: '同時存在有效、私人、作廢與無效紀錄。', gwt: `Given 排行榜準備重新計算
 When 系統彙整訓練成績
-Then 僅有效且符合分享規則的紀錄可納入排行`, expected:'排行榜數值可追溯至符合條件的單一有效紀錄。' },
-        { id:'TC-VT-18', title:'無效帳號或 Session 逾時不得進入受保護頁面', priority:'High', status:'Designed', pre:'使用停用帳號憑證或已逾時的 Session Token。', gwt:`Given 使用者持有無效登入憑證或已逾時的 Session Token\nWhen 嘗試登入或直接存取受保護路由\nThen 系統應拒絕存取並導向登入頁，顯示對應錯誤提示`, expected:'不得進入任何受保護頁面；Session 應完全清除，不殘留前一使用者狀態。' }
+Then 僅有效且符合分享規則的紀錄可納入排行`, expected: '排行榜數值可追溯至符合條件的單一有效紀錄。'
+        },
+        { id: 'TC-VT-18', title: '無效帳號或 Session 逾時不得進入受保護頁面', priority: 'High', status: 'Designed', pre: '使用停用帳號憑證或已逾時的 Session Token。', gwt: `Given 使用者持有無效登入憑證或已逾時的 Session Token\nWhen 嘗試登入或直接存取受保護路由\nThen 系統應拒絕存取並導向登入頁，顯示對應錯誤提示`, expected: '不得進入任何受保護頁面；Session 應完全清除，不殘留前一使用者狀態。' }
       ];
 
       var DOG_NODES = [
@@ -3827,97 +4194,112 @@ Then 僅有效且符合分享規則的紀錄可納入排行`, expected:'排行�
       ];
 
       var DOG_RISKS = [
-        { id:'R-001', node:'n0', category:'Resource', failure:'模型或必要資源載入失敗，畫面停留於空白或不可操作狀態。', impact:3, likelihood:2, recovery:'顯示載入錯誤與重新整理入口。', accept:'載入失敗時不得只顯示空白畫面，且可重新嘗試。' },
-        { id:'R-002', node:'n0', category:'Initialization', failure:'場景已顯示，但控制器或物理世界未完成初始化。', impact:2, likelihood:2, recovery:'停用操作並等待所有必要模組 Ready。', accept:'PLAY 僅於場景、控制器與物理引擎均完成後啟用。' },
-        { id:'R-003', node:'n1', category:'State consistency', failure:'球種選取外觀已更新，但物理參數或實際生成模型仍為前一球種。', impact:1, likelihood:2, recovery:'重新同步選取狀態、模型與物理參數。', accept:'選取、預覽、生成物件與碰撞參數一致。' },
-        { id:'R-004', node:'n1', category:'Timing', failure:'切換球種後立即丟球，事件讀取到切換前的球種狀態。', impact:2, likelihood:1, recovery:'在單一狀態更新完成後才允許生成球。', accept:'快速切換並丟球時仍使用最新球種。' },
-        { id:'R-005', node:'n2', category:'Input', failure:'多次 pointerup 或事件重複綁定造成一次操作生成多顆球。', impact:3, likelihood:2, recovery:'加入一次性提交鎖並於完成後重置。', accept:'單次蓄力釋放最多生成一顆球。' },
-        { id:'R-006', node:'n2', category:'State reset', failure:'放開滑鼠後蓄力值未歸零，下一次丟球沿用前次力道。', impact:2, likelihood:2, recovery:'於成功或取消丟球後統一重置輸入狀態。', accept:'每次新蓄力均從最小值開始。' },
-        { id:'R-007', node:'n2', category:'Boundary', failure:'最小或最大蓄力超出允許範圍，造成球未移動或高速穿透場景。', impact:2, likelihood:2, recovery:'限制力道範圍並檢查映射值。', accept:'最小與最大蓄力皆產生可預期、可恢復的運動結果。' },
-        { id:'R-008', node:'n3', category:'Boundary', failure:'界外落點被誤判為場內，導致小狗追逐不可達目標。', impact:3, likelihood:3, recovery:'使用一致的場地座標與安全邊界重新判定。', accept:'界外球必須進入 n10，不啟動追球。' },
-        { id:'R-009', node:'n3', category:'Boundary', failure:'有效邊界內落點被誤判為界外，正常撿球流程未啟動。', impact:3, likelihood:2, recovery:'校正邊界容差並以臨界值測試。', accept:'邊界內側臨界點應穩定判定為場內。' },
-        { id:'R-010', node:'n4', category:'Target selection', failure:'場上存在多顆球時，系統鎖定非最新或已失效的目標。', impact:3, likelihood:2, recovery:'依有效性、生成順序與距離規則重新選取。', accept:'只能追蹤一個仍存在且符合規則的有效球。' },
-        { id:'R-011', node:'n4', category:'Lifecycle', failure:'目標球被移除後，行為狀態仍保留舊引用。', impact:3, likelihood:2, recovery:'偵測目標生命週期，失效時清除引用並回待命。', accept:'目標消失時不得繼續追逐或拋出錯誤。' },
-        { id:'R-012', node:'n5', category:'State consistency', failure:'追球動畫播放，但座標或朝向未同步更新。', impact:1, likelihood:2, recovery:'以單一狀態更新驅動動畫、方向與位置。', accept:'動畫、朝向、速度與實際位移一致。' },
-        { id:'R-013', node:'n5', category:'Target tracking', failure:'球移動後仍追逐舊座標，造成路徑偏移或永遠無法靠近。', impact:3, likelihood:2, recovery:'於追球期間持續更新有效目標位置。', accept:'移動中的球仍能被正確追蹤，或依規則觸發 Recovery。' },
-        { id:'R-014', node:'n5', category:'Navigation', failure:'移動路徑穿越場地邊界或模型障礙。', impact:2, likelihood:2, recovery:'限制導航範圍並於異常路徑重新規劃。', accept:'小狗不得穿越邊界或離開可操作區域。' },
-        { id:'R-015', node:'n6', category:'Tolerance', failure:'距離容差過小，接近球後仍無法觸發追到狀態。', impact:3, likelihood:3, recovery:'校正容差並以逾時機制避免無限追逐。', accept:'合理接近目標後應觸發一次完成事件。' },
-        { id:'R-016', node:'n6', category:'Tolerance', failure:'距離容差過大，小狗尚未接近球即提前叼取。', impact:3, likelihood:2, recovery:'縮小容差並同時檢查相對速度與距離。', accept:'僅在視覺與座標均合理接近時叼球。' },
-        { id:'R-017', node:'n6', category:'Event', failure:'距離條件在多個 Frame 重複成立，完成事件被重複觸發。', impact:2, likelihood:2, recovery:'完成後立即鎖定狀態並取消重複判斷。', accept:'每顆球只能觸發一次追到事件。' },
-        { id:'R-018', node:'n7', category:'Attachment', failure:'球附著點錯誤，造成球懸空、穿過模型或位置跳動。', impact:1, likelihood:2, recovery:'重新計算嘴部節點與局部座標偏移。', accept:'球在返回期間穩定附著於合理位置。' },
-        { id:'R-019', node:'n7', category:'Lifecycle', failure:'返回途中球意外脫離或仍受物理引擎推動。', impact:2, likelihood:2, recovery:'附著期間停用衝突的物理更新，結束時再恢復。', accept:'返回途中球不脫離、不彈跳、不受外力偏移。' },
-        { id:'R-020', node:'n8', category:'State reset', failure:'完成一輪後行為狀態未重置，下一次丟球無法啟動。', impact:3, likelihood:2, recovery:'集中清除目標、動畫、計時器與輸入鎖。', accept:'放下球後可立即完成第二輪完整流程。' },
-        { id:'R-021', node:'n8', category:'Reference cleanup', failure:'目標球引用或事件監聽未清除，後續流程操作到已移除物件。', impact:2, likelihood:1, recovery:'於結束節點統一釋放引用與監聽。', accept:'下一輪不應讀取前一輪球體或重複觸發舊事件。' },
-        { id:'R-022', node:'n9', category:'Recovery', failure:'不可達目標未觸發逾時，小狗永久停留於追球狀態。', impact:3, likelihood:2, recovery:'達到門檻後清除目標並回到待命。', accept:'逾時後可重新丟球，且無殘留追球狀態。' },
-        { id:'R-023', node:'n9', category:'Recovery', failure:'Recovery 清除錯誤球體或影響仍有效的下一個目標。', impact:3, likelihood:1, recovery:'以唯一識別碼限制清除範圍。', accept:'只清除逾時目標，不影響其他有效物件。' },
-        { id:'R-024', node:'n10', category:'Invalid target', failure:'界外球仍被加入追蹤清單，導致錯誤追球或狀態卡住。', impact:3, likelihood:3, recovery:'界外判定後立即標記無效並清除追蹤。', accept:'界外球不得進入 n4～n8。' },
-        { id:'R-025', node:'n10', category:'Input recovery', failure:'無效丟球後輸入鎖或蓄力狀態未解除，無法再次操作。', impact:3, likelihood:2, recovery:'無效輸入與界外流程均統一重置操作狀態。', accept:'例外結束後可立即重新蓄力與丟球。' }
+        { id: 'R-001', node: 'n0', category: 'Resource', failure: '模型或必要資源載入失敗，畫面停留於空白或不可操作狀態。', impact: 3, likelihood: 2, recovery: '顯示載入錯誤與重新整理入口。', accept: '載入失敗時不得只顯示空白畫面，且可重新嘗試。' },
+        { id: 'R-002', node: 'n0', category: 'Initialization', failure: '場景已顯示，但控制器或物理世界未完成初始化。', impact: 2, likelihood: 2, recovery: '停用操作並等待所有必要模組 Ready。', accept: 'PLAY 僅於場景、控制器與物理引擎均完成後啟用。' },
+        { id: 'R-003', node: 'n1', category: 'State consistency', failure: '球種選取外觀已更新，但物理參數或實際生成模型仍為前一球種。', impact: 1, likelihood: 2, recovery: '重新同步選取狀態、模型與物理參數。', accept: '選取、預覽、生成物件與碰撞參數一致。' },
+        { id: 'R-004', node: 'n1', category: 'Timing', failure: '切換球種後立即丟球，事件讀取到切換前的球種狀態。', impact: 2, likelihood: 1, recovery: '在單一狀態更新完成後才允許生成球。', accept: '快速切換並丟球時仍使用最新球種。' },
+        { id: 'R-005', node: 'n2', category: 'Input', failure: '多次 pointerup 或事件重複綁定造成一次操作生成多顆球。', impact: 3, likelihood: 2, recovery: '加入一次性提交鎖並於完成後重置。', accept: '單次蓄力釋放最多生成一顆球。' },
+        { id: 'R-006', node: 'n2', category: 'State reset', failure: '放開滑鼠後蓄力值未歸零，下一次丟球沿用前次力道。', impact: 2, likelihood: 2, recovery: '於成功或取消丟球後統一重置輸入狀態。', accept: '每次新蓄力均從最小值開始。' },
+        { id: 'R-007', node: 'n2', category: 'Boundary', failure: '最小或最大蓄力超出允許範圍，造成球未移動或高速穿透場景。', impact: 2, likelihood: 2, recovery: '限制力道範圍並檢查映射值。', accept: '最小與最大蓄力皆產生可預期、可恢復的運動結果。' },
+        { id: 'R-008', node: 'n3', category: 'Boundary', failure: '界外落點被誤判為場內，導致小狗追逐不可達目標。', impact: 3, likelihood: 3, recovery: '使用一致的場地座標與安全邊界重新判定。', accept: '界外球必須進入 n10，不啟動追球。' },
+        { id: 'R-009', node: 'n3', category: 'Boundary', failure: '有效邊界內落點被誤判為界外，正常撿球流程未啟動。', impact: 3, likelihood: 2, recovery: '校正邊界容差並以臨界值測試。', accept: '邊界內側臨界點應穩定判定為場內。' },
+        { id: 'R-010', node: 'n4', category: 'Target selection', failure: '場上存在多顆球時，系統鎖定非最新或已失效的目標。', impact: 3, likelihood: 2, recovery: '依有效性、生成順序與距離規則重新選取。', accept: '只能追蹤一個仍存在且符合規則的有效球。' },
+        { id: 'R-011', node: 'n4', category: 'Lifecycle', failure: '目標球被移除後，行為狀態仍保留舊引用。', impact: 3, likelihood: 2, recovery: '偵測目標生命週期，失效時清除引用並回待命。', accept: '目標消失時不得繼續追逐或拋出錯誤。' },
+        { id: 'R-012', node: 'n5', category: 'State consistency', failure: '追球動畫播放，但座標或朝向未同步更新。', impact: 1, likelihood: 2, recovery: '以單一狀態更新驅動動畫、方向與位置。', accept: '動畫、朝向、速度與實際位移一致。' },
+        { id: 'R-013', node: 'n5', category: 'Target tracking', failure: '球移動後仍追逐舊座標，造成路徑偏移或永遠無法靠近。', impact: 3, likelihood: 2, recovery: '於追球期間持續更新有效目標位置。', accept: '移動中的球仍能被正確追蹤，或依規則觸發 Recovery。' },
+        { id: 'R-014', node: 'n5', category: 'Navigation', failure: '移動路徑穿越場地邊界或模型障礙。', impact: 2, likelihood: 2, recovery: '限制導航範圍並於異常路徑重新規劃。', accept: '小狗不得穿越邊界或離開可操作區域。' },
+        { id: 'R-015', node: 'n6', category: 'Tolerance', failure: '距離容差過小，接近球後仍無法觸發追到狀態。', impact: 3, likelihood: 3, recovery: '校正容差並以逾時機制避免無限追逐。', accept: '合理接近目標後應觸發一次完成事件。' },
+        { id: 'R-016', node: 'n6', category: 'Tolerance', failure: '距離容差過大，小狗尚未接近球即提前叼取。', impact: 3, likelihood: 2, recovery: '縮小容差並同時檢查相對速度與距離。', accept: '僅在視覺與座標均合理接近時叼球。' },
+        { id: 'R-017', node: 'n6', category: 'Event', failure: '距離條件在多個 Frame 重複成立，完成事件被重複觸發。', impact: 2, likelihood: 2, recovery: '完成後立即鎖定狀態並取消重複判斷。', accept: '每顆球只能觸發一次追到事件。' },
+        { id: 'R-018', node: 'n7', category: 'Attachment', failure: '球附著點錯誤，造成球懸空、穿過模型或位置跳動。', impact: 1, likelihood: 2, recovery: '重新計算嘴部節點與局部座標偏移。', accept: '球在返回期間穩定附著於合理位置。' },
+        { id: 'R-019', node: 'n7', category: 'Lifecycle', failure: '返回途中球意外脫離或仍受物理引擎推動。', impact: 2, likelihood: 2, recovery: '附著期間停用衝突的物理更新，結束時再恢復。', accept: '返回途中球不脫離、不彈跳、不受外力偏移。' },
+        { id: 'R-020', node: 'n8', category: 'State reset', failure: '完成一輪後行為狀態未重置，下一次丟球無法啟動。', impact: 3, likelihood: 2, recovery: '集中清除目標、動畫、計時器與輸入鎖。', accept: '放下球後可立即完成第二輪完整流程。' },
+        { id: 'R-021', node: 'n8', category: 'Reference cleanup', failure: '目標球引用或事件監聽未清除，後續流程操作到已移除物件。', impact: 2, likelihood: 1, recovery: '於結束節點統一釋放引用與監聽。', accept: '下一輪不應讀取前一輪球體或重複觸發舊事件。' },
+        { id: 'R-022', node: 'n9', category: 'Recovery', failure: '不可達目標未觸發逾時，小狗永久停留於追球狀態。', impact: 3, likelihood: 2, recovery: '達到門檻後清除目標並回到待命。', accept: '逾時後可重新丟球，且無殘留追球狀態。' },
+        { id: 'R-023', node: 'n9', category: 'Recovery', failure: 'Recovery 清除錯誤球體或影響仍有效的下一個目標。', impact: 3, likelihood: 1, recovery: '以唯一識別碼限制清除範圍。', accept: '只清除逾時目標，不影響其他有效物件。' },
+        { id: 'R-024', node: 'n10', category: 'Invalid target', failure: '界外球仍被加入追蹤清單，導致錯誤追球或狀態卡住。', impact: 3, likelihood: 3, recovery: '界外判定後立即標記無效並清除追蹤。', accept: '界外球不得進入 n4～n8。' },
+        { id: 'R-025', node: 'n10', category: 'Input recovery', failure: '無效丟球後輸入鎖或蓄力狀態未解除，無法再次操作。', impact: 3, likelihood: 2, recovery: '無效輸入與界外流程均統一重置操作狀態。', accept: '例外結束後可立即重新蓄力與丟球。' }
       ];
 
 
       var DOG_SCENARIOS = [
-        { title:'網球正常完成撿球循環', category:'normal', risk:'medium', gwt:`Given 場景已完成載入，且小狗處於待命狀態
+        {
+          title: '網球正常完成撿球循環', category: 'normal', risk: 'medium', gwt: `Given 場景已完成載入，且小狗處於待命狀態
 When 使用者選擇網球、蓄力並將球丟在場內
 Then 小狗應偵測球、追球、叼回、放下球並回到待命` },
-        { title:'足球正常完成撿球循環', category:'normal', risk:'medium', gwt:`Given 場景已完成載入並選擇足球
+        {
+          title: '足球正常完成撿球循環', category: 'normal', risk: 'medium', gwt: `Given 場景已完成載入並選擇足球
 When 使用者以一般力道將球丟在場內
 Then 預覽模型、物理球體與叼回目標皆應為足球，且完整流程可完成` },
-        { title:'沙灘球正常完成撿球循環', category:'normal', risk:'medium', gwt:`Given 場景已完成載入並選擇沙灘球
+        {
+          title: '沙灘球正常完成撿球循環', category: 'normal', risk: 'medium', gwt: `Given 場景已完成載入並選擇沙灘球
 When 使用者將球丟在有效區域
 Then 系統應使用對應模型與物理參數完成追球及叼回` },
-        { title:'球落在場地邊界內側', category:'boundary', risk:'high', gwt:`Given 小狗處於待命且場地邊界已知
+        {
+          title: '球落在場地邊界內側', category: 'boundary', risk: 'high', gwt: `Given 小狗處於待命且場地邊界已知
 When 球落在安全邊界內側的臨界位置
 Then 系統應判定為場內並啟動追球，且小狗不得穿越邊界` },
-        { title:'球落在場地外', category:'boundary', risk:'high', gwt:`Given 小狗處於待命
+        {
+          title: '球落在場地外', category: 'boundary', risk: 'high', gwt: `Given 小狗處於待命
 When 使用者將球丟到場地外
 Then 小狗不應追逐界外球，系統應清除無效目標並允許再次丟球` },
-        { title:'最小蓄力仍可形成有效操作', category:'boundary', risk:'medium', gwt:`Given 場景已就緒且尚未開始蓄力
+        {
+          title: '最小蓄力仍可形成有效操作', category: 'boundary', risk: 'medium', gwt: `Given 場景已就緒且尚未開始蓄力
 When 使用者以允許的最小蓄力放開滑鼠
 Then 系統應生成一顆可判定的球，且輸入狀態應正確重置` },
-        { title:'最大蓄力不應造成穿透或失控', category:'boundary', risk:'high', gwt:`Given 場景已就緒
+        {
+          title: '最大蓄力不應造成穿透或失控', category: 'boundary', risk: 'high', gwt: `Given 場景已就緒
 When 使用者蓄力至上限並放開滑鼠
 Then 球速應受上限限制，不得穿透場景或使系統進入不可恢復狀態` },
-        { title:'快速連續放開滑鼠', category:'exception', risk:'high', gwt:`Given 使用者正在蓄力
+        {
+          title: '快速連續放開滑鼠', category: 'exception', risk: 'high', gwt: `Given 使用者正在蓄力
 When 在極短時間內觸發多次 pointerup
 Then 系統只應生成一顆球，蓄力與輸入鎖應正確清除` },
-        { title:'切換球種後立即丟球', category:'boundary', risk:'medium', gwt:`Given 目前選擇網球
+        {
+          title: '切換球種後立即丟球', category: 'boundary', risk: 'medium', gwt: `Given 目前選擇網球
 When 使用者切換為足球並立即丟球
 Then 畫面模型、物理物件與行為樹目標都應使用足球` },
-        { title:'追球期間目標球消失', category:'exception', risk:'high', gwt:`Given 小狗已鎖定目標並開始追球
+        {
+          title: '追球期間目標球消失', category: 'exception', risk: 'high', gwt: `Given 小狗已鎖定目標並開始追球
 When 目標球在追球期間被移除或失效
 Then 系統應停止追逐、清除舊引用並回到可操作狀態` },
-        { title:'追球逾時 Recovery', category:'recovery', risk:'high', gwt:`Given 小狗已開始追球，但目標球位於不可到達位置
+        {
+          title: '追球逾時 Recovery', category: 'recovery', risk: 'high', gwt: `Given 小狗已開始追球，但目標球位於不可到達位置
 When 追球時間超過逾時門檻
 Then 系統應放棄目標、記錄例外並讓小狗回到待命` },
-        { title:'追到球事件只觸發一次', category:'exception', risk:'high', gwt:`Given 小狗已進入距離容差範圍
+        {
+          title: '追到球事件只觸發一次', category: 'exception', risk: 'high', gwt: `Given 小狗已進入距離容差範圍
 When 連續多個 Frame 均符合追到球條件
 Then 系統只應觸發一次叼球流程，不得重複附著或重複計數` },
-        { title:'追球途中再次丟球', category:'exception', risk:'high', gwt:`Given 小狗正在追逐第一顆球
+        {
+          title: '追球途中再次丟球', category: 'exception', risk: 'high', gwt: `Given 小狗正在追逐第一顆球
 When 使用者再次執行蓄力並丟出第二顆球
 Then 系統應依既定規則拒絕、排隊或切換目標，且狀態不得混亂` },
-        { title:'完成一輪後再次丟球', category:'recovery', risk:'high', gwt:`Given 小狗已完成上一輪並放下球
+        {
+          title: '完成一輪後再次丟球', category: 'recovery', risk: 'high', gwt: `Given 小狗已完成上一輪並放下球
 When 使用者再次丟出另一顆球
 Then 新一輪流程應正常啟動，不受上一輪狀態、引用或事件影響` },
-        { title:'模型或資源載入失敗', category:'recovery', risk:'high', gwt:`Given 必要模型或資源無法完成載入
+        {
+          title: '模型或資源載入失敗', category: 'recovery', risk: 'high', gwt: `Given 必要模型或資源無法完成載入
 When 使用者進入 3D Demo
 Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的 PLAY 操作` }
       ];
 
       var DOG_SCENARIO_PATHS = [
-        ['n0','n2','n3','n4','n5','n6','n7','n8'],
-        ['n0','n1','n2','n3','n4','n5','n6','n7','n8'],
-        ['n0','n1','n2','n3','n4','n5','n6','n7','n8'],
-        ['n0','n2','n3','n4','n5','n6','n7','n8'],
-        ['n0','n2','n3','n10'],
-        ['n0','n2','n3'],
-        ['n0','n2','n3','n10'],
-        ['n0','n2'],
-        ['n0','n1','n2'],
-        ['n0','n2','n3','n4','n5','n9'],
-        ['n0','n2','n3','n4','n5','n6','n9'],
-        ['n0','n2','n3','n4','n5','n6','n7'],
-        ['n0','n2','n3','n4','n5'],
-        ['n0','n2','n3','n4','n5','n6','n7','n8'],
+        ['n0', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8'],
+        ['n0', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8'],
+        ['n0', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8'],
+        ['n0', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8'],
+        ['n0', 'n2', 'n3', 'n10'],
+        ['n0', 'n2', 'n3'],
+        ['n0', 'n2', 'n3', 'n10'],
+        ['n0', 'n2'],
+        ['n0', 'n1', 'n2'],
+        ['n0', 'n2', 'n3', 'n4', 'n5', 'n9'],
+        ['n0', 'n2', 'n3', 'n4', 'n5', 'n6', 'n9'],
+        ['n0', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7'],
+        ['n0', 'n2', 'n3', 'n4', 'n5'],
+        ['n0', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8'],
         ['n0']
       ];
       var selectedDogNodeId = 'n0';
@@ -5075,7 +5457,7 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
           var node = getDogNode(r.node), score = r.impact * r.likelihood, level = dogRiskLevel(score);
           return '<tr data-dog-node="' + r.node + '" data-dog-risk="' + level + '"><td><span class="case-id">' + r.id + '</span></td><td><strong style="color:#fff">' + r.node + ' · ' + node.name + '</strong></td><td>' + r.category + '</td><td>' + r.failure + '</td><td style="text-align:center">' + r.impact + '</td><td style="text-align:center">' + r.likelihood + '</td><td style="text-align:center"><strong style="color:#fff">' + score + '</strong></td><td><span class="risk-pill ' + level + '">' + level.toUpperCase() + '</span></td><td>' + r.recovery + '</td><td>' + r.accept + '</td></tr>';
         }).join('');
-        var counts = { high:0, medium:0, low:0 }; DOG_RISKS.forEach(function (r) { counts[dogRiskLevel(r.impact * r.likelihood)]++; });
+        var counts = { high: 0, medium: 0, low: 0 }; DOG_RISKS.forEach(function (r) { counts[dogRiskLevel(r.impact * r.likelihood)]++; });
         var body = '<div class="scenario-library-notice"><strong>Analysis Status：Designed／可進行部分手動驗證</strong>Failure Mode 與 Recovery 為依 3D 原型行為建立的風險分析；未宣稱已於完整裝置、瀏覽器與效能矩陣執行。</div><div class="decision-summary"><div class="metric-card"><strong>' + DOG_NODES.length + '</strong><span>Behavior Nodes</span></div><div class="metric-card"><strong>' + DOG_RISKS.length + '</strong><span>Failure Modes</span></div><div class="metric-card"><strong>' + counts.high + '</strong><span>High Risk</span></div><div class="metric-card"><strong>' + counts.medium + '／' + counts.low + '</strong><span>Medium／Low</span></div></div>' +
           '<div class="dog-context-banner"><span>Behavior Tree 目前節點</span><strong>' + context.id + ' · ' + context.name + '（' + dogRisksForNode(context.id).length + ' 筆 Failure Mode）</strong></div>' +
           '<div class="data-table-wrap"><table class="data-table"><thead><tr><th>Risk ID</th><th>節點</th><th>Category</th><th>Failure Mode</th><th>Impact</th><th>Likelihood</th><th>Score</th><th>Risk</th><th>Recovery</th><th>Acceptance</th></tr></thead><tbody>' + rows + '</tbody></table></div><p class="demo-run-note">Risk Score = Impact（1～3）× Likelihood（1～3）；1～2 Low，3～4 Medium，6～9 High。風險筆數不等同節點數，同一節點可包含多個 Failure Mode。</p>';
@@ -5083,13 +5465,13 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
       }
       function renderDogTests() {
         var context = getDogNode(selectedDogNodeId);
-        var categoryLabels = { normal:'NORMAL', boundary:'BOUNDARY', exception:'EXCEPTION', recovery:'RECOVERY' };
+        var categoryLabels = { normal: 'NORMAL', boundary: 'BOUNDARY', exception: 'EXCEPTION', recovery: 'RECOVERY' };
         var cards = DOG_SCENARIOS.map(function (s, i) {
           var sid = 'gwt-body-' + i, nodes = getDogScenarioNodes(i);
           return '<article class="scenario-card" data-dog-nodes="' + nodes.join(' ') + '" data-dog-category="' + s.category + '"><button class="scenario-head" data-scenario-toggle aria-expanded="false" aria-controls="' + sid + '"><span class="risk-pill ' + s.risk + '">' + s.risk.toUpperCase() + '</span><span><strong>TC-DOG-' + String(i + 1).padStart(2, '0') + ' · ' + s.title + '</strong><small>' + categoryLabels[s.category] + ' · 涵蓋節點 ' + nodes.join(' → ') + '</small></span><span>＋</span></button><div class="scenario-body" id="' + sid + '"><pre class="gwt-block">' + esc(s.gwt) + '</pre><button class="tool-btn" data-copy-gwt>複製情境</button></div></article>';
         }).join('');
         var matrixRows = DOG_NODES.map(function (node) {
-          var buckets = { normal:[], boundary:[], exception:[], recovery:[] };
+          var buckets = { normal: [], boundary: [], exception: [], recovery: [] };
           DOG_SCENARIOS.forEach(function (scenario, i) { if (getDogScenarioNodes(i).indexOf(node.id) !== -1) buckets[scenario.category].push('TC-' + String(i + 1).padStart(2, '0')); });
           function cell(list) { return list.length ? '<span class="coverage-mark">' + list.length + '</span>' : '<span class="coverage-empty">—</span>'; }
           var all = [].concat(buckets.normal, buckets.boundary, buckets.exception, buckets.recovery);
@@ -5813,7 +6195,7 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
       }
       function setBackgroundInert(isInert) {
         Array.prototype.slice.call(document.body.children).forEach(function (el) {
-          if (el === overlay || el.id === 'modalLocalToast' || el.id === 'themeCord') return;
+          if (el === overlay || el.id === 'modalLocalToast') return;
           if (isInert) { el.setAttribute('inert', ''); }
           else { el.removeAttribute('inert'); }
         });
@@ -6159,17 +6541,17 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
 
     // ===== theme cord: pull-ring dark ↔ light toggle =====
     (function () {
-      var cord   = document.getElementById('themeCord');
-      var gem    = document.getElementById('cordGem');
-      var line   = document.getElementById('cordLine');
-      var icon   = document.getElementById('cordIcon');
+      var cord = document.getElementById('themeCord');
+      var gem = document.getElementById('cordGem');
+      var line = document.getElementById('cordLine');
+      var icon = document.getElementById('cordIcon');
       if (!cord) return;
 
-      var isLight    = false;
+      var isLight = false;
       var isToggling = false;
 
       var moonSVG = '<svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-      var sunSVG  = '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+      var sunSVG = '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
 
       function updateIcon() {
         icon.innerHTML = isLight ? sunSVG : moonSVG;
