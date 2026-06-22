@@ -1,0 +1,48 @@
+{
+  "project": "Specification-driven QA Automation Orchestrator",
+  "module": "ALL",
+  "moduleName": "示範範圍內全部測試",
+  "testType": "Specification-driven Black-box UI Automation",
+  "specification": null,
+  "task": null,
+  "orchestrationFlow": [
+    "Prompt / requirement input",
+    "Specification",
+    "Task delegation",
+    "Specification Quality Gate",
+    "Playwright black-box UI execution",
+    "Report and summary generation",
+    "Phase 2 deterministic mock review",
+    "Human review"
+  ],
+  "generatedAt": "2026-06-21T10:01:38.946Z",
+  "sourceReport": "reports/playwright-results.json",
+  "playwrightReport": "playwright-report/index.html",
+  "status": "passed",
+  "total": 3,
+  "passed": 3,
+  "failed": 0,
+  "skipped": 0,
+  "durationMs": 1977,
+  "failedCases": [],
+  "aiAccessScope": [
+    "test summary",
+    "quality gate result",
+    "module result",
+    "specification objective",
+    "acceptance criteria",
+    "failure title",
+    "failure message",
+    "report path"
+  ],
+  "restrictedScope": [
+    "system-under-test source code",
+    "database access",
+    "credentials or secrets",
+    "production system",
+    "unmasked business data",
+    "automatic defect creation without human review"
+  ],
+  "humanReviewRequired": true,
+  "note": "This summary is intended for the local Phase 2 deterministic mock review. It contains specification-level context and execution results only; it excludes source code, credentials, database content, and internal system details."
+}

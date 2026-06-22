@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>圓角旭日圖</title>
+    <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+    <script src="/include/require@2.3.6/require.js"></script>
+  </head>
+
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #ex27 {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+  <body>
+    <div id="ex27"></div>
+    <script type="text/javascript">
+      require.config({
+        paths: {
+          echarts: "/include/echarts/echarts.min",
+        },
+      });
+      require(["echarts"], function (echarts) {
+        var myChart = echarts.init(document.getElementById("ex27"));
+        var data = [
+          {
+            name: "Grandpa",
+            children: [
+              {
+                name: "Uncle Leo",
+                value: 15,
+                children: [
+                  {
+                    name: "Cousin Jack",
+                    value: 2,
+                  },
+                  {
+                    name: "Cousin Mary",
+                    value: 5,
+                    children: [
+                      {
+                        name: "Jackson",
+                        value: 2,
+                      },
+                    ],
+                  },
+                  {
+                    name: "Cousin Ben",
+                    value: 4,
+                  },
+                ],
+              },
+              {
+                name: "Father",
+                value: 10,
+                children: [
+                  {
+                    name: "Me",
+                    value: 5,
+                  },
+                  {
+                    name: "Brother Peter",
+                    value: 1,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Nancy",
+            children: [
+              {
+                name: "Uncle Nike",
+                children: [
+                  {
+                    name: "Cousin Betty",
+                    value: 1,
+                  },
+                  {
+                    name: "Cousin Jenny",
+                    value: 2,
+                  },
+                ],
+              },
+            ],
+          },
+        ];
+        option = {
+          series: {
+            type: "sunburst",
+            data: data,
+            radius: [60, "90%"],
+            itemStyle: {
+              borderRadius: 7,
+              borderWidth: 2,
+            },
+            label: {
+              show: false,
+            },
+          },
+        };
+
+        // control data
+        var data1 = option.series.data;
+        console.log(data1);
+
+        function randomData() {
+          var now = new Date();
+          return now.toLocaleTimeString().replace(/^\D*/, "");
+        }
+
+        setInterval(function () {
+          data1.shift();
+          data1.push((Math.random() * (10 - 0 + 1) + 0).toFixed(0));
+          
+          myChart.setOption(option);
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

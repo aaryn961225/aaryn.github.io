@@ -1,0 +1,37 @@
+{
+  "code": "ORD02",
+  "name": "一般訂貨邊界條件",
+  "specification": "specs/ORD02.order-boundary.spec.md",
+  "objective": "驗證訂貨量為 0 的邊界條件下，系統摘要應正確顯示總量為 0，避免數量計算或 UI 顯示錯誤。",
+  "grep": "Boundary",
+  "executionMode": "playwright-headed-local",
+  "testType": "Black-box UI Automation",
+  "acceptanceCriteria": [
+    "使用者可登入並進入訂貨流程。",
+    "訂貨量輸入 0 時，系統可加入該商品或依設計顯示對應結果。",
+    "訂貨摘要總量應為 0。",
+    "測試需聚焦畫面結果，不驗證後端內部計算程式碼。"
+  ],
+  "riskFocus": [
+    "邊界值處理錯誤可能造成訂貨數量異常。",
+    "畫面摘要與實際輸入不一致會造成作業誤判。",
+    "未來改版時，數量欄位驗證邏輯容易受到影響。"
+  ],
+  "workflow": [
+    "Load specification",
+    "Delegate selected module as executable task",
+    "Run Playwright black-box UI test",
+    "Generate Playwright HTML Report",
+    "Generate reports/test-summary.json",
+    "Provide Phase 2 mock analysis context",
+    "Require human review"
+  ],
+  "restrictedScope": [
+    "application source code",
+    "database content",
+    "credentials or secrets",
+    "production system",
+    "automatic defect creation without human review"
+  ],
+  "humanReviewRequired": true
+}

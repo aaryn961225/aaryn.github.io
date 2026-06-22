@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LLM Review Request",
+  "type": "object",
+  "required": [
+    "promptId",
+    "mode",
+    "context",
+    "safetyBoundary"
+  ],
+  "properties": {
+    "promptId": {
+      "type": "string"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "mock",
+        "local",
+        "remote"
+      ]
+    },
+    "context": {
+      "type": "object"
+    },
+    "safetyBoundary": {
+      "type": "object"
+    },
+    "humanReviewRequired": {
+      "type": "boolean"
+    }
+  }
+}

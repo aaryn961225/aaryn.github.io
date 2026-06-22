@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Stacked Bar3D</title>
+    <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+    <script src="/include/require@2.3.6/require.js"></script>
+  </head>
+
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #ex36 {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+  <body>
+    <div id="ex36"></div>
+    <script type="text/javascript">
+      require.config({
+        paths: {
+          echarts: "/include/echarts/echarts.min",
+        },
+      });
+      require(["echarts"], function (echarts) {
+        var myChart = echarts.init(document.getElementById("ex36"));
+        myChart.setOption(option);
+      });
+      $.getScript(
+        "https://fastly.jsdelivr.net/npm/simplex-noise@2.4.0/simplex-noise.js"
+      ).done(function () {
+        function generateData() {
+          var data = [];
+          var noise = new SimplexNoise(Math.random);
+          for (var i = 0; i <= 10; i++) {
+            for (var j = 0; j <= 10; j++) {
+              var value = noise.noise2D(i / 5, j / 5);
+              data.push([i, j, value * 2 + 4]);
+            }
+          }
+          return data;
+        }
+        var series = [];
+        for (var i = 0; i < 10; i++) {
+          series.push({
+            type: "bar3D",
+            data: generateData(),
+            stack: "stack",
+            shading: "lambert",
+            emphasis: {
+              label: {
+                show: false,
+              },
+            },
+          });
+        }
+        myChart.setOption({
+          xAxis3D: {
+            type: "value",
+          },
+          yAxis3D: {
+            type: "value",
+          },
+          zAxis3D: {
+            type: "value",
+          },
+          grid3D: {
+            viewControl: {
+              // autoRotate: true
+            },
+            light: {
+              main: {
+                shadow: true,
+                quality: "ultra",
+                intensity: 1.5,
+              },
+            },
+          },
+          series: series,
+        });
+      });
+    </script>
+  </body>
+</html>

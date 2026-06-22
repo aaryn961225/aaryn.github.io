@@ -1,0 +1,16 @@
+{
+  "event": "qa.automation.review.completed",
+  "project": "Specification-driven QA Automation Orchestrator",
+  "status": "ok",
+  "generatedAt": "2026-06-21T10:01:39.874Z",
+  "message": "The deterministic mock review completed with no blocking issue in the retained demonstration artifacts.",
+  "artifacts": {
+    "qualityGateReport": "reports/quality-gate-report.json",
+    "testSummary": "reports/test-summary.json",
+    "mcpContext": "reports/mcp-context.json",
+    "aiReview": "reports/ai-review.json",
+    "playwrightReport": "playwright-report/index.html"
+  },
+  "requiresHumanReview": true,
+  "note": "This is a deterministic local mock payload. No n8n webhook or external notification was called."
+}

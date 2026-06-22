@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Quality Gate Report",
+  "type": "object",
+  "required": [
+    "status",
+    "allowedToAutomate",
+    "summary",
+    "issues"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "passed",
+        "failed"
+      ]
+    },
+    "allowedToAutomate": {
+      "type": "boolean"
+    },
+    "summary": {
+      "type": "object"
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "generatedAt": {
+      "type": "string"
+    }
+  }
+}

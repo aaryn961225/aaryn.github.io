@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>漸層圓餅</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex37 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex37"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, data, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+          },
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            top: '5%',
+            left: 'center',
+            orient: 'horizontal',
+            textStyle: {
+              fontSize: setSize(chartDom, 30)
+            },
+            itemWidth: setSize(chartDom, 40),
+            itemHeight: setSize(chartDom, 20)
+          },
+          series: [
+            {
+              name: 'Access From',
+              type: 'pie',
+              radius: ['50%', '70%'],
+              avoidLabelOverlap: false,
+              itemStyle: {
+                borderRadius: 20,
+                borderColor: '#fff',
+                borderWidth: 0
+              },
+              label: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: setSize(chartDom, 40),
+                  fontWeight: 'bold'
+                }
+              },
+              labelLine: {
+                show: false
+              },
+              data: data.map((value, index) => ({
+                value: value,
+                name: colors.seriesColors[index],
+                itemStyle: {
+                  color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 1,
+                    y2: 1,
+                    colorStops: index === 0 ? colors.pieGradient : colors.pieGradientSub,
+                    global: false
+                  }
+                }
+              }))
+            }
+          ]
+        };
+      }
+
+      var chartDom = document.getElementById("ex37");
+      var myChart = echarts.init(chartDom);
+
+      var initialData = [335, 310, 234, 135, 154];
+      var currentData = [...initialData];
+
+      var currentColors = {
+        barColor: '#FF5733',
+        pieGradient: [
+          { offset: 0, color: '#FF5733' },
+          { offset: 1, color: '#FFC300' }
+        ],
+        pieGradientSub: [
+          { offset: 0, color: '#ff9680' },
+          { offset: 1, color: '#ffd680' }
+        ],
+        axisLabelColor: '#FF5733',
+        axisLineColor: '#FFC300',
+        seriesColors: ['#FEFFD2', '#FFEEA9', '#FDDE55', '#FFBF78', '#FF7D29']
+      };
+
+      var option = getChartOptions(chartDom, currentData, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      setInterval(function () {
+        for (let i = 0; i < currentData.length; i++) {
+          currentData[i] = (Math.random() * 210).toFixed(0);
+        }
+        myChart.setOption({
+          series: [{
+            data: currentData.map((value, index) => ({
+              value: value,
+              name: currentColors.seriesColors[index],
+              itemStyle: {
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 1,
+                  y2: 1,
+                  colorStops: index === 0 ? currentColors.pieGradient : currentColors.pieGradientSub,
+                  global: false
+                }
+              }
+            }))
+          }]
+        });
+      }, 1000);
+
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors = event.data.colors;
+          option = getChartOptions(chartDom, currentData, currentColors);
+          myChart.setOption(option);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -121,144 +121,6 @@
       color: var(--brand);
     }
 
-    /* ---------- theme cord ---------- */
-    .theme-cord {
-      position: fixed;
-      top: 0;
-      right: 56px;
-      z-index: 200;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-      -webkit-user-select: none;
-      opacity: 0;
-      transition: opacity .9s ease;
-    }
-
-    .theme-cord.is-visible { opacity: 1; }
-
-    .theme-cord:focus-visible {
-      outline: 2px solid var(--brand);
-      outline-offset: 8px;
-      border-radius: 2px;
-    }
-
-    .cord-line {
-      width: 1px;
-      height: 52px;
-      background: linear-gradient(to bottom, transparent, var(--text-faint));
-      opacity: 0.45;
-      transform-origin: top center;
-      transition: opacity .2s ease;
-    }
-
-    .theme-cord:hover .cord-line,
-    .theme-cord:focus-visible .cord-line { opacity: 0.9; }
-
-    .cord-gem {
-      width: 20px;
-      height: 20px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      transform: rotate(45deg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color .2s ease, box-shadow .2s ease, background-color .3s ease;
-    }
-
-    .theme-cord:hover .cord-gem,
-    .theme-cord:focus-visible .cord-gem {
-      border-color: var(--brand);
-      box-shadow: 0 0 10px color-mix(in srgb, var(--brand) 45%, transparent);
-    }
-
-    .cord-icon {
-      transform: rotate(-45deg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-faint);
-      transition: color .2s ease;
-      line-height: 1;
-    }
-
-    .theme-cord:hover .cord-icon,
-    .theme-cord:focus-visible .cord-icon { color: var(--brand); }
-
-    @keyframes gemBounce {
-      0%   { transform: rotate(45deg) translateY(0); }
-      20%  { transform: rotate(45deg) translateY(14px); }
-      45%  { transform: rotate(45deg) translateY(-6px); }
-      67%  { transform: rotate(45deg) translateY(3px); }
-      83%  { transform: rotate(45deg) translateY(-1px); }
-      100% { transform: rotate(45deg) translateY(0); }
-    }
-
-    @keyframes linePull {
-      0%   { transform: scaleY(1); }
-      20%  { transform: scaleY(1.20); }
-      45%  { transform: scaleY(0.90); }
-      100% { transform: scaleY(1); }
-    }
-
-    .cord-gem.is-pulling { animation: gemBounce 0.55s cubic-bezier(.36,.07,.19,.97) forwards; }
-    .cord-line.is-pulling { animation: linePull 0.55s cubic-bezier(.36,.07,.19,.97) forwards; }
-
-    /* ---------- theme scan ---------- */
-    .theme-scan {
-      position: fixed;
-      left: 0;
-      right: 0;
-      height: 2px;
-      top: -2px;
-      z-index: 9000;
-      pointer-events: none;
-      background: var(--brand);
-      box-shadow: 0 0 18px 6px rgba(0, 124, 195, .38),
-                  0 0 50px 18px rgba(0, 124, 195, .12);
-    }
-
-    @keyframes themeScanDown {
-      0%   { top: -2px; opacity: 0; }
-      6%   { opacity: 1; }
-      90%  { opacity: 1; }
-      100% { top: 100vh; opacity: 0; }
-    }
-
-    /* ---------- light theme ---------- */
-    body.theme-light {
-      --bg: #eef3f8;
-      --bg-card: #ffffff;
-      --border: rgba(0, 0, 0, 0.09);
-      --text: #0f1923;
-      --text-dim: #3d4e61;
-      --text-faint: #6b7a8d;
-      background-color: var(--bg);
-      background-image:
-        linear-gradient(rgba(0, 0, 0, .055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, .055) 1px, transparent 1px);
-    }
-
-    body.theme-light::after {
-      background-image:
-        linear-gradient(rgba(0, 0, 0, .10) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, .10) 1px, transparent 1px);
-    }
-
-    body.theme-light .modal-overlay    { background: rgba(180, 200, 220, .82); }
-    body.theme-light .modal-plain      { background: color-mix(in srgb, var(--accent-modal, var(--brand)) 8%, #f8fafb); }
-    body.theme-light .scenario-card    { background: #f5f8fb; }
-    body.theme-light .scenario-head    { color: var(--text); background: transparent; }
-    body.theme-light .check-group-btn  { background: #f5f8fb; color: var(--text); }
-    body.theme-light .toast-local      { background: #1c2a3d; color: #e8f0f8; }
-    body.theme-light .start-card       { box-shadow: 0 18px 40px -20px rgba(0, 0, 0, .15); }
-
-    /* Page background fades smoothly on theme switch */
-    body { transition: background-color .35s ease; }
-
     /* ---------- intro veil: signal emergence ---------- */
     .intro-veil {
       position: fixed;
@@ -3247,13 +3109,6 @@
     <button class="intro-skip" id="introSkip" type="button">略過開場</button>
   </div>
 
-  <div class="theme-cord" id="themeCord" role="button" tabindex="0" aria-label="切換淺色主題" inert>
-    <div class="cord-line" id="cordLine"></div>
-    <div class="cord-gem" id="cordGem">
-      <span class="cord-icon" id="cordIcon"></span>
-    </div>
-  </div>
-
   <div class="brand-mark" inert>BUILDING MY QA <span>·</span> WORKFLOW</div>
 
   <section class="stage-reveal" id="stageReveal" inert>
@@ -3528,8 +3383,6 @@
         done = true;
         if (brandMark) { brandMark.removeAttribute('inert'); brandMark.classList.add('is-visible'); }
         if (stageReveal) { stageReveal.removeAttribute('inert'); }
-        var themeCord = document.getElementById('themeCord');
-        if (themeCord) { themeCord.removeAttribute('inert'); themeCord.classList.add('is-visible'); }
         veil.style.pointerEvents = 'none';
         if (immediate) {
           veil.style.animation = 'none';
@@ -3601,7 +3454,7 @@
           meta: { role: 'QA Engineer', type: 'Personal Project · Concept Prototype', status: 'Prototype', contribution: '負責需求拆解、Decision Table 設計、User Flow 建模與 Prototype 驗證。' },
           context: 'VTrainer 初始需求涵蓋訓練、辨識評分、教練回饋、排行榜與個人紀錄；執行內容聚焦於將產品需求轉化為可追溯、可驗證的測試規格。',
           approach: '依序完成 PRD 拆解、角色與情境盤點、User Flow 建模及 Decision Table 設計，再以 Prototype 驗證資訊架構與操作路徑。',
-          result: '建立 13 項需求盤點、8 項待釐清議題、3 條主要流程、15 組決策規則、18 組詳細測試案例與 12 筆代表性追溯關係，形成「需求 → 流程 → 規則 → 測試情境」的可驗證鏈路。',
+          result: '建立 12 項需求盤點、8 項待釐清議題、3 條主要流程、15 組決策規則、17 組詳細測試案例與 10 筆代表性追溯關係，形成「需求 → 流程 → 規則 → 測試情境」的可驗證鏈路。',
           artifacts: [
             { tag: 'PRD Analysis', type: 'vtrainer-prd', text: '呈現初始需求、需求清冊、範圍界定、待釐清議題與主要驗收條件。' },
             { tag: 'User Flow', type: 'vtrainer-flow', text: '依正常流程、失敗與重試流程、跨角色回饋流程，檢視節點風險與追溯關係。' },
@@ -3681,8 +3534,7 @@
         { id:'REQ-09', module:'Coach Feedback', requirement:'僅授權教練可新增或修改其權限範圍內的評語。', actor:'教練', priority:'High', testability:'Testable' },
         { id:'REQ-10', module:'Leaderboard', requirement:'排行榜僅納入有效且符合公開條件的完成紀錄。', actor:'系統', priority:'Medium', testability:'Needs inclusion rule' },
         { id:'REQ-11', module:'History', requirement:'個人紀錄需顯示訓練時間、模式、分數、狀態與教練回饋。', actor:'學員', priority:'Medium', testability:'Testable' },
-        { id:'REQ-12', module:'Notification', requirement:'教練完成回饋後，學員應能辨識新回饋狀態並查看內容。', actor:'學員／教練', priority:'Medium', testability:'Needs timing rule' },
-        { id:'REQ-13', module:'Training Setup', requirement:'選擇訓練模式後，後續錄影設定與評分規則應依所選模式執行。', actor:'學員', priority:'Medium', testability:'Testable' }
+        { id:'REQ-12', module:'Notification', requirement:'教練完成回饋後，學員應能辨識新回饋狀態並查看內容。', actor:'學員／教練', priority:'Medium', testability:'Needs timing rule' }
       ];
 
       var VTRAINER_OPEN_QUESTIONS = [
@@ -3749,9 +3601,7 @@
         ['REQ-08','分享與隱私','F-C05','DT-SP-01／DT-SP-02／DT-SP-03','TC-VT-16 私人或作廢紀錄不得公開','Designed'],
         ['REQ-09','教練評語權限','F-C02／F-C03','DT-CP-01／DT-CP-02／DT-CP-03','TC-VT-13／TC-VT-14 驗證授權與越權操作','Designed'],
         ['REQ-10','排行榜有效性','F-C05','DT-SP-01／DT-SP-03','TC-VT-17 僅有效公開紀錄納入排行','Designed'],
-        ['REQ-12','回饋通知狀態','F-C04','DT-CP-01','TC-VT-15 新回饋提示與內容一致','Designed'],
-        ['REQ-02','登入失敗與 Session 保護','F-H01 失敗路徑','—','TC-VT-18 無效帳號不得進入受保護頁面','Designed'],
-        ['REQ-13','訓練模式同步','F-H02','—','TC-VT-02 模式選擇後規則同步驗證','Designed']
+        ['REQ-12','回饋通知狀態','F-C04','DT-CP-01','TC-VT-15 新回饋提示與內容一致','Designed']
       ];
 
 
@@ -3807,8 +3657,7 @@ When 公開動態或排行重新整理
 Then 該紀錄不得出現在任何公開範圍`, expected:'若曾公開，狀態變更後應依規則同步移除。' },
         { id:'TC-VT-17', title:'排行榜僅納入有效公開紀錄', priority:'High', status:'Designed', pre:'同時存在有效、私人、作廢與無效紀錄。', gwt:`Given 排行榜準備重新計算
 When 系統彙整訓練成績
-Then 僅有效且符合分享規則的紀錄可納入排行`, expected:'排行榜數值可追溯至符合條件的單一有效紀錄。' },
-        { id:'TC-VT-18', title:'無效帳號或 Session 逾時不得進入受保護頁面', priority:'High', status:'Designed', pre:'使用停用帳號憑證或已逾時的 Session Token。', gwt:`Given 使用者持有無效登入憑證或已逾時的 Session Token\nWhen 嘗試登入或直接存取受保護路由\nThen 系統應拒絕存取並導向登入頁，顯示對應錯誤提示`, expected:'不得進入任何受保護頁面；Session 應完全清除，不殘留前一使用者狀態。' }
+Then 僅有效且符合分享規則的紀錄可納入排行`, expected:'排行榜數值可追溯至符合條件的單一有效紀錄。' }
       ];
 
       var DOG_NODES = [
@@ -5033,7 +4882,7 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
       }
       function renderVtrainerDecision() {
         var highCount = VTRAINER_RULES.filter(function (r) { return r.risk === 'High'; }).length;
-        var mediumCount = VTRAINER_RULES.filter(function (r) { return r.risk === 'Medium'; }).length;
+        var mediumCount = VTRAINER_RULES.length - highCount;
         var rows = VTRAINER_RULES.map(function (r) {
           return '<tr data-vdomain="' + r.domain + '" data-vrisk="' + r.risk.toLowerCase() + '"><td><span class="case-id">' + r.id + '</span></td><td>' + r.domainLabel + '</td><td>' + r.conditions + '</td><td>' + r.expected + '</td><td><span class="risk-pill ' + r.risk.toLowerCase() + '">' + r.risk.toUpperCase() + '</span></td></tr>';
         }).join('');
@@ -5043,7 +4892,7 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
         }).join('');
         var body = '<div class="decision-summary"><div class="metric-card"><strong>' + VTRAINER_RULES.length + '</strong><span>Decision Rules</span></div><div class="metric-card"><strong>3</strong><span>Rule Domains</span></div><div class="metric-card"><strong>' + highCount + '</strong><span>High Risk</span></div><div class="metric-card"><strong>' + VTRAINER_CASES.length + '</strong><span>Detailed Test Cases</span></div></div>' +
           '<div class="data-table-wrap"><table class="data-table"><thead><tr><th>Rule ID</th><th>Domain</th><th>Conditions</th><th>Expected Result</th><th>Risk</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
-          '<h4 class="trace-heading">Requirement → Flow → Rule → Test Traceability</h4><p class="tool-note" style="margin-bottom:10px">此表呈現 12 筆代表性追溯關係，並非完整 RTM；各 Test Case ID 均可於下方 Detailed Test Cases 展開查看。</p><div class="data-table-wrap"><table class="data-table"><thead><tr><th>Req ID</th><th>Requirement</th><th>Flow Node</th><th>Decision Rule</th><th>Test Scenario</th><th>Status</th></tr></thead><tbody>' + traceRows + '</tbody></table></div>' +
+          '<h4 class="trace-heading">Requirement → Flow → Rule → Test Traceability</h4><p class="tool-note" style="margin-bottom:10px">此表呈現 10 筆代表性追溯關係，並非完整 RTM；各 Test Case ID 均可於下方 Detailed Test Cases 展開查看。</p><div class="data-table-wrap"><table class="data-table"><thead><tr><th>Req ID</th><th>Requirement</th><th>Flow Node</th><th>Decision Rule</th><th>Test Scenario</th><th>Status</th></tr></thead><tbody>' + traceRows + '</tbody></table></div>' +
           '<h4 class="trace-heading">Detailed Test Cases</h4><p class="tool-note">17 組代表性案例涵蓋登入、錄影、辨識、重試、權限、回饋、分享與排行；狀態為 Designed，不代表已全部執行。</p><div class="vt-test-list">' + testCards + '</div>';
         return shell('Decision Table', 'Domain and risk filters', body).replace('<div class="artifact-actions" data-toolbar></div>', '<div class="artifact-actions" data-toolbar><button class="tool-btn is-active" data-vdomain-filter="all" aria-pressed="true">All domains</button><button class="tool-btn" data-vdomain-filter="recording" aria-pressed="false">Recording</button><button class="tool-btn" data-vdomain-filter="sharing" aria-pressed="false">Sharing</button><button class="tool-btn" data-vdomain-filter="permission" aria-pressed="false">Permission</button><button class="tool-btn is-active" data-vrisk-filter="all" aria-pressed="true">All risks</button><button class="tool-btn" data-vrisk-filter="high" aria-pressed="false">High</button><button class="tool-btn" data-vrisk-filter="medium" aria-pressed="false">Medium</button></div>');
       }
@@ -5813,7 +5662,7 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
       }
       function setBackgroundInert(isInert) {
         Array.prototype.slice.call(document.body.children).forEach(function (el) {
-          if (el === overlay || el.id === 'modalLocalToast' || el.id === 'themeCord') return;
+          if (el === overlay || el.id === 'modalLocalToast') return;
           if (isInert) { el.setAttribute('inert', ''); }
           else { el.removeAttribute('inert'); }
         });
@@ -6155,66 +6004,6 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
       window.addEventListener('mouseleave', function () {
         document.body.classList.remove('mouse-active');
       });
-    })();
-
-    // ===== theme cord: pull-ring dark ↔ light toggle =====
-    (function () {
-      var cord   = document.getElementById('themeCord');
-      var gem    = document.getElementById('cordGem');
-      var line   = document.getElementById('cordLine');
-      var icon   = document.getElementById('cordIcon');
-      if (!cord) return;
-
-      var isLight    = false;
-      var isToggling = false;
-
-      var moonSVG = '<svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-      var sunSVG  = '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
-
-      function updateIcon() {
-        icon.innerHTML = isLight ? sunSVG : moonSVG;
-        cord.setAttribute('aria-label', isLight ? '切換深色主題' : '切換淺色主題');
-      }
-
-      function toggle() {
-        if (isToggling) return;
-        isToggling = true;
-
-        // Pull animation on cord
-        gem.classList.remove('is-pulling');
-        line.classList.remove('is-pulling');
-        void gem.offsetWidth;
-        gem.classList.add('is-pulling');
-        line.classList.add('is-pulling');
-
-        // Scan line sweeps top → bottom in 480ms
-        var scan = document.createElement('div');
-        scan.className = 'theme-scan';
-        scan.style.animation = 'themeScanDown 0.48s cubic-bezier(.45,0,.2,1) forwards';
-        document.body.appendChild(scan);
-
-        // Theme switches at scan midpoint (~200ms)
-        setTimeout(function () {
-          isLight = !isLight;
-          document.body.classList.toggle('theme-light', isLight);
-          updateIcon();
-        }, 200);
-
-        // Clean up
-        setTimeout(function () {
-          if (scan.parentNode) { scan.parentNode.removeChild(scan); }
-          gem.classList.remove('is-pulling');
-          line.classList.remove('is-pulling');
-          isToggling = false;
-        }, 560);
-      }
-
-      cord.addEventListener('click', toggle);
-      cord.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-      });
-
-      updateIcon();
     })();
   </script>
 

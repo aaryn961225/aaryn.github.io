@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>帶標籤數字動畫的基礎儀</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex29 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex29"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+
+      function getChartOptions(chartDom, data0, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+          },
+          tooltip: {
+            formatter: "{a} <br/>{b} : {c}%",
+          },
+          series: [
+            {
+              name: "Pressure",
+              type: "gauge",
+              progress: {
+                show: true,
+              },
+              detail: {
+                valueAnimation: true,
+                formatter: "{value}",
+              },
+              axisLine: {
+                lineStyle: {
+                  color: [
+                    [0.2, colors.seriesColors[0] || '#FF0000'], // 0-20% 為紅色
+                    [0.8, colors.seriesColors[1] || '#00FF00'], // 20-80% 為綠色
+                    [1, colors.seriesColors[2] || '#0000FF']    // 80-100% 為藍色
+                  ],
+                  width: 30
+                }
+              },
+              itemStyle: {
+                color: colors.axisLineColor || '#FF5733', // 更改指針的顏色
+              },
+              data: [
+                {
+                  value: data0,
+                  name: "SCORE",
+                },
+              ],
+            },
+          ]
+        }
+      }
+
+
+
+      var chartDom = document.getElementById("ex29");
+      var myChart = echarts.init(chartDom);
+
+      var initialData0 = [""];
+      var currentData0 = [...initialData0];
+
+      var currentColors = {
+        axisLineColor: '#5470C6',
+        seriesColors: ['#FFCC70', '#FFFADD', '#8ECDDD', '#A2C579', '#22668D'],
+      };
+
+
+      var option = getChartOptions(chartDom, currentData0, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀control data
+      var data0 = option.series[0].data;
+
+      function getTime() {
+        var now = new Date();
+        return now.toLocaleTimeString().replace(/^\D*/, "");
+      }
+
+      setInterval(function () {
+        data0.shift();
+        data0.push((Math.random() * (100 - 0 + 1) + 0).toFixed(0));
+        myChart.setOption({
+          series: [
+            {
+              data: currentData0
+            },
+          ]
+        });
+      }, 1000);
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.lineColor = event.data.colors.barColor;
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          currentColors.axisLineColor = event.data.colors.axisLineColor;
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentData0, currentColors);
+          myChart.setOption(option);
+        }
+      });
+
+    });
+  </script>
+</body>
+
+</html>

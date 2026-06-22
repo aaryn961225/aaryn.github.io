@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>圓角環形圖</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex21 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex21"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, data0, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+          },
+          tooltip: {
+            trigger: "item",
+          },         
+          series: [
+            {
+              name: "Access From",
+              type: "pie",
+              radius: ["40%", "70%"],
+              avoidLabelOverlap: false,
+              itemStyle: {
+                borderRadius: 10,
+                borderColor: "#fff",
+                borderWidth: 2,
+              },
+              label: {
+                show: false,
+                position: "center",
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: 40,
+                  fontWeight: "bold",
+                },
+              },
+              labelLine: {
+                show: false,
+              },
+              data: data0.map((item, index) => ({
+                ...item,
+                itemStyle: { color: colors.seriesColors[index] },
+              })),
+            },
+          ],
+        };
+      }
+
+      var chartDom = document.getElementById("ex21");
+      var myChart = echarts.init(chartDom);
+
+      var initialData0 = [
+        { value: 1048, name: "" },
+        { value: 735, name: "" },
+        { value: 580, name: "" },
+        { value: 484, name: "" },
+        { value: 300, name: "" },
+      ];
+      var currentData0 = [...initialData0];
+      var currentColors = {
+        seriesColors: ['#FFCC70', '#FFFADD', '#8ECDDD', '#A2C579', '#22668D'],
+      };
+
+      var option = getChartOptions(chartDom, currentData0, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀control data
+      var data0 = option.series[0].data;
+
+      function getTime() {
+        var now = new Date();
+        return now.toLocaleTimeString().replace(/^\D*/, "");
+      }
+
+      setInterval(function () {
+        data0.shift();
+        data0.push({ value: (Math.random() * (1800 - 0 + 1) + 0).toFixed(0) });
+
+        myChart.setOption({
+          series: [
+            {
+              data: data0.map((item, index) => ({
+                ...item,
+                itemStyle: { color: currentColors.seriesColors[index % currentColors.seriesColors.length] },
+              })),
+            },
+          ]
+        });
+      }, 1000);
+
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.lineColor = event.data.colors.barColor;
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          currentColors.axisLineColor = event.data.colors.axisLineColor;
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentData0, currentColors);
+          myChart.setOption(option);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

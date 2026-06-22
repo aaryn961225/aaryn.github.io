@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>餅圖自定義樣式</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex22 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex22"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, data0, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+          },
+          tooltip: {
+            trigger: "item",
+          },
+          visualMap: {
+            show: false,
+            min: 80,
+            max: 600,
+            inRange: {
+              colorLightness: [0, 1],
+            },
+          },
+          series: [
+            {
+              name: "Access From",
+              type: "pie",
+              radius: "55%",
+              center: ["50%", "50%"],
+              data: data0.sort(function (a, b) {
+                return a.value - b.value;
+              }).map((item, index) => ({
+                ...item,
+                itemStyle: { color: colors.seriesColors[index] }
+              })),
+              roseType: "radius",
+              label: {
+                color: "rgba(255, 255, 255, 0.3)",
+              },
+              labelLine: {
+                lineStyle: {
+                  color: "rgba(255, 255, 255, 0)",
+                },
+                smooth: 0.2,
+                length: 10,
+                length2: 20,
+              },
+              itemStyle: {
+                shadowBlur: 200,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+              },
+              animationType: "scale",
+              animationEasing: "elasticOut",
+              animationDelay: function (idx) {
+                return Math.random() * 200;
+              },
+            },
+          ],
+        }
+      }
+
+      var chartDom = document.getElementById("ex22");
+      var myChart = echarts.init(chartDom);
+
+      var initialData0 = [
+        { value: 335, name: 'Direct' },
+        { value: 310, name: 'Email' },
+        { value: 274, name: 'Union Ads' },
+        { value: 235, name: 'Video Ads' },
+        { value: 400, name: 'Search Engine' }
+      ];
+      var currentData0 = [...initialData0];
+      var currentColors = {
+        seriesColors: ['#FFCC70', '#FFFADD', '#8ECDDD', '#A2C579', '#22668D'],
+      };
+
+      var option = getChartOptions(chartDom, currentData0, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀control data
+      var data0 = option.series[0].data;
+
+      setInterval(function () {
+        data0.shift();
+        data0.push({ value: (Math.random() * 1800).toFixed(0), name: 'New Data' });
+
+        myChart.setOption({
+          series: [
+            {
+              data: data0.sort(function (a, b) {
+                return a.value - b.value;
+              }).map((item, index) => ({
+                ...item,
+                itemStyle: { color: currentColors.seriesColors[index % currentColors.seriesColors.length] }
+              })),
+            },
+          ]
+        });
+      }, 1000);
+
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentData0, currentColors);
+          myChart.setOption(option);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

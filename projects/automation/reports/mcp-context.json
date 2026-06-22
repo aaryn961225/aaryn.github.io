@@ -1,0 +1,97 @@
+{
+  "project": "Specification-driven QA Automation Orchestrator",
+  "contextType": "qa-automation-review",
+  "generatedAt": "2026-06-21T10:01:39.633Z",
+  "allowedContext": [
+    "specification summary",
+    "quality gate status",
+    "clarification issue summary",
+    "test summary",
+    "report path",
+    "deterministic mock review inputs only"
+  ],
+  "restrictedContext": [
+    "application source code",
+    "database content",
+    "credentials",
+    "production data",
+    "system command execution",
+    "unmasked internal business data"
+  ],
+  "artifacts": {
+    "qualityGateReport": {
+      "project": "Specification-driven QA Automation Orchestrator",
+      "gate": "Specification Quality Gate",
+      "module": "ALL",
+      "checkedModules": [
+        "AUTH01",
+        "ORD01",
+        "ORD02"
+      ],
+      "status": "passed",
+      "allowedToAutomate": true,
+      "summary": {
+        "totalIssues": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "blocking": 0
+      },
+      "issues": [],
+      "nextAction": "Automation may proceed after human confirmation."
+    },
+    "testSummary": {
+      "project": "Specification-driven QA Automation Orchestrator",
+      "module": "ALL",
+      "moduleName": "示範範圍內全部測試",
+      "testType": "Specification-driven Black-box UI Automation",
+      "specification": null,
+      "task": null,
+      "orchestrationFlow": [
+        "Prompt / requirement input",
+        "Specification",
+        "Task delegation",
+        "Specification Quality Gate",
+        "Playwright black-box UI execution",
+        "Report and summary generation",
+        "Phase 2 deterministic mock review",
+        "Human review"
+      ],
+      "generatedAt": "2026-06-21T10:01:38.946Z",
+      "sourceReport": "reports/playwright-results.json",
+      "playwrightReport": "playwright-report/index.html",
+      "status": "passed",
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 1977,
+      "failedCases": [],
+      "aiAccessScope": [
+        "test summary",
+        "quality gate result",
+        "module result",
+        "specification objective",
+        "acceptance criteria",
+        "failure title",
+        "failure message",
+        "report path"
+      ],
+      "restrictedScope": [
+        "system-under-test source code",
+        "database access",
+        "credentials or secrets",
+        "production system",
+        "unmasked business data",
+        "automatic defect creation without human review"
+      ],
+      "humanReviewRequired": true,
+      "note": "This summary is intended for the local Phase 2 deterministic mock review. It contains specification-level context and execution results only; it excludes source code, credentials, database content, and internal system details."
+    },
+    "promptLibrary": "prompts/",
+    "contracts": "contracts/",
+    "playwrightReport": "playwright-report/index.html"
+  },
+  "humanReviewRequired": true,
+  "note": "This deterministic mock MCP context is intended for local review and does not connect to a live MCP server."
+}

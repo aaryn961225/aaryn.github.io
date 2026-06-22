@@ -1,0 +1,16 @@
+{
+  "status": "ok",
+  "promptId": "07-failure-analysis",
+  "generatedAt": "2026-06-21T10:01:39.762Z",
+  "summary": "The deterministic mock review identified no blocking issue in the available demonstration reports.",
+  "findings": [
+    {
+      "severity": "Low",
+      "category": "Follow-up Testing",
+      "message": "The retained demonstration artifacts contain no blocking issue. Additional boundary conditions should still be reviewed according to current business risk.",
+      "suggestedAction": "QA should add or reprioritize boundary cases when the business risk or specification changes."
+    }
+  ],
+  "humanReviewRequired": true,
+  "disclaimer": "This is a deterministic local mock response. No external LLM was called, and human review remains required."
+}

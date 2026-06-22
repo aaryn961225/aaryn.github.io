@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>自定義折線圖樣式</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex08 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex08"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, data0, data1, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+          },
+          xAxis: {
+            type: "category",
+            data: data0,
+          },
+          yAxis: {
+            type: "value",
+          },
+          series: [
+            {
+              data: data1,
+              type: "line",
+              symbol: "triangle",
+              symbolSize: setSize(chartDom, 20),
+              lineStyle: {
+                color: colors.axisLineColor ||"#5470C6",
+                width: setSize(chartDom, 10),
+                type: "dashed",
+              },
+              itemStyle: {
+                borderWidth: setSize(chartDom, 15),
+                borderColor:  colors.axisLabelColor ||"#EE6666",
+                color: colors.axisLineColor ||"yellow",
+              },
+            },
+          ],
+        }
+      }
+
+      var chartDom = document.getElementById("ex08");
+      var myChart = echarts.init(chartDom);
+
+      var initialData0 = ["", "", "", "", "", "", ""];
+      var initialData1 = ["", "", "", "", "", "", ""];
+      var currentData0 = [...initialData0];
+      var currentData1 = [...initialData1];
+      var currentColors = {
+        axisLineColor: '#5470C6',
+        axisLabelColor: '#EE6666',       
+      };
+
+
+      var option = getChartOptions(chartDom, currentData0, currentData1, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀control data
+      var data0 = option.xAxis.data;
+      var data1 = option.series[0].data;
+
+      function getTime() {
+        var now = new Date();
+        return now.toLocaleTimeString().replace(/^\D*/, "");
+      }
+
+      setInterval(function () {
+        data0.shift();
+        data0.push(getTime());
+        data1.shift();
+        data1.push((Math.random() * (80 - 60 + 1) + 60).toFixed(2));
+        // 只更新數據
+        myChart.setOption({
+          xAxis: {
+            data: currentData0
+          },
+          series: [
+            {
+              data: currentData1
+            }
+          ]
+        });
+      }, 1000);
+
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.lineColor = event.data.colors.barColor;
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          currentColors.axisLineColor = event.data.colors.axisLineColor;
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentData0, currentData1, currentColors);
+          myChart.setOption(option);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

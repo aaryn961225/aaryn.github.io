@@ -1,0 +1,28 @@
+{
+  "name": "specification-driven-qa-automation-orchestrator",
+  "version": "1.0.8",
+  "private": true,
+  "description": "Specification-driven black-box QA automation prototype with Playwright, a rule-based Quality Gate, JSON contracts, and deterministic mock adapters for review, MCP context, and n8n notification payloads.",
+  "scripts": {
+    "install:browsers": "playwright install chromium",
+    "test": "node scripts/select-module.js",
+    "test:all": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "codegen": "playwright codegen demo-app/index.html",
+    "summary": "node scripts/generate-summary.js",
+    "report:playwright": "playwright show-report",
+    "test:menu": "node scripts/select-module.js",
+    "quality:check": "node scripts/quality-gate.js",
+    "quality:clarify": "node scripts/clarify-spec.js",
+    "test:automation": "playwright test --headed",
+    "context:build": "node scripts/build-mcp-context.js",
+    "ai:mock": "node scripts/run-mock-llm-analysis.js",
+    "n8n:mock": "node scripts/run-mock-n8n-notification.js",
+    "integration:mock": "node scripts/run-integration-mock.js",
+    "integration:clean": "node scripts/clean-integration-output.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.54.0"
+  }
+}

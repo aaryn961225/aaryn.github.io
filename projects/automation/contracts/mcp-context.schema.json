@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MCP Context",
+  "type": "object",
+  "required": [
+    "project",
+    "contextType",
+    "allowedContext",
+    "restrictedContext",
+    "artifacts"
+  ],
+  "properties": {
+    "project": {
+      "type": "string"
+    },
+    "contextType": {
+      "type": "string"
+    },
+    "allowedContext": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "restrictedContext": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "artifacts": {
+      "type": "object"
+    },
+    "humanReviewRequired": {
+      "type": "boolean"
+    }
+  }
+}

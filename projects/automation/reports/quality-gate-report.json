@@ -1,0 +1,21 @@
+{
+  "project": "Specification-driven QA Automation Orchestrator",
+  "gate": "Specification Quality Gate",
+  "module": "ALL",
+  "checkedModules": [
+    "AUTH01",
+    "ORD01",
+    "ORD02"
+  ],
+  "status": "passed",
+  "allowedToAutomate": true,
+  "summary": {
+    "totalIssues": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "blocking": 0
+  },
+  "issues": [],
+  "nextAction": "Automation may proceed after human confirmation."
+}

@@ -1,0 +1,38 @@
+{
+  "project": "Specification-driven QA Automation Orchestrator",
+  "module": "ORD01",
+  "moduleName": "一般訂貨 Happy Path",
+  "specification": {
+    "path": "specs/ORD01.order-happy-path.spec.md",
+    "objective": "驗證使用者可從登入開始，完成一般訂貨核心流程，包含設定訂貨條件、加入商品、送出訂貨與確認成功訊息。",
+    "acceptanceCriteria": [
+      "使用者可以使用測試帳號登入系統。",
+      "登入後可進入一般訂貨操作區。",
+      "可設定門市與訂貨日。",
+      "可選擇商品並輸入訂貨數量。",
+      "送出後畫面應顯示訂貨成功訊息。"
+    ]
+  },
+  "testSummary": {
+    "status": "sample",
+    "total": 0,
+    "passed": 0,
+    "failed": 0,
+    "failedCases": [],
+    "playwrightReport": "playwright-report/index.html"
+  },
+  "allowedUse": [
+    "summarize test result",
+    "suggest follow-up test ideas",
+    "highlight possible risk areas",
+    "prepare human review notes"
+  ],
+  "restrictedUse": [
+    "read source code",
+    "access database",
+    "use credentials",
+    "operate production system",
+    "create defects automatically"
+  ],
+  "humanReviewRequired": true
+}

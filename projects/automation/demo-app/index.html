@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web SC 訂貨流程 Demo</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero-card">
+      <p class="eyebrow">Black-box Low-Code UI Automation</p>
+      <h1>Web SC 訂貨流程示範系統</h1>
+      <p class="hero-text">此頁面為離線模擬受測系統，用於展示 Playwright 黑箱 UI 自動化、資料驅動測試、模組化與報告產出流程。</p>
+    </section>
+
+    <section class="panel" id="login-panel" aria-labelledby="login-title">
+      <h2 id="login-title">1. 登入</h2>
+      <form id="login-form">
+        <label for="user-id">帳號</label>
+        <input id="user-id" name="userId" autocomplete="username" value="qa.demo" />
+        <label for="password">密碼</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" value="demo1234" />
+        <button type="submit">登入</button>
+      </form>
+      <p id="login-status" role="status" class="status muted">尚未登入</p>
+    </section>
+
+    <section class="panel hidden" id="order-panel" aria-labelledby="order-title">
+      <h2 id="order-title">2. 一般訂貨</h2>
+      <div class="grid-two">
+        <div>
+          <label for="store-select">門市</label>
+          <select id="store-select" aria-label="門市">
+            <option value="A001">A001 測試店</option>
+            <option value="B002">B002 控制店</option>
+          </select>
+        </div>
+        <div>
+          <label for="order-date">訂貨日</label>
+          <input id="order-date" aria-label="訂貨日" type="date" value="2026-06-17" />
+        </div>
+      </div>
+
+      <div class="table-card">
+        <table aria-label="商品清單">
+          <thead>
+            <tr>
+              <th>商品</th>
+              <th>類型</th>
+              <th>建議量 SugM</th>
+              <th>訂貨量 M</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="item-table"></tbody>
+        </table>
+      </div>
+
+      <section class="summary-card" aria-label="訂貨摘要">
+        <h3>訂貨摘要</h3>
+        <p>品項數：<strong id="summary-count">0</strong></p>
+        <p>總訂貨量：<strong id="summary-total">0</strong></p>
+      </section>
+
+      <button id="submit-order" class="primary" type="button">送出訂貨</button>
+      <p id="order-status" role="status" class="status muted">尚未送出</p>
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

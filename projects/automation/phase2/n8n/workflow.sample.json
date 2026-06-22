@@ -1,0 +1,56 @@
+{
+  "name": "QA Test Summary Review Mock Workflow",
+  "nodes": [
+    {
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [0, 0]
+    },
+    {
+      "id": "read-summary",
+      "name": "Read test-summary.json",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "position": [240, 0],
+      "notes": "Mock design: read sanitized test summary only. No source code or credentials."
+    },
+    {
+      "id": "status-check",
+      "name": "Check test status",
+      "type": "n8n-nodes-base.if",
+      "position": [480, 0],
+      "notes": "Route failed and passed summaries to different human review messages."
+    },
+    {
+      "id": "prepare-review-message",
+      "name": "Prepare human review message",
+      "type": "n8n-nodes-base.set",
+      "position": [720, 0],
+      "notes": "Create a review message. Do not create defects automatically."
+    },
+    {
+      "id": "human-review",
+      "name": "Human Review Required",
+      "type": "n8n-nodes-base.noOp",
+      "position": [960, 0],
+      "notes": "Final decision remains with QA / human reviewer."
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{"node": "Read test-summary.json", "type": "main", "index": 0}]]
+    },
+    "Read test-summary.json": {
+      "main": [[{"node": "Check test status", "type": "main", "index": 0}]]
+    },
+    "Check test status": {
+      "main": [[{"node": "Prepare human review message", "type": "main", "index": 0}]]
+    },
+    "Prepare human review message": {
+      "main": [[{"node": "Human Review Required", "type": "main", "index": 0}]]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "mock-spec-driven-v6"
+}

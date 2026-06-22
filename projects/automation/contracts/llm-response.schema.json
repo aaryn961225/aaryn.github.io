@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LLM Review Response",
+  "type": "object",
+  "required": [
+    "status",
+    "summary",
+    "findings",
+    "humanReviewRequired"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "needs_review",
+        "error"
+      ]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "humanReviewRequired": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>正負條形圖</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex14 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex14"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+
+    require(["echarts"], function (echarts) {
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, data1, data2, colors) {
+        return {
+          grid: {
+            left: setSize(chartDom, 40),
+            right: setSize(chartDom, 10),
+            top: setSize(chartDom, 30),
+            bottom: setSize(chartDom, 20),
+            containLabel: true,
+          },
+          tooltip: {
+            trigger: "axis",
+            axisPointer: {
+              type: "shadow",
+            },
+          },
+          legend: {
+            data: ["Income", "Expenses"], // ✅ 只保留 Income & Expenses
+          },
+          xAxis: [
+            {
+              type: "category",
+              data: ["A", "B", "C", "D", "E", "F", "G"], // X 軸類別
+              axisTick: { show: false },
+              axisLabel: { color: colors.axisLabelColor || '#000000' },
+              axisLine: { lineStyle: { color: 'rgba(255, 255, 255, 0.5)' } },
+            },
+          ],
+          yAxis: [
+            {
+              type: "value",
+              axisLine: { lineStyle: { color: 'rgba(255, 255, 255, 0.5)' } },
+              axisLabel: { color: colors.axisLabelColor || '#000000' }
+            },
+          ],
+          series: [
+            {
+              name: "Income",
+              type: "bar",
+              stack: "Total",
+              label: { show: true },
+              emphasis: { focus: "series" },
+              data: data1,
+              itemStyle: { color: colors.seriesColors[1] || "#FFFADD" },
+            },
+            {
+              name: "Expenses",
+              type: "bar",
+              stack: "Total",
+              label: { show: true, position: "left" },
+              emphasis: { focus: "series" },
+              data: data2,
+              itemStyle: { color: colors.seriesColors[2] || "#8ECDDD" },
+            },
+          ],
+        };
+      }
+
+      var chartDom = document.getElementById("ex14");
+      var myChart = echarts.init(chartDom);
+
+      var initialData1 = [300, 350, 150, 400, 450, 250, 200];
+      var initialData2 = [-100, -200, -100, -300, -400, -200, -150];
+
+      var currentData1 = [...initialData1];
+      var currentData2 = [...initialData2];
+
+      var currentColors = {
+        seriesColors: ['#FFCC70', '#FFFADD', '#8ECDDD', '#A2C579', '#22668D'],
+      };
+
+      var option = getChartOptions(chartDom, currentData1, currentData2, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀 更新數據，每秒推進一筆數據
+      var data1 = option.series[0].data;
+      var data2 = option.series[1].data;
+
+      setInterval(function () {
+        data1.shift();
+        data1.push((Math.random() * (500 - 300 + 1) + 300).toFixed(0));
+        data2.shift();
+        data2.push((Math.random() * (-100 - 300) - 100).toFixed(0));
+
+        myChart.setOption({
+          series: [
+            { data: data1 },
+            { data: data2 }
+          ]
+        });
+      }, 1000);
+
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          currentColors.axisLineColor = event.data.colors.axisLineColor;
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentData1, currentData2, currentColors);
+          myChart.setOption(option);
+        }
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>

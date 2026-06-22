@@ -1,0 +1,51 @@
+QA Career Journey – Professional Text Finalization
+==================================================
+
+Objective
+- Freeze the current functionality, folder structure, and interaction design.
+- Review authored, user-facing, and supporting project text for professional tone, technical precision, consistent naming, and defensible scope statements.
+- Preserve evidence without converting it into claims of full regression coverage, product stability, or production readiness.
+
+Text areas reviewed
+- Main portfolio: project cards, modal narratives, metrics, status labels, run instructions, accessibility/security scope notes, and retained evidence wording.
+- Visualization Quality Lab: scope statement, QA focus, dashboard states, error messages, and ECharts positioning.
+- Automation project: README files, run guide, architecture, Docker guide, safety boundaries, integration roadmap, role descriptions, Quality Gate messages, CLI output, generated summaries, deterministic mock adapters, and retained mock reports.
+- Startup and release documents: README.md, README-PORTFOLIO.md, CONTENT-BASELINE.md, INTEGRATION-AUDIT.txt, and verify-release.py.
+
+Key finalizations
+- Removed duplicate ECharts navigation in embedded portfolio mode while preserving the internal tabs on the standalone chart page.
+- Standardized the project name as “VTrainer”.
+- Replaced colloquial “簡單說” labels with “重點說明”.
+- Reframed Automation as an executable prototype rather than a concept-only prototype.
+- Standardized status boundaries as Implemented, Prepared, Deterministic Mock, and Planned.
+- Clarified that ALL means all tests within the demonstration scope, not a complete product regression suite.
+- Clarified that Docker is an optional prepared runtime configuration; this content finalization does not claim a new Docker execution.
+- Standardized the retained evidence as 3/3 Playwright demonstration tests passed and 0 blocking Quality Gate issues for three demonstration modules.
+- Replaced ambiguous mock-result wording with deterministic-local-mock language and retained the mandatory human-review boundary.
+- Added the Specification Quality Gate to generated orchestration summaries.
+- Corrected MCP artifact key casing and regenerated test-summary, MCP context, AI review, n8n payload, and HTML document views.
+- Localized CLI wording for report server, prerequisites, task files, clarification options, and execution-result interpretation.
+
+Protected scope boundaries
+- VTrainer: 8 core rules and 6 high-risk scenarios.
+- Dog Fetch: 11 behavior nodes and 7 core GWT scenarios.
+- QA Checklist: 9 categories and 140 reusable items.
+- Visualization: 38 retained source cases and 8 interactive offline ECharts implementations.
+- Automation: a separate reusable execution-framework prototype; it is not an end-to-end integration of the other four projects.
+- XR, hardware, and gamepad scenarios are designed but not executed across a complete physical-device matrix.
+- Web Security Sanity Checks are not penetration testing, vulnerability scanning, or a security audit.
+
+Verification
+- verify-release.py: PASSED (131 checks)
+- Specification Quality Gate: PASSED, 0 blocking issues
+- Retained Playwright report: 3 expected, 0 unexpected, 0 flaky
+- Deterministic mock integration: completed locally without external AI, live MCP, or n8n calls
+- Authored JavaScript syntax: 22 files passed node --check
+- Primary HTML duplicate-ID checks: passed
+- UTF-8 and mojibake scan: passed
+- Required assets and generated HTML document views: present
+- Font binary scan: none found
+
+Exclusions
+- Third-party libraries, generated Playwright report internals, and retained chart source examples are preserved as vendor, generated, or historical material and are excluded from authored-language normalization.
+- Unused development-source comments are not presented as portfolio copy and were not rewritten solely for editorial style.

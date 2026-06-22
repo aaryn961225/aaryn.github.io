@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>折柱混合</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex16 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex16"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+
+
+      function getChartOptions(chartDom, data0, data1, data2, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+            containLabel: true,
+          },
+          tooltip: {
+            trigger: "axis",
+            axisPointer: {
+              type: "cross",
+              crossStyle: {
+                color: "#999",
+              },
+            },
+          },
+          // toolbox: {
+          //   feature: {
+          //     dataView: { show: true, readOnly: false },
+          //     magicType: { show: true, type: ["line", "bar"] },
+          //     restore: { show: true },
+          //     saveAsImage: { show: true },
+          //   },
+          // },
+          legend: {
+            data: ["", "", ""],
+          },
+          xAxis: [
+            {
+              type: "category",
+              data: ["", "", "", "", "", "", ""],
+              axisPointer: {
+                type: "shadow",
+              },
+            },
+          ],
+          yAxis: [
+            {
+              type: "value",
+              name: "Precipitation",
+              min: 0,
+              max: 250,
+              interval: 50,
+              axisLabel: {
+                formatter: "{value} ml",
+              },
+            },
+            {
+              type: "value",
+              name: "Temperature",
+              min: 0,
+              max: 25,
+              interval: 5,
+              axisLabel: {
+                formatter: "{value} °C",
+              },
+            },
+          ],
+          series: [
+            {
+              name: "Evaporation",
+              type: "bar",
+              tooltip: {
+                valueFormatter: function (value) {
+                  return value + " ml";
+                },
+              },
+              data: data0,
+              itemStyle: {
+                color: colors.seriesColors[0] || "#5470C6",
+              },
+            },
+            {
+              name: "Precipitation",
+              type: "bar",
+              tooltip: {
+                valueFormatter: function (value) {
+                  return value + " ml";
+                },
+              },
+              data: data1,
+              itemStyle: {
+                color: colors.seriesColors[1] || "#5470C6",
+              },
+            },
+            {
+              name: "Temperature",
+              type: "line",
+              yAxisIndex: 1,
+              tooltip: {
+                valueFormatter: function (value) {
+                  return value + " °C";
+                },
+              },
+              data: data2,
+              itemStyle: {
+                color: colors.seriesColors[2] || '#0000ff'
+              }
+            },
+          ],
+        };
+      }
+
+      var chartDom = document.getElementById("ex16");
+      var myChart = echarts.init(chartDom);
+
+      var initialData0 = [
+        2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4,
+        3.3,
+      ];
+      var initialData1 = [
+        2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0,
+        2.3,
+      ];
+      var initialData2 = [
+        2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0,
+        6.2,
+      ];
+      var currentData0 = [...initialData0];
+      var currentData1 = [...initialData1];
+      var currentData2 = [...initialData2];
+
+      var currentColors = {
+        seriesColors: ['#FFCC70', '#FFFADD', '#8ECDDD', '#A2C579', '#22668D'],
+      };
+
+      var option = getChartOptions(chartDom, currentData0, currentData1, currentData2, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀control data
+      var data0 = option.series[0].data;
+      var data1 = option.series[1].data;
+      var data2 = option.series[2].data;
+
+      function getTime() {
+        var now = new Date();
+        return now.toLocaleTimeString().replace(/^\D*/, "");
+      }
+
+      setInterval(function () {
+        data0.shift();
+        data0.push((Math.random() * (250 - 0 + 1) + 0).toFixed(0));
+        data1.shift();
+        data1.push((Math.random() * (250 - 0 + 1) + 0).toFixed(0));
+        data2.shift();
+        data2.push((Math.random() * (25 - 0) + 0).toFixed(0));
+
+        myChart.setOption({
+          series: [
+            {
+              data: currentData0
+            },
+            {
+              data: currentData1
+            },
+            {
+              data: currentData2
+            },
+          ]
+        });
+      }, 1000);
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.lineColor = event.data.colors.barColor;
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          currentColors.axisLineColor = event.data.colors.axisLineColor;
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentData0, currentData1, currentData2,currentColors);
+          myChart.setOption(option);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

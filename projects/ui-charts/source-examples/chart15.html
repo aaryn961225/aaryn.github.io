@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>某地區蒸發量和降水量</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex15 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex15"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, data0, data1, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+            containLabel: true,
+          },
+          tooltip: {
+            trigger: "axis",
+          },
+          legend: {
+            data: ["Rainfall", "Evaporation"],
+          },
+          // toolbox: {
+          //   show: true,
+          //   feature: {
+          //     dataView: { show: true, readOnly: false },
+          //     magicType: { show: true, type: ["line", "bar"] },
+          //     restore: { show: true },
+          //     saveAsImage: { show: true },
+          //   },
+          // },
+          calculable: true,
+          xAxis: [
+            {
+              type: "category",
+              data: ['', '', '', '', '', '', '', '', '', '', '', ''],
+            },
+          ],
+          yAxis: [
+            {
+              type: "value",
+            },
+          ],
+          series: [
+            {
+              name: "",
+              type: "bar",
+              data: data0,
+              itemStyle: {
+                color: colors.axisLineColor || "#5470C6",
+              },
+              markPoint: {
+                data: [
+                  { type: "max", name: "Max" },
+                  { type: "min", name: "Min" },
+                ],
+              },
+              markLine: {
+                data: [{ type: "average", name: "Avg" }],
+              },
+            },
+            {
+              name: "",
+              type: "bar",
+              data: data1,
+              itemStyle: {
+                color: colors.axisLabelColor || "#5470C6",
+              },
+              markLine: {
+                data: [{ type: "average", name: "Avg" }],
+              },
+            },
+          ],
+        };
+      }
+
+      var chartDom = document.getElementById("ex15");
+      var myChart = echarts.init(chartDom);
+
+      var initialData0 = [
+        2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4,
+        3.3,
+      ];
+      var initialData1 = [
+        2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0,
+        2.3,
+      ];
+      var currentData0 = [...initialData0];
+      var currentData1 = [...initialData1];
+      var currentColors = {
+        axisLineColor: '#5470C6',
+        axisLabelColor: '#EE6666',
+      };
+
+      var option = getChartOptions(chartDom, currentData0, currentData1, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀control data
+      var data0 = option.series[0].data;
+      var data1 = option.series[1].data;
+
+      function getTime() {
+        var now = new Date();
+        return now.toLocaleTimeString().replace(/^\D*/, "");
+      }
+
+      setInterval(function () {
+        data0.shift();
+        data0.push((Math.random() * (210 - 0 + 1) + 0).toFixed(0));
+        data1.shift();
+        data1.push((Math.random() * (210 - 0 + 1) + 0).toFixed(0));
+        myChart.setOption({
+          series: [
+            {
+              data: currentData0
+            },
+            {
+              data: currentData1
+            }
+          ]
+        });
+      }, 1000);
+      
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.lineColor = event.data.colors.barColor;
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          currentColors.axisLineColor = event.data.colors.axisLineColor;
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentData0, currentData1, currentColors);
+          myChart.setOption(option);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

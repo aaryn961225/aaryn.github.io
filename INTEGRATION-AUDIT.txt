@@ -1,0 +1,39 @@
+QA Career Journey – Content-Final Audited Release
+=================================================
+
+Release purpose
+- Preserve the current functionality and file structure while finalizing user-facing and supporting text.
+- Standardize project names, technical terminology, scope statements, execution status, and evidence wording.
+- Prevent future functional or textual rollback through verify-release.py.
+
+Content precision changes
+- Standardized VTrainer casing and project naming.
+- Replaced colloquial descriptions with clear QA terminology while retaining accessible explanations.
+- Reframed ALL as all tests within the demonstration scope, not a complete product regression suite.
+- Replaced the Docker execution claim with Docker runtime configuration; this avoids implying that the current release verification ran a Docker daemon.
+- Reworded local execution evidence as 3/3 Playwright demonstration tests passed and 0 blocking Quality Gate issues.
+- Standardized terms for visible-browser/headless execution, static server, Docker image, production credentials, host dependencies, and volume mounts.
+- Clarified that device scenarios are designed but not executed across a complete physical-device matrix.
+- Clarified that Web Security Sanity Checks are not penetration testing, vulnerability scanning, or a security audit.
+- Updated internal and public Automation documentation to distinguish implemented, prepared, deterministic mock, and planned components.
+
+Current release scope
+- Main portfolio entry: index.html
+- VTrainer: requirement image, prototype flow, 7 screenshots, and MP4 demonstration
+- Dog Fetch: Three.js/Ammo.js/glTF demonstration and required runtime assets
+- UI charts: 8 interactive offline ECharts and retained source-reference files
+- Automation: rule-based Specification Quality Gate, Playwright project/report, optional Docker runtime configuration, and deterministic mock MCP/AI/n8n outputs
+
+Validation performed
+- Release verifier passed (129 checks)
+- Main and authored JavaScript syntax passed (22 files)
+- Duplicate static HTML IDs: none in primary entry pages
+- Required assets and document links: present
+- Professional-text baseline and forbidden-term scan: passed
+- UTF-8 document views: present
+- npm run quality:check: passed with 0 blocking issues
+- npm run integration:mock: passed
+
+Scope note
+- Source-example HTML and third-party libraries are retained as historical or vendor material and are excluded from authored-text normalization.
+- Docker configuration is provided as an optional runtime. This release does not claim that Docker execution was re-run during content finalization.

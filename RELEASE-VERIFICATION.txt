@@ -1,0 +1,135 @@
+QA Career Journey release verification
+============================================
+PASS  required file: index.html
+PASS  required file: README.md
+PASS  required file: README-PORTFOLIO.md
+PASS  required file: CONTENT-BASELINE.md
+PASS  required file: INTEGRATION-AUDIT.txt
+PASS  required file: serve.py
+PASS  required file: start-portfolio.bat
+PASS  required file: start-portfolio.ps1
+PASS  required file: assets/vtrainer/requirement.png
+PASS  required file: assets/vtrainer/prototype-flow.png
+PASS  required file: assets/vtrainer/vtrainer-demo.mp4
+PASS  required file: projects/dog/media/img/case_3d.png
+PASS  required file: projects/dog/views/behaviorTree/behaviorTree_dog.html
+PASS  required file: projects/ui-charts/index.html
+PASS  required file: projects/ui-charts/charts.js
+PASS  required file: projects/ui-charts/vendor/echarts.min.js
+PASS  required file: projects/automation/package.json
+PASS  required file: projects/automation/Dockerfile
+PASS  required file: projects/automation/README.md
+PASS  required file: projects/automation/RUN_GUIDE.md
+PASS  required file: projects/automation/RUN_GUIDE.html
+PASS  required file: projects/automation/docs/docker-integration-guide.md
+PASS  required file: projects/automation/docs/docker-integration-guide.html
+PASS  required file: projects/automation/docs/architecture.md
+PASS  required file: projects/automation/docs/architecture.html
+PASS  required file: projects/automation/reports/ai-review.md
+PASS  required file: projects/automation/reports/ai-review.html
+PASS  required file: projects/automation/playwright-report/index.html
+PASS  required file: assets/vtrainer/shots/01-splash.png
+PASS  required file: assets/vtrainer/shots/02-login.png
+PASS  required file: assets/vtrainer/shots/03-home.png
+PASS  required file: assets/vtrainer/shots/04-score.png
+PASS  required file: assets/vtrainer/shots/05-coach.png
+PASS  required file: assets/vtrainer/shots/06-rank.png
+PASS  required file: assets/vtrainer/shots/07-profile.png
+PASS  offline ECharts iframe
+PASS  ECharts dashboard iframe
+PASS  embedded ECharts mode
+PASS  embedded duplicate navigation hidden
+PASS  Run & Docker tab
+PASS  first-run directory command
+PASS  browser install script
+PASS  quality check command
+PASS  Docker build command
+PASS  copy command buttons
+PASS  modal inert initial state
+PASS  modal inert close state
+PASS  responsive breakpoint CSS
+PASS  responsive breakpoint JS
+PASS  responsive inline reset
+PASS  automation relationship disclaimer
+PASS  UTF-8 architecture HTML
+PASS  UTF-8 AI review HTML
+PASS  Accessibility first pass
+PASS  Security sanity scope
+PASS  device scenario execution status
+PASS  professional plain-language label
+PASS  Automation executable prototype label
+PASS  deterministic mock status
+PASS  recorded evidence wording
+PASS  Docker status is prepared
+PASS  ALL scope is demonstration-only
+PASS  PowerShell execution-policy guidance
+PASS  content baseline exists
+PASS  deterministic review report title
+PASS  obsolete SVG chart renderer
+PASS  pending GitHub placeholder
+PASS  old automation convergence claim
+PASS  old README port
+PASS  generic HTTP server instruction
+PASS  stale missing-resource statement
+PASS  unused broken cannon import map
+PASS  colloquial summary label removed
+PASS  old Docker execution claim removed
+PASS  complete regression overclaim removed
+PASS  zero-issue shorthand removed
+PASS  old mock review wording removed
+PASS  report-server wording localized
+PASS  MCP report key casing corrected
+PASS  duplicate IDs: index.html
+PASS  duplicate IDs: projects/ui-charts/index.html
+PASS  duplicate IDs: projects/dog/views/behaviorTree/behaviorTree_dog.html
+PASS  8 live ECharts definitions
+PASS  local ECharts runtime reference
+PASS  ECharts localStorage dashboard
+PASS  ECharts dispose before rerender
+PASS  Playwright package version 1.54.0
+PASS  Docker image version aligned
+PASS  package description uses precise mock scope
+PASS  valid JSON: projects/automation/tasks/ALL.task.json
+PASS  valid JSON: projects/automation/tasks/AUTH01.task.json
+PASS  valid JSON: projects/automation/tasks/ORD01.task.json
+PASS  valid JSON: projects/automation/tasks/ORD02.task.json
+PASS  valid JSON: projects/automation/reports/quality-gate-report.json
+PASS  valid JSON: projects/automation/reports/playwright-results.json
+PASS  valid JSON: projects/automation/reports/test-summary.json
+PASS  valid JSON: projects/automation/reports/mcp-context.json
+PASS  valid JSON: projects/automation/reports/ai-review.json
+PASS  valid JSON: projects/automation/reports/n8n-payload.json
+PASS  Checklist 9 categories
+PASS  Checklist 140-item statement
+PASS  Dog 11 nodes statement
+PASS  Dog 7 GWT statement
+PASS  VTrainer 8 rules and 6 high-risk scenarios
+PASS  VTrainer rule evidence uses 8/8
+PASS  Automation flow includes Quality Gate
+PASS  architecture preserves human review
+PASS  Docker guide excludes production assets
+PASS  retained Playwright evidence is 3 passed
+PASS  retained Quality Gate evidence has 0 blocking issues
+PASS  professional text excludes: 簡單說：
+PASS  professional text excludes: 完整回歸
+PASS  professional text excludes: 0 issue
+PASS  professional text excludes: Production Credential
+PASS  professional text excludes: Docker-ready
+PASS  professional text excludes: Integration-ready
+PASS  professional text excludes: 證明穩定
+PASS  professional text excludes: 連結待補
+PASS  professional text excludes: No blocking issue detected by mock review
+PASS  professional text excludes: QA automation review completed. No blocking issue detected by mock integration.
+PASS  JavaScript syntax: projects/ui-charts/charts.js
+PASS  JavaScript syntax: projects/automation/scripts/select-module.js
+PASS  JavaScript syntax: projects/automation/scripts/quality-gate.js
+PASS  JavaScript syntax: projects/automation/scripts/clarify-spec.js
+PASS  JavaScript syntax: projects/automation/scripts/generate-summary.js
+PASS  JavaScript syntax: projects/automation/scripts/run-mock-llm-analysis.js
+PASS  JavaScript syntax: projects/automation/scripts/run-mock-n8n-notification.js
+PASS  JavaScript syntax: projects/automation/adapters/mcp/mock-mcp-context-builder.js
+PASS  JavaScript syntax: projects/automation/adapters/llm/mock-llm-client.js
+PASS  JavaScript syntax: projects/automation/adapters/n8n/mock-n8n-webhook.js
+PASS  JavaScript syntax: index inline script
+
+Result: PASSED (131 checks)

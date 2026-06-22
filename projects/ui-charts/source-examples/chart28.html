@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>漏斗圖</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex28 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex28"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+          },
+          tooltip: {
+            trigger: "item",
+            formatter: "{a} <br/>{b} : {c}%",
+          },
+          // toolbox: {
+          //   feature: {
+          //     dataView: { readOnly: false },
+          //     restore: {},
+          //     saveAsImage: {},
+          //   },
+          // },
+          legend: {
+            data: ["", "", "", "", ""],
+          },
+          series: [
+            {
+              name: "Funnel",
+              type: "funnel",
+              left: "10%",
+              top: 60,
+              bottom: 60,
+              width: "80%",
+              min: 0,
+              max: 100,
+              minSize: "0%",
+              maxSize: "100%",
+              sort: "descending",
+              gap: 2,
+              label: {
+                show: true,
+                position: "inside",
+              },
+              labelLine: {
+                length: 10,
+                lineStyle: {
+                  width: 1,
+                  type: "solid",
+                },
+              },
+              itemStyle: {
+                borderColor: "#fff",
+                borderWidth: 1,
+              },
+              emphasis: {
+                label: {
+                  fontSize: 20,
+                },
+              },
+              data: [
+                {
+                  value: 60,
+                  name: "c",
+                  itemStyle: {
+                    color: colors.seriesColors[0] ||  "#1FCFDE", 
+                  },
+                },
+                {
+                  value: 40,
+                  name: "d",
+                  itemStyle: {
+                    color: colors.seriesColors[1] ||  "#FF5733", 
+                    
+                  },
+                },
+                {
+                  value: 20,
+                  name: "e",
+                  itemStyle: {
+                  color: colors.seriesColors[2] || "#33FF57",
+                    
+                  },
+                },
+                {
+                  value: 80,
+                  name: "b",
+                  itemStyle: {
+                    color: colors.seriesColors[3] || "#5733FF",
+                  },
+                },
+                {
+                  value: 100,
+                  name: "a",
+                  itemStyle: {
+                    color: colors.seriesColors[4] ||  "#5470C6",
+                  },
+                },
+
+              ],
+            },
+          ],
+        }
+      }
+
+
+
+      var chartDom = document.getElementById("ex28");
+      var myChart = echarts.init(chartDom);
+      var currentColors = {
+        seriesColors: ['#FFCC70', '#FFFADD', '#8ECDDD', '#A2C579', '#22668D'],
+      };
+
+      var option = getChartOptions(chartDom, currentColors);
+      myChart.setOption(option);
+      
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀control data
+
+      function getTime() {
+        var now = new Date();
+        return now.toLocaleTimeString().replace(/^\D*/, "");
+      }
+
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.lineColor = event.data.colors.barColor;
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          currentColors.axisLineColor = event.data.colors.axisLineColor;
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentColors);
+          myChart.setOption(option);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

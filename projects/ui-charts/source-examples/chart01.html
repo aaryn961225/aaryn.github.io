@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+  }
+
+  #ex01 {
+    height: 100%;
+    width: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex01"></div>
+  <script type="text/javascript">
+
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, data0, data1, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+          },
+          tooltip: {
+            trigger: "axis",
+            axisPointer: {
+              type: "shadow",
+            },
+            textStyle: {
+              fontSize: setSize(chartDom, 14)
+            }
+          },
+          xAxis: {
+            data: data0,
+            axisLine: {
+              lineStyle: {
+                color: "white",
+                fontSize: setSize(chartDom, 40),
+              },
+            },
+            boundaryGap: true,
+            axisLabel: {
+              show: true,
+              textStyle: {
+                color: colors.axisLabelColor || "white",
+              },
+              fontSize: setSize(chartDom, 24),
+              margin: setSize(chartDom, 15),
+            },
+          },
+          yAxis: {
+            splitLine: { show: true },
+            axisLine: {
+              lineStyle: {
+                color: "white",
+                fontSize: setSize(chartDom, 40),
+              },
+            },
+            axisLabel: {
+              show: true,
+              textStyle: {
+                color: "white",
+              },
+              interval: 0,
+              fontSize: setSize(chartDom, 24),
+              margin: setSize(chartDom, 10),
+              showMaxLabel: true,
+            },
+            min: 60,
+            max: 85,
+          },
+          series: [
+            {
+              type: "line",
+              smooth: true,
+              showAllSymbol: true,
+              symbol: "emptyCircle",
+              symbolSize: setSize(chartDom, 10),
+              data: data1,
+              lineStyle: {
+                normal: {
+                  width: setSize(chartDom, 2),
+                  color: colors.lineColor || "rgba(255, 255, 255, 0.5)",
+                },
+              },
+              label: {
+                show: true,
+                position: "top",
+                color: colors.lineColor || "rgba(255, 255, 255, 0.5)",
+                fontSize: setSize(chartDom, 32),
+              },
+              areaStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, colors.pieGradient || [
+                    { offset: 0, color: "rgba(255, 255, 255, 0)" },
+                    { offset: 0.5, color: "rgba(255, 153, 0, 0.7)" },
+                    { offset: 1, color: "rgba(255, 153, 0, 0.7)" },
+                  ]),
+                },
+              },
+            },
+          ],
+        };
+      }
+      var chartDom = document.getElementById("ex01");
+      var myChart = echarts.init(chartDom);
+
+      var initialData0 = ["77.20", "72.87", "70.44", "73.57", "75.22"];
+      var initialData1 = ["77.20", "72.87", "70.44", "73.57", "75.22"];
+      var currentData0 = [...initialData0];
+      var currentData1 = [...initialData1];
+      var currentColors = {
+        lineColor: "rgba(255, 255, 255, 0.5)",
+        pieGradient: [
+          { offset: 0, color: "rgba(255, 255, 255, 0)" },
+          { offset: 0.5, color: "rgba(255, 153, 0, 0.7)" },
+          { offset: 1, color: "rgba(255, 153, 0, 0.7)" },
+        ],
+        axisLabelColor: "white",
+      };
+
+      var option = getChartOptions(chartDom, currentData0, currentData1, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀control data
+      var data0 = option.xAxis.data;
+      var data1 = option.series[0].data;
+
+      function getTime() {
+        var now = new Date();
+        return now.toLocaleTimeString().replace(/^\D*/, "");
+      }
+
+      setInterval(function () {
+        data0.shift();
+        data0.push(getTime());
+        data1.shift();
+        data1.push((Math.random() * (80 - 60 + 1) + 60).toFixed(2));
+        // 只更新數據
+        myChart.setOption({
+          xAxis: {
+            data: currentData0
+          },
+          series: [
+            {
+              data: currentData1
+            }
+          ]
+        });
+      }, 1000);
+
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.lineColor = event.data.colors.barColor;
+          currentColors.pieGradient = event.data.colors.pieGradient;
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          var option = getChartOptions(chartDom, currentData0, currentData1, currentColors);
+          myChart.setOption(option);
+        }
+      });
+
+    });
+  </script>
+</body>
+
+</html>

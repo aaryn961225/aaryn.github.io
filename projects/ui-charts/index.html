@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Visualization Quality Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">UI / UX QUALITY TOOL</p>
+      <h1>Visualization Quality Lab</h1>
+      <p class="lead">以 38 個來源圖表案例為參考，重新整合 8 個可離線操作的 ECharts 代表性實作，用於驗證 Responsive、Tooltip、Legend、Theme、Loading 與 Dashboard 狀態。</p>
+    </div>
+    <div class="hero-meta" aria-label="實作摘要">
+      <div><strong>38</strong><span>Source patterns</span></div>
+      <div><strong>8</strong><span>Interactive demos</span></div>
+      <div><strong>0</strong><span>External CDN dependencies</span></div>
+    </div>
+  </header>
+
+  <nav class="view-tabs" aria-label="圖表工具檢視">
+    <button type="button" class="view-tab is-active" data-view="library" aria-selected="true">Visualization Library</button>
+    <button type="button" class="view-tab" data-view="dashboard" aria-selected="false">Personalized Dashboard</button>
+  </nav>
+
+  <main>
+    <section id="libraryView" class="view-panel">
+      <div class="control-bar">
+        <label>
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Line, Gauge, Trend…">
+        </label>
+        <label>
+          <span>Category</span>
+          <select id="categorySelect">
+            <option value="all">All categories</option>
+            <option value="trend">Trend</option>
+            <option value="compare">Compare</option>
+            <option value="distribution">Distribution</option>
+            <option value="status">Status</option>
+            <option value="relationship">Relationship</option>
+          </select>
+        </label>
+        <label>
+          <span>Theme</span>
+          <select id="themeSelect">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="contrast">High contrast</option>
+          </select>
+        </label>
+        <div class="result-count"><strong id="resultCount">8</strong><span>live demos</span></div>
+      </div>
+
+      <div class="qa-note">
+        <strong>QA focus</strong>
+        <span>縮放視窗、切換圖例、檢查 Tooltip、切換主題並加入 Dashboard；重新渲染前會釋放既有 ECharts 實例（dispose），避免事件監聽與記憶體持續累積。</span>
+      </div>
+      <div id="chartGrid" class="chart-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="dashboardView" class="view-panel" hidden>
+      <div class="dashboard-toolbar">
+        <div>
+          <h2>Personalized Dashboard</h2>
+          <p>最多可加入六張圖表，支援調整順序、移除，並將設定保存於 localStorage。</p>
+        </div>
+        <div class="actions">
+          <button type="button" id="seedDashboard">加入示例</button>
+          <button type="button" id="clearDashboard">清除全部</button>
+        </div>
+      </div>
+      <div id="dashboardGrid" class="dashboard-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>範圍聲明：</strong>本頁的 8 個圖表為重新整合的代表性 ECharts 實作；原始 38 個 HTML 保留於 <code>source-examples/</code> 作為來源案例，未宣稱全部已重新工程化。</p>
+    <a href="source-examples/README.md" target="_blank" rel="noopener">查看來源案例說明</a>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="vendor/echarts.min.js"></script>
+  <script src="charts.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>瀏覽器佔比變化</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  #ex26 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<body>
+  <div id="ex26"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, data0, data1, data2, data3, data4, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+          },
+          tooltip: {
+            trigger: "item",
+          },
+          legend: {
+            type: "scroll",
+            bottom: 10,
+            data: (function () {
+              var list = [];
+              for (var i = 1; i <= 28; i++) {
+                list.push(i + 2000 + "");
+              }
+              return list;
+            })(),
+          },
+          visualMap: {
+            top: "middle",
+            right: 10,
+            color: ["red", "yellow"],
+            calculable: true,
+          },
+          radar: {
+            indicator: [
+              { text: "a", max: 400 },
+              { text: "b", max: 400 },
+              { text: "c", max: 400 },
+              { text: "d", max: 400 },
+              { text: "e", max: 400 },
+            ],
+          },
+          series: [
+            {
+              type: "radar",
+              symbol: "none",
+              lineStyle: {
+                width: 1,
+                color: colors.seriesColors[0],
+              },
+              areaStyle: {
+                color: colors.seriesColors[0],
+                opacity: 0.3
+              },
+              data: [{ value: data0 }],
+            },
+            {
+              type: "radar",
+              symbol: "none",
+              lineStyle: {
+                width: 1,
+                color: colors.seriesColors[1],
+              },
+              areaStyle: {
+                color: colors.seriesColors[1],
+                opacity: 0.3
+              },
+              data: [{ value: data1 }],
+            },
+            {
+              type: "radar",
+              symbol: "none",
+              lineStyle: {
+                width: 1,
+                color: colors.seriesColors[2],
+              },
+              areaStyle: {
+                color: colors.seriesColors[2],
+                opacity: 0.3
+              },
+              data: [{ value: data2 }],
+            },
+            {
+              type: "radar",
+              symbol: "none",
+              lineStyle: {
+                width: 1,
+                color: colors.seriesColors[3],
+              },
+              areaStyle: {
+                color: colors.seriesColors[3],
+                opacity: 0.3
+              },
+              data: [{ value: data3 }],
+            },
+            {
+              type: "radar",
+              symbol: "none",
+              lineStyle: {
+                width: 1,
+                color: colors.seriesColors[4],
+              },
+              areaStyle: {
+                color: colors.seriesColors[4],
+                opacity: 0.3
+              },
+              data: [{ value: data4 }],
+            },
+          ],
+        };
+      }
+
+      var chartDom = document.getElementById("ex26");
+      var myChart = echarts.init(chartDom);
+
+      var initialData0 = [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3];
+      var initialData1 = [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3];
+      var initialData2 = [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3];
+      var initialData3 = [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3];
+      var initialData4 = [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3];
+
+      var currentData0 = [...initialData0];
+      var currentData1 = [...initialData1];
+      var currentData2 = [...initialData2];
+      var currentData3 = [...initialData3];
+      var currentData4 = [...initialData4];
+
+      var currentColors = {
+        axisLineColor: '#5470C6',
+        axisLabelColor: '#EE6666',
+        seriesColors: ['#5470C6', '#EE6666', '#91CC75', '#FAC858', '#73C0DE']
+      };
+
+      var option = getChartOptions(chartDom, currentData0, currentData1, currentData2, currentData3, currentData4, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      setInterval(function () {
+        currentData0.shift();
+        currentData0.push((Math.random() * (1800 - 0 + 1) + 0).toFixed(0));
+        currentData1.shift();
+        currentData1.push((Math.random() * (1800 - 0 + 1) + 0).toFixed(0));
+        currentData2.shift();
+        currentData2.push((Math.random() * (1800 - 0 + 1) + 0).toFixed(0));
+        currentData3.shift();
+        currentData3.push((Math.random() * (1800 - 0 + 1) + 0).toFixed(0));
+        currentData4.shift();
+        currentData4.push((Math.random() * (1800 - 0 + 1) + 0).toFixed(0));
+
+        myChart.setOption({
+          series: [
+            { data: [{ value: currentData0 }] },
+            { data: [{ value: currentData1 }] },
+            { data: [{ value: currentData2 }] },
+            { data: [{ value: currentData3 }] },
+            { data: [{ value: currentData4 }] },
+          ],
+        });
+      }, 1000);
+
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.axisLineColor = event.data.colors.axisLineColor;
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentData0, currentData1, currentData2, currentData3, currentData4, currentColors);
+          myChart.setOption(option);
+        }
+      });
+
+    });
+  </script>
+</body>
+</html>
+

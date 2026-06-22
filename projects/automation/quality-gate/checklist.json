@@ -1,0 +1,73 @@
+{
+  "version": "1.0.0",
+  "policy": "Specification Quality Gate before UI automation",
+  "blockingRule": "High and Medium issues block automation unless explicitly deferred by human review.",
+  "requiredSpecSections": [
+    {
+      "id": "objective",
+      "heading": "Specification Objective",
+      "priority": "High",
+      "reason": "Automation must have a clear objective."
+    },
+    {
+      "id": "acceptanceCriteria",
+      "heading": "Acceptance Criteria",
+      "priority": "High",
+      "reason": "Automation must verify explicit acceptance criteria."
+    },
+    {
+      "id": "riskFocus",
+      "heading": "Risk Focus",
+      "priority": "Medium",
+      "reason": "Risk focus explains why this test matters."
+    },
+    {
+      "id": "boundaryConditions",
+      "heading": "Boundary Conditions",
+      "priority": "Medium",
+      "reason": "Boundary behavior must be visible before automation."
+    },
+    {
+      "id": "errorCases",
+      "heading": "Error Cases",
+      "priority": "Medium",
+      "reason": "Exception behavior must be clear or explicitly out of scope."
+    },
+    {
+      "id": "executableExamples",
+      "heading": "Executable Examples",
+      "priority": "High",
+      "reason": "Examples make the specification testable."
+    },
+    {
+      "id": "humanReview",
+      "heading": "Human Review Point",
+      "priority": "Medium",
+      "reason": "Automation output must remain human-reviewed."
+    },
+    {
+      "id": "boundaryStatement",
+      "heading": "Boundary Statement",
+      "priority": "Medium",
+      "reason": "The test must preserve black-box and security boundaries."
+    }
+  ],
+  "requiredTaskFields": [
+    "code",
+    "name",
+    "specification",
+    "objective",
+    "grep",
+    "acceptanceCriteria",
+    "riskFocus",
+    "restrictedScope",
+    "humanReviewRequired"
+  ],
+  "restrictedScope": [
+    "application source code",
+    "database content",
+    "credentials or secrets",
+    "production system",
+    "automatic defect creation without human review"
+  ]
+}

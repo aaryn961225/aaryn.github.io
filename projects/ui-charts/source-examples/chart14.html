@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>正負條形圖</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex14 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex14"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, data0, data1, data2, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+            containLabel: true,
+          },
+          tooltip: {
+            trigger: "axis",
+            axisPointer: {
+              type: "shadow",
+            },
+          },
+          legend: {
+            data: ["a", "b", "c"],
+          },
+          xAxis: [
+            {
+              type: "value",
+              axisLine: {
+                lineStyle: {
+                  color: 'rgba(255, 255, 255, 0.5)' // X軸線條
+                }
+              },
+              axisLabel: {
+                color: colors.axisLabelColor || '#000000'// X軸標籤
+              }
+            },
+          ],
+          yAxis: [
+            {
+              type: "category",
+              axisTick: {
+                show: false,
+              },
+              data: ["", "", "", "", "", "", ""],
+              axisLabel: {
+                color: colors.axisLineColor || '#000000' // Y軸標籤
+              },
+              axisLine: {
+                lineStyle: {
+                  color: 'rgba(255, 255, 255, 0.5)' // Y軸線條
+                }
+              },
+            },
+          ],
+          series: [
+            {
+              name: "Profit",
+              type: "bar",
+              label: {
+                show: true,
+                position: "inside",
+              },
+              emphasis: {
+                focus: "series",
+              },
+              data: data0,
+              itemStyle: {
+                color: colors.seriesColors[0] || "#5470C6",
+              },
+            },
+            {
+              name: "Income",
+              type: "bar",
+              stack: "Total",
+              label: {
+                show: true,
+              },
+              emphasis: {
+                focus: "series",
+              },
+              data: data1,
+              itemStyle: {
+                color: colors.seriesColors[1] || "#5470C6",
+              },
+            },
+            {
+              name: "Expenses",
+              type: "bar",
+              stack: "Total",
+              label: {
+                show: true,
+                position: "left",
+              },
+              emphasis: {
+                focus: "series",
+              },
+              data: data2,
+              itemStyle: {
+                color: colors.seriesColors[2] || "#5470C6",
+              },
+            },
+          ],
+        };
+      }
+
+      var chartDom = document.getElementById("ex14");
+      var myChart = echarts.init(chartDom);
+
+      var initialData0 = ["", "", "", "", "", "", ""];
+      var initialData1 = ["", "", "", "", "", "", ""];
+      var initialData2 = ["", "", "", "", "", "", ""];
+      var currentData0 = [...initialData0];
+      var currentData1 = [...initialData1];
+      var currentData2 = [...initialData2];
+
+      var currentColors = {
+        seriesColors: ['#FFCC70', '#FFFADD', '#8ECDDD', '#A2C579', '#22668D'],
+      };
+
+      var option = getChartOptions(chartDom, currentData0, currentData1, currentData2, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀control data
+      var data0 = option.series[0].data;
+      var data1 = option.series[1].data;
+      var data2 = option.series[2].data;
+
+      function getTime() {
+        var now = new Date();
+        return now.toLocaleTimeString().replace(/^\D*/, "");
+      }
+
+      setInterval(function () {
+        data0.shift();
+        data0.push((Math.random() * (300 - 150 + 1) + 150).toFixed(0));
+        data1.shift();
+        data1.push((Math.random() * (500 - 300 + 1) + 300).toFixed(0));
+        data2.shift();
+        data2.push((Math.random() * (-100 - 300) - 100).toFixed(0));
+
+        myChart.setOption({
+          series: [
+            {
+              data: currentData0
+            },
+            {
+              data: currentData1
+            },
+            {
+              data: currentData2
+            }
+          ]
+        });
+      }, 1000);
+
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.lineColor = event.data.colors.barColor;
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          currentColors.axisLineColor = event.data.colors.axisLineColor;
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentData0, currentData1, currentData2, currentColors);
+          myChart.setOption(option);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

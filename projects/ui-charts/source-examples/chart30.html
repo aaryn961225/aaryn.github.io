@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>階段速度儀錶盤</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex30 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex30"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, data0, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+          }, series: [
+            {
+              type: "gauge",
+              axisLine: {
+                lineStyle: {
+                  width: 30,
+                  color: [
+                    [0.3, colors.seriesColors[0] || "#67e0e3"],
+                    [0.7, colors.seriesColors[1] || "#37a2da"],
+                    [1, colors.seriesColors[2] || "#fd666d"],
+                  ],
+                },
+              },
+              pointer: {
+                itemStyle: {
+                  color: "inherit",
+                },
+              },
+              axisTick: {
+                distance: -30,
+                length: 8,
+                lineStyle: {
+                  color: "#fff",
+                  width: 2,
+                },
+              },
+              splitLine: {
+                distance: -30,
+                length: 30,
+                lineStyle: {
+                  color: "#fff",
+                  width: 4,
+                },
+              },
+              axisLabel: {
+                color: "inherit",
+                distance: 40,
+                fontSize: 20,
+              },
+              detail: {
+                valueAnimation: true,
+                formatter: "{value} km/h",
+                color: "inherit",
+              },
+              data: data0
+            },
+          ],
+        }
+      }
+      var chartDom = document.getElementById("ex30");
+      var myChart = echarts.init(chartDom);
+
+      var initialData0 = [
+        {
+          value: 70,
+        },
+      ];
+      var currentData0 = [...initialData0];
+      var currentColors = {
+        seriesColors: ['#FFCC70', '#FFFADD', '#8ECDDD', '#A2C579', '#22668D'],
+      };
+
+      var option = getChartOptions(chartDom, currentData0, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀control data
+      // var data0 = option.series[0].data;
+
+
+      setInterval(function () {
+        myChart.setOption({
+          series: [
+            {
+              data: [
+                {
+                  value: +(Math.random() * 100).toFixed(2),
+                },
+              ],
+            },
+          ],
+        });
+      }, 1000);
+
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.lineColor = event.data.colors.barColor;
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          currentColors.axisLineColor = event.data.colors.axisLineColor;
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentData0, currentColors);
+          myChart.setOption(option);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

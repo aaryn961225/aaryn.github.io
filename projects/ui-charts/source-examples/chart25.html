@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>基礎雷達圖</title>
+  <script src="/include/jquery@3.3.1/jquery.min.js"></script>
+  <script src="/include/require@2.3.6/require.js"></script>
+</head>
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #ex25 {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+  <div id="ex25"></div>
+  <script type="text/javascript">
+    require.config({
+      paths: {
+        echarts: "/include/echarts/echarts.min",
+      },
+    });
+    require(["echarts"], function (echarts) {
+
+      function setSize(chartDom, baseSize) {
+        const chartWidth = chartDom.clientWidth;
+        let scaleFactor = chartWidth / 1920;
+        return baseSize * scaleFactor;
+      }
+
+      function getChartOptions(chartDom, data0, data1, colors) {
+        return {
+          grid: {
+            x: setSize(chartDom, 40),
+            x2: setSize(chartDom, 10),
+            y: setSize(chartDom, 30),
+            y2: setSize(chartDom, 20),
+            borderWidth: 1,
+          },
+          legend: {
+            data: ["", ""],
+          },
+          radar: {
+            // shape: 'circle',
+            indicator: [
+              { name: "a", max: 6500 },
+              { name: "b", max: 16000 },
+              { name: "c", max: 30000 },
+              { name: "d", max: 38000 },
+              { name: "e", max: 52000 },
+              { name: "f", max: 25000 },
+            ],
+          },
+          series: [
+            {
+              name: "Budget vs spending",
+              type: "radar",
+              data: [
+                {
+                  value: data0,
+                  name: "Allocated Budget",
+                  lineStyle: { color: colors.seriesColors[0] },                 
+                },
+                {
+                  value: data1,
+                  name: "Actual Spending",
+                  lineStyle: { color: colors.seriesColors[1] },
+                },
+              ],
+            },
+          ],
+        }
+      }
+
+      var chartDom = document.getElementById("ex25");
+      var myChart = echarts.init(chartDom);
+
+      var initialData0 = ["5000", "5000", "5000", "5000", "5000", "5000"];
+      var initialData1 = ["5000", "5000", "5000", "5000", "5000", "5000"];
+      var currentData0 = [...initialData0];
+      var currentData1 = [...initialData1];
+      var currentColors = {
+        seriesColors: ['#FFCC70', '#FFFADD', '#8ECDDD', '#A2C579', '#22668D'],
+      };
+
+
+      var option = getChartOptions(chartDom, currentData0, currentData1, currentColors);
+      myChart.setOption(option);
+
+      function resizeChart() {
+        myChart.setOption(option);
+        myChart.resize();
+      }
+
+      window.addEventListener('resize', resizeChart);
+
+      // 🚀control data
+      var data0 = option.series[0].data[0].value;
+      var data1 = option.series[0].data[1].value;
+
+      function getTime() {
+        var now = new Date();
+        return now.toLocaleTimeString().replace(/^\D*/, "");
+      }
+
+      setInterval(function () {
+        data0.shift();
+        data0.push((Math.random() * (5000 - 0 + 1) + 0).toFixed(0));
+        data1.shift();
+        data1.push((Math.random() * (5000 - 0 + 1) + 0).toFixed(0));
+
+        myChart.setOption({
+          series: [
+            {
+              data: [
+                {
+                  value: currentData0,
+                  lineStyle: { color: currentColors.seriesColors[0] },         
+                },
+                {
+                  value: currentData1,
+                  lineStyle: { color: currentColors.seriesColors[1] },         
+                },
+              ],
+            },
+          ],
+        });
+      }, 1000);
+
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'changeColor') {
+          currentColors.lineColor = event.data.colors.barColor;
+          currentColors.axisLabelColor = event.data.colors.axisLabelColor;
+          currentColors.axisLineColor = event.data.colors.axisLineColor;
+          currentColors.seriesColors = event.data.colors.seriesColors;
+          var option = getChartOptions(chartDom, currentData0, currentData1, currentColors);
+          myChart.setOption(option);
+        }
+      });
+
+    });
+  </script>
+</body>
+
+</html>

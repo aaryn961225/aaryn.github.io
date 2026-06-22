@@ -1,0 +1,37 @@
+{
+  "code": "AUTH01",
+  "name": "登入例外情境",
+  "specification": "specs/AUTH01.login-exception.spec.md",
+  "objective": "驗證密碼錯誤時，系統應拒絕登入並停留在登入流程，不得進入一般訂貨操作區。",
+  "grep": "Exception",
+  "executionMode": "playwright-headed-local",
+  "testType": "Black-box UI Automation",
+  "acceptanceCriteria": [
+    "使用者輸入錯誤密碼後不得登入成功。",
+    "系統應顯示錯誤提示。",
+    "一般訂貨操作區不得出現。",
+    "測試不需存取帳密原始資料或後端驗證邏輯。"
+  ],
+  "riskFocus": [
+    "登入限制或錯誤處理不足可能造成權限與流程風險。",
+    "錯誤提示不清楚會影響使用者判斷。",
+    "登入失敗後若仍可操作主流程，屬高風險缺陷。"
+  ],
+  "workflow": [
+    "Load specification",
+    "Delegate selected module as executable task",
+    "Run Playwright black-box UI test",
+    "Generate Playwright HTML Report",
+    "Generate reports/test-summary.json",
+    "Provide Phase 2 mock analysis context",
+    "Require human review"
+  ],
+  "restrictedScope": [
+    "application source code",
+    "database content",
+    "credentials or secrets",
+    "production system",
+    "automatic defect creation without human review"
+  ],
+  "humanReviewRequired": true
+}

@@ -1,0 +1,34 @@
+{
+  "code": "ALL",
+  "name": "示範範圍內全部測試",
+  "specification": "specs/*.spec.md",
+  "objective": "一次執行本作品集目前定義的三個黑箱 UI 自動化測試，用於展示多模組回歸執行、結果彙整與報告產出流程。",
+  "grep": "",
+  "executionMode": "playwright-headed-local",
+  "testType": "Black-box UI Automation",
+  "acceptanceCriteria": [
+    "ORD01、AUTH01、ORD02 三個模組皆可被執行。",
+    "測試完成後產出 Playwright HTML Report。",
+    "測試完成後產出 reports/test-summary.json。"
+  ],
+  "riskFocus": [
+    "三個示範模組能否在相同執行條件下依序完成。",
+    "測試結果是否可被整理為後續 Phase 2 mock 分析資料。"
+  ],
+  "workflow": [
+    "Load all specifications",
+    "Delegate all modules as executable regression task",
+    "Run Playwright black-box UI tests",
+    "Generate Playwright HTML Report",
+    "Generate reports/test-summary.json",
+    "Require human review"
+  ],
+  "restrictedScope": [
+    "application source code",
+    "database content",
+    "credentials or secrets",
+    "production system",
+    "automatic defect creation without human review"
+  ],
+  "humanReviewRequired": true
+}

@@ -1,0 +1,29 @@
+{
+  "validUser": {
+    "userId": "qa.demo",
+    "password": "demo1234"
+  },
+  "invalidUser": {
+    "userId": "qa.demo",
+    "password": "wrong-password"
+  },
+  "happyPathOrder": {
+    "store": "A001",
+    "orderDate": "2026-06-17",
+    "items": [
+      { "name": "冰美式咖啡", "quantity": 8 },
+      { "name": "鮪魚飯糰", "quantity": 10 }
+    ],
+    "expectedItemCount": 2,
+    "expectedTotalQuantity": 18
+  },
+  "boundaryOrder": {
+    "store": "B002",
+    "orderDate": "2026-06-18",
+    "items": [
+      { "name": "季節限定甜點", "quantity": 0 }
+    ],
+    "expectedItemCount": 1,
+    "expectedTotalQuantity": 0
+  }
+}

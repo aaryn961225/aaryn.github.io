@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Test Summary",
+  "type": "object",
+  "required": [
+    "project",
+    "module",
+    "testType",
+    "status",
+    "total",
+    "passed",
+    "failed",
+    "report"
+  ],
+  "properties": {
+    "project": {
+      "type": "string"
+    },
+    "module": {
+      "type": "string"
+    },
+    "testType": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "passed",
+        "failed",
+        "unknown"
+      ]
+    },
+    "total": {
+      "type": "integer"
+    },
+    "passed": {
+      "type": "integer"
+    },
+    "failed": {
+      "type": "integer"
+    },
+    "report": {
+      "type": "string"
+    },
+    "aiAccessScope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "restrictedScope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Architecture｜Specification-driven QA Automation Orchestrator</title><style>
+:root{color-scheme:dark;--bg:#090d13;--card:#111823;--border:rgba(255,255,255,.11);--text:#edf3fa;--dim:#9aa8b8;--brand:#2dc4e0;--code:#070b10}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 0%,rgba(45,196,224,.12),transparent 34%),var(--bg);color:var(--text);font-family:"Segoe UI","Noto Sans TC",Arial,sans-serif;line-height:1.7}
+header{position:sticky;top:0;z-index:3;background:rgba(9,13,19,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.header-inner{max-width:980px;margin:auto;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:14px}.brand{font-weight:750;font-size:13px;letter-spacing:.04em}.brand span{color:var(--brand)}
+.nav{display:flex;gap:8px;flex-wrap:wrap}.nav a{color:var(--dim);text-decoration:none;font-size:12px;padding:6px 10px;border:1px solid var(--border);border-radius:999px}.nav a:hover{color:#fff;border-color:var(--brand)}
+main{max-width:980px;margin:0 auto;padding:48px 24px 80px}.doc{background:rgba(17,24,35,.9);border:1px solid var(--border);border-radius:20px;padding:clamp(22px,5vw,54px);box-shadow:0 30px 90px rgba(0,0,0,.28)}
+h1{font-size:clamp(27px,4vw,42px);line-height:1.2;margin:0 0 18px}h2{font-size:22px;margin:38px 0 12px;padding-top:8px;border-top:1px solid var(--border)}h3{font-size:17px;margin:28px 0 8px}p,li{color:var(--dim)}strong{color:#fff}a{color:#76d7ec}code{font-family:Consolas,"SFMono-Regular",monospace;background:rgba(45,196,224,.09);color:#bfefff;border:1px solid rgba(45,196,224,.18);border-radius:5px;padding:.12em .38em}
+pre{overflow:auto;background:var(--code);border:1px solid var(--border);border-radius:13px;padding:16px 18px;margin:16px 0 22px}pre code{padding:0;background:none;border:0;color:#d7e3ef;white-space:pre;font-size:13px;line-height:1.65}
+ul,ol{padding-left:24px}.source-note{font-size:11px;color:#667386;margin-top:24px}.source-note a{color:#8294a8}
+table{width:100%;border-collapse:collapse;margin:18px 0;display:block;overflow:auto}th,td{padding:10px 12px;border:1px solid var(--border);text-align:left;white-space:nowrap}th{color:#fff;background:rgba(45,196,224,.08)}td{color:var(--dim)}
+blockquote{margin:18px 0;padding:2px 16px;border-left:3px solid var(--brand);color:var(--dim)}
+@media(max-width:640px){main{padding:24px 12px 60px}.doc{padding:22px 17px;border-radius:14px}.header-inner{padding:11px 14px}.nav .optional{display:none}}
+</style></head>
+<body><header><div class="header-inner"><div class="brand">QA AUTOMATION <span>·</span> DOCUMENT</div><nav class="nav"><a href="../../../index.html">返回作品集</a><a class="optional" href="architecture.md">檢視 Markdown 原檔</a></nav></div></header><main><article class="doc"><h1
+id="architecturespecification-driven-qa-automation-orchestrator">Architecture｜Specification-driven
+QA Automation Orchestrator</h1>
+<p>This project demonstrates a QA-owned automation architecture that
+transforms requirement-style inputs into reviewable specifications and
+executable test tasks.</p>
+<h2 id="core-flow">Core Flow</h2>
+<pre class="text"><code>Requirement-style input
+        ↓
+Reviewable specification
+        ↓
+Task delegation
+        ↓
+Specification Quality Gate
+        ↓
+Playwright black-box UI test
+        ↓
+Report and test summary
+        ↓
+Phase 2 deterministic mock integration
+        ↓
+Human review</code></pre>
+<h2 id="phase-1local-execution">Phase 1｜Local Execution</h2>
+<p>Phase 1 provides a locally executable automation demonstration.</p>
+<pre class="text"><code>specs/*.spec.md
+        ↓
+tasks/*.task.json
+        ↓
+scripts/select-module.js
+        ↓
+Rule-based Quality Gate
+        ↓
+Playwright tests
+        ↓
+Playwright HTML Report
+        ↓
+reports/test-summary.json</code></pre>
+<p>Before execution, the interactive CLI displays the selected module’s
+objective, acceptance criteria, risk focus, and test boundary.</p>
+<h2 id="phase-1optional-docker-runtime">Phase 1+｜Optional Docker
+Runtime</h2>
+<p>Docker packages only the QA automation runtime:</p>
+<pre class="text"><code>Docker image
+├─ Node.js
+├─ Playwright
+├─ Chromium
+└─ QA automation scripts</code></pre>
+<p>The application under test remains external. The image does not
+contain application source code, database content, production
+credentials, or production configuration.</p>
+<h2 id="phase-2deterministic-mock-and-contract-layer">Phase
+2｜Deterministic Mock and Contract Layer</h2>
+<p>Phase 2 is intentionally implemented with local deterministic mocks
+and data contracts:</p>
+<pre class="text"><code>reports/test-summary.json
+        ↓
+phase2/mcp/context-contract.md
+        ↓
+phase2/llm/failure-analysis-prompt.md
+        ↓
+phase2/llm/mock-ai-analysis.md
+        ↓
+phase2/n8n/workflow.sample.json</code></pre>
+<p>This layer demonstrates how AI-assisted analysis and workflow routing
+could be introduced without giving external tools direct control of the
+system under test.</p>
+<h2 id="design-rationale">Design Rationale</h2>
+<p>The architecture is suitable when QA has access to an approved test
+environment and observable UI behavior, but does not have or require
+application source-code access. It prioritizes stable, high-value
+regression scenarios and keeps specification approval and follow-up
+decisions under human control.</p>
+<div class="source-note">UTF-8 HTML view generated from <a href="architecture.md">architecture.md</a>.</div></article></main></body></html>

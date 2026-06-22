@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Docker Integration Guide</title><style>
+:root{color-scheme:dark;--bg:#090d13;--card:#111823;--border:rgba(255,255,255,.11);--text:#edf3fa;--dim:#9aa8b8;--brand:#2dc4e0;--code:#070b10}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 0%,rgba(45,196,224,.12),transparent 34%),var(--bg);color:var(--text);font-family:"Segoe UI","Noto Sans TC",Arial,sans-serif;line-height:1.7}
+header{position:sticky;top:0;z-index:3;background:rgba(9,13,19,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.header-inner{max-width:980px;margin:auto;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:14px}.brand{font-weight:750;font-size:13px;letter-spacing:.04em}.brand span{color:var(--brand)}
+.nav{display:flex;gap:8px;flex-wrap:wrap}.nav a{color:var(--dim);text-decoration:none;font-size:12px;padding:6px 10px;border:1px solid var(--border);border-radius:999px}.nav a:hover{color:#fff;border-color:var(--brand)}
+main{max-width:980px;margin:0 auto;padding:48px 24px 80px}.doc{background:rgba(17,24,35,.9);border:1px solid var(--border);border-radius:20px;padding:clamp(22px,5vw,54px);box-shadow:0 30px 90px rgba(0,0,0,.28)}
+h1{font-size:clamp(27px,4vw,42px);line-height:1.2;margin:0 0 18px}h2{font-size:22px;margin:38px 0 12px;padding-top:8px;border-top:1px solid var(--border)}h3{font-size:17px;margin:28px 0 8px}p,li{color:var(--dim)}strong{color:#fff}a{color:#76d7ec}code{font-family:Consolas,"SFMono-Regular",monospace;background:rgba(45,196,224,.09);color:#bfefff;border:1px solid rgba(45,196,224,.18);border-radius:5px;padding:.12em .38em}
+pre{overflow:auto;background:var(--code);border:1px solid var(--border);border-radius:13px;padding:16px 18px;margin:16px 0 22px}pre code{padding:0;background:none;border:0;color:#d7e3ef;white-space:pre;font-size:13px;line-height:1.65}
+ul,ol{padding-left:24px}.source-note{font-size:11px;color:#667386;margin-top:24px}.source-note a{color:#8294a8}
+table{width:100%;border-collapse:collapse;margin:18px 0;display:block;overflow:auto}th,td{padding:10px 12px;border:1px solid var(--border);text-align:left;white-space:nowrap}th{color:#fff;background:rgba(45,196,224,.08)}td{color:var(--dim)}
+blockquote{margin:18px 0;padding:2px 16px;border-left:3px solid var(--brand);color:var(--dim)}
+@media(max-width:640px){main{padding:24px 12px 60px}.doc{padding:22px 17px;border-radius:14px}.header-inner{padding:11px 14px}.nav .optional{display:none}}
+</style></head>
+<body><header><div class="header-inner"><div class="brand">QA AUTOMATION <span>·</span> DOCUMENT</div><nav class="nav"><a href="../../../index.html">返回作品集</a><a class="optional" href="docker-integration-guide.md">檢視 Markdown 原檔</a></nav></div></header><main><article class="doc"><h1 id="docker-integration-guide">Docker Integration Guide</h1>
+<p>Docker is optional in this portfolio. The primary interview
+demonstration uses local Playwright execution with a visible
+browser.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Docker packages only the QA automation runtime:</p>
+<ul>
+<li>Node.js</li>
+<li>Playwright 1.54.0</li>
+<li>Chromium</li>
+<li>Specifications and automation scripts</li>
+</ul>
+<p>The image does not contain the application-under-test source code,
+production databases, credentials, company repositories, external AI
+services, live MCP servers, or n8n instances.</p>
+<h2 id="why-use-docker">Why Use Docker</h2>
+<ul>
+<li>Keep the Playwright and browser versions aligned.</li>
+<li>Isolate runtime dependencies from the host machine.</li>
+<li>Provide a reproducible foundation for a future CI environment.</li>
+<li>Reproduce the same black-box automation flow on another approved
+machine.</li>
+</ul>
+<h2 id="windows-powershell">Windows PowerShell</h2>
+<p>Enter the Automation directory from the portfolio root:</p>
+<pre class="powershell"><code>cd .\projects\automation</code></pre>
+<p>Build the image. The first build is comparatively large because the
+official Playwright image includes browser runtime dependencies.</p>
+<pre class="powershell"><code>docker build --no-cache -t low-code-qa-demo-portfolio-v8 .</code></pre>
+<p>Run the tests and persist reports on the host machine:</p>
+<pre class="powershell"><code>docker run --rm `
+  -v &quot;${PWD}\playwright-report:/work/playwright-report&quot; `
+  -v &quot;${PWD}\reports:/work/reports&quot; `
+  low-code-qa-demo-portfolio-v8</code></pre>
+<p>The container runs <code>npx playwright test</code> in headless mode.
+Generated files are written to the mounted host directories:</p>
+<pre class="text"><code>projects/automation/playwright-report/
+projects/automation/reports/</code></pre>
+<h2 id="docker-compose-alternative">Docker Compose Alternative</h2>
+<pre class="powershell"><code>docker compose -f .\docker\docker-compose.example.yml up --build --abort-on-container-exit</code></pre>
+<h2 id="version-alignment">Version Alignment</h2>
+<p><code>package.json</code> fixes <code>@playwright/test</code> at
+<code>1.54.0</code>, and the Dockerfile uses
+<code>mcr.microsoft.com/playwright:v1.54.0-noble</code>. Keep the two
+versions aligned when upgrading.</p>
+<h2 id="interview-explanation">Interview Explanation</h2>
+<p>Docker is not the product being tested. It is an optional,
+reproducible QA test runtime. Local visible-browser execution is better
+suited to a live demonstration; Docker documents environment
+consistency, isolation, and a future CI integration path.</p>
+<div class="source-note">UTF-8 HTML view generated from <a href="docker-integration-guide.md">docker-integration-guide.md</a>.</div></article></main></body></html>

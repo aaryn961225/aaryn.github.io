@@ -1,0 +1,38 @@
+{
+  "code": "ORD01",
+  "name": "一般訂貨 Happy Path",
+  "specification": "specs/ORD01.order-happy-path.spec.md",
+  "objective": "驗證使用者可從登入開始，完成一般訂貨核心流程，包含設定訂貨條件、加入商品、送出訂貨與確認成功訊息。",
+  "grep": "Happy Path",
+  "executionMode": "playwright-headed-local",
+  "testType": "Black-box UI Automation",
+  "acceptanceCriteria": [
+    "使用者可以使用測試帳號登入系統。",
+    "登入後可進入一般訂貨操作區。",
+    "可設定門市與訂貨日。",
+    "可選擇商品並輸入訂貨數量。",
+    "送出後畫面應顯示訂貨成功訊息。"
+  ],
+  "riskFocus": [
+    "登入狀態未正確建立，導致後續流程不可操作。",
+    "訂貨條件未正確套用，導致商品或摘要錯誤。",
+    "送出後成功訊息未出現，可能造成使用者誤判。"
+  ],
+  "workflow": [
+    "Load specification",
+    "Delegate selected module as executable task",
+    "Run Playwright black-box UI test",
+    "Generate Playwright HTML Report",
+    "Generate reports/test-summary.json",
+    "Provide Phase 2 mock analysis context",
+    "Require human review"
+  ],
+  "restrictedScope": [
+    "application source code",
+    "database content",
+    "credentials or secrets",
+    "production system",
+    "automatic defect creation without human review"
+  ],
+  "humanReviewRequired": true
+}

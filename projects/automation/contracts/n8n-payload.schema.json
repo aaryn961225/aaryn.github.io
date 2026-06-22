@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "n8n Notification Payload",
+  "type": "object",
+  "required": [
+    "event",
+    "project",
+    "status",
+    "message",
+    "artifacts",
+    "requiresHumanReview"
+  ],
+  "properties": {
+    "event": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "artifacts": {
+      "type": "object"
+    },
+    "requiresHumanReview": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,185 @@
+:root {
+  font-family: Inter, "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #111827;
+  background: #f5f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app-shell {
+  width: min(1080px, calc(100% - 32px));
+  margin: 32px auto 56px;
+}
+
+.hero-card,
+.panel {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.hero-card {
+  padding: 36px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #2563eb;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: clamp(30px, 6vw, 52px);
+  margin-bottom: 12px;
+}
+
+.hero-text {
+  color: #4b5563;
+  line-height: 1.7;
+  max-width: 720px;
+  margin-bottom: 0;
+}
+
+.panel {
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+form,
+.grid-two {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+label {
+  display: block;
+  color: #374151;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+  padding: 0 14px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: #111827;
+  color: #fff;
+  font-weight: 700;
+}
+
+button.secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+button.primary {
+  margin-top: 18px;
+  background: #2563eb;
+}
+
+.status {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.status.success {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.status.error {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.muted {
+  color: #6b7280;
+}
+
+.table-card {
+  overflow-x: auto;
+  margin-top: 22px;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+  background: #f9fafb;
+  color: #374151;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.quantity-input {
+  max-width: 120px;
+}
+
+.summary-card {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 18px;
+  background: #f9fafb;
+}
+
+.summary-card p {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 720px) {
+  .grid-two {
+    grid-template-columns: 1fr;
+  }
+}
