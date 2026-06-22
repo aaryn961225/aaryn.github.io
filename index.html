@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Building My QA Workflow｜ Interview Portfolio</title>
+  <link rel="icon" type="image/png" href="/media/favicon.png">
   <style>
     :root {
       --bg: #0a0e15;
@@ -37,6 +38,14 @@
       font-family: 'Noto Sans TC', 'Space Grotesk', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
+      -webkit-user-select: none;
+      /* Safari */
+      -moz-user-select: none;
+      /* Firefox */
+      -ms-user-select: none;
+      /* IE 10+ / Edge (舊版) */
+      user-select: none;
+      /* 標準語法：Chrome, Edge, Opera */
     }
 
     body::after {
@@ -6524,6 +6533,14 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
         modalResult.textContent = data.result;
         if (cardId === 'card2') selectedDogNodeId = 'n0';
         renderArtifacts(cardId);
+        var modalContent = modalBox.querySelector('.modal-content');
+        if (modalContent) {
+          modalContent.scrollTop = 0;
+
+          requestAnimationFrame(function () {
+            modalContent.scrollTop = 0;
+          });
+        }
 
         lastFocused = document.activeElement;
         overlay.removeAttribute('inert');
