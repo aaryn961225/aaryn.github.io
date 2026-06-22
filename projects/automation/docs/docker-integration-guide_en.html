@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-
-<html lang="zh-Hant"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Docker 整合與執行指南</title><style>
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Docker Integration Guide</title><style>
 :root{color-scheme:dark;--bg:#090d13;--card:#111823;--border:rgba(255,255,255,.11);--text:#edf3fa;--dim:#9aa8b8;--brand:#2dc4e0;--code:#070b10}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 0%,rgba(45,196,224,.12),transparent 34%),var(--bg);color:var(--text);font-family:"Segoe UI","Noto Sans TC",Arial,sans-serif;line-height:1.7}
 header{position:sticky;top:0;z-index:3;background:rgba(9,13,19,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
@@ -14,43 +13,54 @@ table{width:100%;border-collapse:collapse;margin:18px 0;display:block;overflow:a
 blockquote{margin:18px 0;padding:2px 16px;border-left:3px solid var(--brand);color:var(--dim)}
 @media(max-width:640px){main{padding:24px 12px 60px}.doc{padding:22px 17px;border-radius:14px}.header-inner{padding:11px 14px}.nav .optional{display:none}}
 </style></head>
-<body><header><div class="header-inner"><div class="brand">QA 自動化 <span>·</span> 文件</div><nav class="nav"><a href="../../../index.html">返回作品集</a><a class="optional" href="docker-integration-guide.md">檢視 Markdown 原檔</a></nav></div></header><main><article class="doc">
-<h1 id="docker-integration-guide">Docker 整合與執行指南</h1>
-<p>本作品集將 Docker 定位為選用方案。面試時的主要展示方式，仍以本機執行 Playwright 並顯示瀏覽器畫面為主。</p>
-<h2 id="purpose">用途與範圍</h2>
-<p>Docker 映像僅封裝 QA 自動化測試所需的執行環境：</p>
+<body><header><div class="header-inner"><div class="brand">QA AUTOMATION <span>·</span> DOCUMENT</div><nav class="nav"><a href="../../../index.html">返回作品集</a><a class="optional" href="docker-integration-guide.md">檢視 Markdown 原檔</a></nav></div></header><main><article class="doc"><h1 id="docker-integration-guide">Docker Integration Guide</h1>
+<p>Docker is optional in this portfolio. The primary interview
+demonstration uses local Playwright execution with a visible
+browser.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Docker packages only the QA automation runtime:</p>
 <ul>
 <li>Node.js</li>
 <li>Playwright 1.54.0</li>
 <li>Chromium</li>
-<li>測試規格與自動化腳本</li>
+<li>Specifications and automation scripts</li>
 </ul>
-<p>映像中不包含受測系統（Application Under Test, AUT）的原始碼、正式環境資料庫、帳號憑證、公司內部 Repository、外部 AI 服務、實際運作中的 MCP Server 或 n8n Instance。</p>
-<h2 id="why-use-docker">採用 Docker 的目的</h2>
+<p>The image does not contain the application-under-test source code,
+production databases, credentials, company repositories, external AI
+services, live MCP servers, or n8n instances.</p>
+<h2 id="why-use-docker">Why Use Docker</h2>
 <ul>
-<li>確保 Playwright 與瀏覽器版本一致。</li>
-<li>隔離測試執行環境與主機端相依套件。</li>
-<li>建立可延伸至未來 CI 環境的可重現基礎。</li>
-<li>在其他經核准的測試機器上，重現相同的黑箱自動化流程。</li>
+<li>Keep the Playwright and browser versions aligned.</li>
+<li>Isolate runtime dependencies from the host machine.</li>
+<li>Provide a reproducible foundation for a future CI environment.</li>
+<li>Reproduce the same black-box automation flow on another approved
+machine.</li>
 </ul>
-<h2 id="windows-powershell">Windows PowerShell 執行方式</h2>
-<p>由作品集根目錄進入 Automation 專案：</p>
+<h2 id="windows-powershell">Windows PowerShell</h2>
+<p>Enter the Automation directory from the portfolio root:</p>
 <pre class="powershell"><code>cd .\projects\automation</code></pre>
-<p>建立 Docker 映像。首次建立所需時間與容量較大，原因是 Playwright 官方映像已包含瀏覽器執行所需的完整相依套件。</p>
+<p>Build the image. The first build is comparatively large because the
+official Playwright image includes browser runtime dependencies.</p>
 <pre class="powershell"><code>docker build --no-cache -t low-code-qa-demo-portfolio-v8 .</code></pre>
-<p>執行測試，並將報告保留於主機端：</p>
+<p>Run the tests and persist reports on the host machine:</p>
 <pre class="powershell"><code>docker run --rm `
-  -v "${PWD}\playwright-report:/work/playwright-report" `
-  -v "${PWD}\reports:/work/reports" `
+  -v &quot;${PWD}\playwright-report:/work/playwright-report&quot; `
+  -v &quot;${PWD}\reports:/work/reports&quot; `
   low-code-qa-demo-portfolio-v8</code></pre>
-<p>Container 會以 Headless Mode 執行 <code>npx playwright test</code>。產出檔案將寫入掛載於主機端的下列資料夾：</p>
+<p>The container runs <code>npx playwright test</code> in headless mode.
+Generated files are written to the mounted host directories:</p>
 <pre class="text"><code>projects/automation/playwright-report/
 projects/automation/reports/</code></pre>
-<h2 id="docker-compose-alternative">Docker Compose 替代方式</h2>
+<h2 id="docker-compose-alternative">Docker Compose Alternative</h2>
 <pre class="powershell"><code>docker compose -f .\docker\docker-compose.example.yml up --build --abort-on-container-exit</code></pre>
-<h2 id="version-alignment">版本一致性</h2>
-<p><code>package.json</code> 將 <code>@playwright/test</code> 固定為 <code>1.54.0</code>，Dockerfile 則使用 <code>mcr.microsoft.com/playwright:v1.54.0-noble</code>。升級時應同步調整兩者版本，以避免瀏覽器或 Runtime 不相容。</p>
-<h2 id="interview-explanation">面試說明重點</h2>
-<p>Docker 並不是本專案的受測產品，而是可選用、可重現的 QA 測試執行環境。現場展示使用本機可視瀏覽器，更便於說明測試步驟與結果；Docker 則用來呈現環境一致性、相依隔離，以及未來銜接 CI 的可行路徑。</p>
-<div class="source-note">此 UTF-8 HTML 檢視頁由 <a href="docker-integration-guide.md">docker-integration-guide.md</a> 產生。</div>
-</article></main></body></html>
+<h2 id="version-alignment">Version Alignment</h2>
+<p><code>package.json</code> fixes <code>@playwright/test</code> at
+<code>1.54.0</code>, and the Dockerfile uses
+<code>mcr.microsoft.com/playwright:v1.54.0-noble</code>. Keep the two
+versions aligned when upgrading.</p>
+<h2 id="interview-explanation">Interview Explanation</h2>
+<p>Docker is not the product being tested. It is an optional,
+reproducible QA test runtime. Local visible-browser execution is better
+suited to a live demonstration; Docker documents environment
+consistency, isolation, and a future CI integration path.</p>
+<div class="source-note">UTF-8 HTML view generated from <a href="docker-integration-guide.md">docker-integration-guide.md</a>.</div></article></main></body></html>

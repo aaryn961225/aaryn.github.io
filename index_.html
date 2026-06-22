@@ -12,9 +12,8 @@
       --border: rgba(255, 255, 255, 0.09);
       --text: #eef2f7;
       --text-dim: #9aa6b6;
-      --text-faint: #78869a;
+      --text-faint: #5e6a7c;
       --brand: #007cc3;
-      --brand-text: #41b5ef;
     }
 
     * {
@@ -298,8 +297,7 @@
       --border: rgba(0, 0, 0, 0.09);
       --text: #0f1923;
       --text-dim: #3d4e61;
-      --text-faint: #536579;
-      --brand-text: #005f96;
+      --text-faint: #6b7a8d;
       background-color: var(--bg);
       background-image:
         linear-gradient(rgba(0, 0, 0, .055) 1px, transparent 1px),
@@ -536,234 +534,6 @@
 
     body.theme-light .code-panel pre {
       background: #070b10;
-    }
-
-
-    /* ---------- complete light-theme contrast and state alignment ---------- */
-    body.theme-light {
-      color-scheme: light;
-    }
-
-    body.theme-light * {
-      scrollbar-color: rgba(15, 25, 35, .30) transparent;
-    }
-
-    body.theme-light ::-webkit-scrollbar-thumb {
-      background: rgba(15, 25, 35, .26);
-    }
-
-    body.theme-light ::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 95, 150, .55);
-    }
-
-    body.theme-light .modal-box {
-      --accent-text: color-mix(in srgb, var(--accent-modal, var(--brand)) 58%, #0f1923);
-    }
-
-    body.theme-light .modal-meta-bar,
-    body.theme-light .artifact-intro,
-    body.theme-light .artifact-flow,
-    body.theme-light .artifact-check-item,
-    body.theme-light .artifact-grid-item {
-      background: #f5f8fc;
-    }
-
-    body.theme-light .artifact-grid-item strong,
-    body.theme-light .scope-card strong,
-    body.theme-light .flow-step-card strong,
-    body.theme-light .run-result strong,
-    body.theme-light .artifact-workspace b,
-    body.theme-light .artifact-panel [style*="color:#fff"],
-    body.theme-light .artifact-panel [style*="color: #fff"] {
-      color: var(--text) !important;
-    }
-
-    body.theme-light .artifact-tab.is-active,
-    body.theme-light .tool-btn:hover,
-    body.theme-light .tool-btn.is-active {
-      color: var(--text);
-      background: color-mix(in srgb, var(--accent-modal, var(--brand)) 16%, #ffffff);
-      border-color: color-mix(in srgb, var(--accent-modal, var(--brand)) 62%, #6f8092);
-    }
-
-    body.theme-light .tool-btn.primary {
-      color: #0f1923;
-      background: color-mix(in srgb, var(--accent-modal, var(--brand)) 68%, #ffffff);
-      border-color: color-mix(in srgb, var(--accent-modal, var(--brand)) 82%, #40576d);
-    }
-
-    body.theme-light .artifact-flow-step {
-      color: var(--text);
-      background: color-mix(in srgb, var(--accent-modal, var(--brand)) 13%, #ffffff);
-      border-color: color-mix(in srgb, var(--accent-modal, var(--brand)) 40%, #d0d9e3);
-    }
-
-    body.theme-light .tag {
-      color: color-mix(in srgb, var(--accent) 55%, #0f1923);
-      background: color-mix(in srgb, var(--accent) 10%, #ffffff);
-      border-color: color-mix(in srgb, var(--accent) 42%, #ffffff);
-    }
-
-    body.theme-light .final-merge-note {
-      color: #155c78;
-      background: #e5f3fb;
-      border-color: #9bcce5;
-    }
-
-    body.theme-light .narrative-label,
-    body.theme-light .flow-trace,
-    body.theme-light .bt-detail dt,
-    body.theme-light .automation-step span,
-    body.theme-light .live-message span,
-    body.theme-light .run-guide-label,
-    body.theme-light .run-badge,
-    body.theme-light .artifact-check-icon {
-      color: var(--accent-text, #315d78);
-    }
-
-    body.theme-light .scenario-library-notice strong,
-    body.theme-light .run-warning strong {
-      color: #765000;
-    }
-
-    body.theme-light .self-audit-notice strong {
-      color: #11603a;
-    }
-
-    body.theme-light .risk-pill.high {
-      color: #9f1d2d;
-      background: #fde8eb;
-      border-color: #eab6be;
-    }
-
-    body.theme-light .risk-pill.medium {
-      color: #6f4600;
-      background: #fff2d6;
-      border-color: #e8c77d;
-    }
-
-    body.theme-light .risk-pill.low,
-    body.theme-light .status-pill.implemented,
-    body.theme-light .coverage-mark {
-      color: #11603a;
-      background: #e3f6ec;
-      border-color: #a7dbc0;
-    }
-
-    body.theme-light .status-pill.designed,
-    body.theme-light .status-pill.mock {
-      color: #155c78;
-      background: #e2f3f8;
-      border-color: #acd5e3;
-    }
-
-    body.theme-light .status-pill.planned,
-    body.theme-light .artifact-status {
-      color: #44566a;
-      background: #edf1f5;
-      border-color: #c8d2dc;
-    }
-
-    body.theme-light .auto-pill {
-      color: #5d3b97;
-      background: #f0e9ff;
-      border-color: #cdbbef;
-    }
-
-    body.theme-light .record-export-trigger[disabled],
-    body.theme-light .tool-btn:disabled {
-      opacity: 1;
-      color: #718096;
-      background: #edf1f5;
-      border-color: #ccd5df;
-      cursor: not-allowed;
-    }
-
-    body.theme-light .run-command-note code {
-      color: #254f6b;
-    }
-
-    body.theme-light .chart-preview {
-      background: #eef4f8;
-    }
-
-    body.theme-light .chart-preview svg .cut {
-      fill: #eef4f8;
-    }
-
-    body.theme-light .dashboard-card-head button:hover {
-      color: var(--text);
-    }
-
-    body.theme-light .bt-list ul::before,
-    body.theme-light .bt-list li::before {
-      border-color: rgba(15, 25, 35, .22);
-    }
-
-    body.theme-light .check-row,
-    body.theme-light .record-detail dl div {
-      border-color: rgba(15, 25, 35, .09);
-    }
-
-    body.theme-light .demo-poster-content,
-    body.theme-light .demo-poster-content h4,
-    body.theme-light .demo-poster-content b {
-      color: #eef2f7 !important;
-    }
-
-    body.theme-light .demo-poster-content p,
-    body.theme-light .demo-poster-content .tool-note,
-    body.theme-light .media-card video {
-      color: #b7c4d3;
-    }
-
-    body.theme-light .gwt-block,
-    body.theme-light .code-panel pre,
-    body.theme-light .demo-poster-content {
-      color-scheme: dark;
-    }
-
-    body.theme-light .echarts-embed-wrap,
-    body.theme-light .demo-iframe.echarts-frame {
-      background: #f5f8fc;
-      color-scheme: light;
-    }
-
-    body.theme-light .record-multi-menu {
-      box-shadow: 0 18px 44px rgba(36, 55, 75, .18);
-    }
-
-    body.theme-light .card:hover,
-    body.theme-light .card:focus-visible {
-      filter: none;
-      box-shadow: 0 16px 34px -18px color-mix(in srgb, var(--accent) 48%, transparent);
-    }
-
-    .start-title,
-    .run-guide-label {
-      color: var(--brand-text);
-    }
-
-    .card,
-    .modal-box,
-    .artifact-workspace,
-    .artifact-intro,
-    .artifact-toolbar,
-    .tool-btn,
-    .tool-input,
-    .tool-select,
-    .metric-card,
-    .scenario-card,
-    .check-group-btn,
-    .analysis-section,
-    .scope-card,
-    .flow-step-card,
-    .run-mode-card,
-    .run-step,
-    .run-result,
-    .automation-step,
-    .resource-link {
-      transition: background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
     }
 
     /* Page background fades smoothly on theme switch */
@@ -5515,42 +5285,6 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
         return '<div class="code-panel command-panel"><div class="code-panel-head"><span>' + label + '</span><button type="button" class="tool-btn code-copy-btn" data-copy-target="' + id + '">複製</button></div><pre id="' + id + '">' + esc(commands) + '</pre></div>';
       }
 
-      function applyEchartsEmbedTheme(frame) {
-        if (!frame) return;
-        try {
-          var doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
-          if (!doc || !doc.documentElement) return;
-          var light = document.body.classList.contains('theme-light');
-          doc.documentElement.classList.toggle('qa-parent-light', light);
-          frame.style.colorScheme = light ? 'light' : 'dark';
-
-          /* Prefer the embedded app's own theme control so ECharts canvas labels,
-             axes, tooltip and legend are redrawn with the correct palette. */
-          var themeSelect = Array.prototype.find.call(doc.querySelectorAll('select'), function (select) {
-            var text = Array.prototype.map.call(select.options || [], function (option) {
-              return ((option.textContent || '') + ' ' + (option.value || '')).toLowerCase();
-            }).join(' ');
-            return text.indexOf('dark') !== -1 && text.indexOf('light') !== -1;
-          });
-          if (themeSelect) {
-            var desired = Array.prototype.find.call(themeSelect.options, function (option) {
-              var token = ((option.textContent || '') + ' ' + (option.value || '')).toLowerCase();
-              return token.indexOf(light ? 'light' : 'dark') !== -1;
-            });
-            if (desired && themeSelect.value !== desired.value) {
-              themeSelect.value = desired.value;
-              themeSelect.dispatchEvent(new frame.contentWindow.Event('change', { bubbles: true }));
-            }
-          }
-
-          if (frame.contentWindow) {
-            frame.contentWindow.postMessage({ type: 'qa-portfolio-theme', theme: light ? 'light' : 'dark' }, '*');
-          }
-        } catch (err) {
-          frame.classList.add('embed-style-fallback');
-        }
-      }
-
       function normalizeEchartsEmbed(frame) {
         if (!frame) return;
         try {
@@ -5558,72 +5292,65 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
           if (!doc || !doc.head || !doc.documentElement) return;
 
           doc.documentElement.classList.add('qa-portfolio-embed');
-          if (!doc.getElementById('qa-portfolio-embed-style')) {
-            var style = doc.createElement('style');
-            style.id = 'qa-portfolio-embed-style';
-            style.textContent = [
-              'html.qa-portfolio-embed, html.qa-portfolio-embed body {',
-              '  font-family: "Noto Sans TC", "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;',
-              '}',
-              'html.qa-portfolio-embed body {',
-              '  font-size: 13px !important;',
-              '  line-height: 1.5 !important;',
-              '  letter-spacing: 0 !important;',
-              '}',
-              'html.qa-portfolio-embed h1, html.qa-portfolio-embed h2, html.qa-portfolio-embed h3, html.qa-portfolio-embed h4, html.qa-portfolio-embed h5, html.qa-portfolio-embed h6 {',
-              '  font-family: "Space Grotesk", "Noto Sans TC", system-ui, sans-serif !important;',
-              '  letter-spacing: 0 !important;',
-              '}',
-              'html.qa-portfolio-embed button, html.qa-portfolio-embed input, html.qa-portfolio-embed select, html.qa-portfolio-embed textarea {',
-              '  font-family: "Noto Sans TC", "Space Grotesk", system-ui, sans-serif !important;',
-              '  font-size: 12px !important;',
-              '  line-height: 1.35 !important;',
-              '  border-radius: 9px !important;',
-              '}',
-              'html.qa-portfolio-embed button {',
-              '  min-height: 32px !important;',
-              '  padding: 6px 10px !important;',
-              '}',
-              'html.qa-portfolio-embed input, html.qa-portfolio-embed select {',
-              '  min-height: 34px !important;',
-              '  height: 34px !important;',
-              '  padding: 6px 10px !important;',
-              '}',
-              'html.qa-portfolio-embed textarea { padding: 8px 10px !important; }',
-              'html.qa-portfolio-embed label, html.qa-portfolio-embed small { font-size: 10.5px !important; }',
-              'html.qa-portfolio-embed ::-webkit-scrollbar { width: 9px !important; height: 9px !important; }',
-              'html.qa-portfolio-embed ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.16) !important; border-radius: 8px !important; }',
-              'html.qa-portfolio-embed.qa-parent-light {',
-              '  color-scheme: light !important;',
-              '  --bg: #eef3f8 !important; --background: #eef3f8 !important;',
-              '  --surface: #ffffff !important; --panel: #ffffff !important; --card: #ffffff !important;',
-              '  --text: #0f1923 !important; --muted: #536579 !important; --border: rgba(15,25,35,.12) !important;',
-              '}',
-              'html.qa-portfolio-embed.qa-parent-light body { background: #eef3f8 !important; color: #0f1923 !important; }',
-              'html.qa-portfolio-embed.qa-parent-light input, html.qa-portfolio-embed.qa-parent-light select, html.qa-portfolio-embed.qa-parent-light textarea, html.qa-portfolio-embed.qa-parent-light button {',
-              '  background-color: #ffffff !important; color: #0f1923 !important; border-color: rgba(15,25,35,.16) !important;',
-              '}',
-              'html.qa-portfolio-embed.qa-parent-light [class*="card"], html.qa-portfolio-embed.qa-parent-light [class*="panel"], html.qa-portfolio-embed.qa-parent-light [class*="toolbar"] {',
-              '  border-color: rgba(15,25,35,.12) !important;',
-              '}',
-              'html.qa-portfolio-embed.qa-parent-light ::-webkit-scrollbar-thumb { background: rgba(15,25,35,.26) !important; }',
-              '@media (max-width: 720px) {',
-              '  html.qa-portfolio-embed button, html.qa-portfolio-embed input, html.qa-portfolio-embed select, html.qa-portfolio-embed textarea { font-size: 12px !important; }',
-              '}'
-            ].join('\n');
-            doc.head.appendChild(style);
-          }
-          applyEchartsEmbedTheme(frame);
+          if (doc.getElementById('qa-portfolio-embed-style')) return;
+
+          var style = doc.createElement('style');
+          style.id = 'qa-portfolio-embed-style';
+          style.textContent = [
+            'html.qa-portfolio-embed, html.qa-portfolio-embed body {',
+            '  font-family: "Noto Sans TC", "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;',
+            '}',
+            'html.qa-portfolio-embed body {',
+            '  font-size: 13px !important;',
+            '  line-height: 1.5 !important;',
+            '  letter-spacing: 0 !important;',
+            '}',
+            'html.qa-portfolio-embed h1, html.qa-portfolio-embed h2, html.qa-portfolio-embed h3, html.qa-portfolio-embed h4, html.qa-portfolio-embed h5, html.qa-portfolio-embed h6 {',
+            '  font-family: "Space Grotesk", "Noto Sans TC", system-ui, sans-serif !important;',
+            '  letter-spacing: 0 !important;',
+            '}',
+            'html.qa-portfolio-embed button, html.qa-portfolio-embed input, html.qa-portfolio-embed select, html.qa-portfolio-embed textarea {',
+            '  font-family: "Noto Sans TC", "Space Grotesk", system-ui, sans-serif !important;',
+            '  font-size: 12px !important;',
+            '  line-height: 1.35 !important;',
+            '  border-radius: 9px !important;',
+            '}',
+            'html.qa-portfolio-embed button {',
+            '  min-height: 32px !important;',
+            '  padding: 6px 10px !important;',
+            '}',
+            'html.qa-portfolio-embed input, html.qa-portfolio-embed select {',
+            '  min-height: 34px !important;',
+            '  height: 34px !important;',
+            '  padding: 6px 10px !important;',
+            '}',
+            'html.qa-portfolio-embed textarea {',
+            '  padding: 8px 10px !important;',
+            '}',
+            'html.qa-portfolio-embed label, html.qa-portfolio-embed small {',
+            '  font-size: 10.5px !important;',
+            '}',
+            'html.qa-portfolio-embed ::-webkit-scrollbar {',
+            '  width: 9px !important;',
+            '  height: 9px !important;',
+            '}',
+            'html.qa-portfolio-embed ::-webkit-scrollbar-thumb {',
+            '  background: rgba(255,255,255,.16) !important;',
+            '  border-radius: 8px !important;',
+            '}',
+            '@media (max-width: 720px) {',
+            '  html.qa-portfolio-embed button, html.qa-portfolio-embed input, html.qa-portfolio-embed select, html.qa-portfolio-embed textarea {',
+            '    font-size: 12px !important;',
+            '  }',
+            '}'
+          ].join('\n');
+          doc.head.appendChild(style);
         } catch (err) {
+          /* Same-origin access is expected when launched by start-portfolio.bat.
+             If the file is opened in a restricted context, keep the iframe usable. */
           frame.classList.add('embed-style-fallback');
         }
       }
-
-      window.syncPortfolioEmbeddedThemes = function () {
-        document.querySelectorAll('iframe.echarts-frame').forEach(function (frame) {
-          normalizeEchartsEmbed(frame);
-        });
-      };
 
       function bindEchartsEmbeds(root) {
         if (!root) return;
@@ -6853,7 +6580,6 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
           isLight = !isLight;
           document.body.classList.toggle('theme-light', isLight);
           updateIcon();
-          if (window.syncPortfolioEmbeddedThemes) { window.syncPortfolioEmbeddedThemes(); }
         }, 200);
 
         // Clean up
@@ -6871,7 +6597,6 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
       });
 
       updateIcon();
-      if (window.syncPortfolioEmbeddedThemes) { window.syncPortfolioEmbeddedThemes(); }
     })();
   </script>
 

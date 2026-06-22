@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-
-<html lang="zh-Hant"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>自動化架構與資料流｜規格驅動 QA Automation Orchestrator</title><style>
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Architecture｜Specification-driven QA Automation Orchestrator</title><style>
 :root{color-scheme:dark;--bg:#090d13;--card:#111823;--border:rgba(255,255,255,.11);--text:#edf3fa;--dim:#9aa8b8;--brand:#2dc4e0;--code:#070b10}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 0%,rgba(45,196,224,.12),transparent 34%),var(--bg);color:var(--text);font-family:"Segoe UI","Noto Sans TC",Arial,sans-serif;line-height:1.7}
 header{position:sticky;top:0;z-index:3;background:rgba(9,13,19,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
@@ -14,27 +13,30 @@ table{width:100%;border-collapse:collapse;margin:18px 0;display:block;overflow:a
 blockquote{margin:18px 0;padding:2px 16px;border-left:3px solid var(--brand);color:var(--dim)}
 @media(max-width:640px){main{padding:24px 12px 60px}.doc{padding:22px 17px;border-radius:14px}.header-inner{padding:11px 14px}.nav .optional{display:none}}
 </style></head>
-<body><header><div class="header-inner"><div class="brand">QA 自動化 <span>·</span> 架構文件</div><nav class="nav"><a href="../../../index.html">返回作品集</a><a class="optional" href="architecture.md">檢視 Markdown 原檔</a></nav></div></header><main><article class="doc">
-<h1 id="architecturespecification-driven-qa-automation-orchestrator">自動化架構與資料流｜規格驅動 QA Automation Orchestrator</h1>
-<p>本專案展示由 QA 主導的自動化架構，將需求型輸入轉換為可審查的測試規格與可執行的測試任務。</p>
-<h2 id="core-flow">核心流程</h2>
-<pre class="text"><code>需求型輸入
+<body><header><div class="header-inner"><div class="brand">QA AUTOMATION <span>·</span> DOCUMENT</div><nav class="nav"><a href="../../../index.html">返回作品集</a><a class="optional" href="architecture.md">檢視 Markdown 原檔</a></nav></div></header><main><article class="doc"><h1
+id="architecturespecification-driven-qa-automation-orchestrator">Architecture｜Specification-driven
+QA Automation Orchestrator</h1>
+<p>This project demonstrates a QA-owned automation architecture that
+transforms requirement-style inputs into reviewable specifications and
+executable test tasks.</p>
+<h2 id="core-flow">Core Flow</h2>
+<pre class="text"><code>Requirement-style input
         ↓
-可審查的測試規格
+Reviewable specification
         ↓
-測試任務拆分
+Task delegation
         ↓
-規格品質閘門（Specification Quality Gate）
+Specification Quality Gate
         ↓
-Playwright 黑箱 UI 測試
+Playwright black-box UI test
         ↓
-測試報告與結果摘要
+Report and test summary
         ↓
-Phase 2 確定性 Mock 整合
+Phase 2 deterministic mock integration
         ↓
-人工審查與後續決策</code></pre>
-<h2 id="phase-1local-execution">Phase 1｜本機執行</h2>
-<p>Phase 1 提供可於本機實際執行的自動化示範流程。</p>
+Human review</code></pre>
+<h2 id="phase-1local-execution">Phase 1｜Local Execution</h2>
+<p>Phase 1 provides a locally executable automation demonstration.</p>
 <pre class="text"><code>specs/*.spec.md
         ↓
 tasks/*.task.json
@@ -48,17 +50,23 @@ Playwright tests
 Playwright HTML Report
         ↓
 reports/test-summary.json</code></pre>
-<p>執行前，互動式 CLI 會顯示所選模組的測試目標、Acceptance Criteria、風險重點與測試邊界，讓執行者在啟動自動化前先確認規格內容。</p>
-<h2 id="phase-1optional-docker-runtime">Phase 1+｜選用的 Docker Runtime</h2>
-<p>Docker 僅封裝 QA 自動化測試執行環境：</p>
+<p>Before execution, the interactive CLI displays the selected module’s
+objective, acceptance criteria, risk focus, and test boundary.</p>
+<h2 id="phase-1optional-docker-runtime">Phase 1+｜Optional Docker
+Runtime</h2>
+<p>Docker packages only the QA automation runtime:</p>
 <pre class="text"><code>Docker image
 ├─ Node.js
 ├─ Playwright
 ├─ Chromium
 └─ QA automation scripts</code></pre>
-<p>受測系統仍位於 Container 外部。映像中不包含應用程式原始碼、資料庫內容、正式環境憑證或正式環境設定。</p>
-<h2 id="phase-2deterministic-mock-and-contract-layer">Phase 2｜確定性 Mock 與 Contract Layer</h2>
-<p>Phase 2 刻意採用本機確定性 Mock 與資料契約實作：</p>
+<p>The application under test remains external. The image does not
+contain application source code, database content, production
+credentials, or production configuration.</p>
+<h2 id="phase-2deterministic-mock-and-contract-layer">Phase
+2｜Deterministic Mock and Contract Layer</h2>
+<p>Phase 2 is intentionally implemented with local deterministic mocks
+and data contracts:</p>
 <pre class="text"><code>reports/test-summary.json
         ↓
 phase2/mcp/context-contract.md
@@ -68,8 +76,13 @@ phase2/llm/failure-analysis-prompt.md
 phase2/llm/mock-ai-analysis.md
         ↓
 phase2/n8n/workflow.sample.json</code></pre>
-<p>此層用來展示未來導入 AI 輔助分析與 Workflow Routing 的方式，同時避免外部工具直接控制受測系統。現階段輸出屬於可重現的 Mock 結果，不宣稱已完成正式 LLM、MCP 或 n8n 線上串接。</p>
-<h2 id="design-rationale">設計考量</h2>
-<p>此架構適用於 QA 可存取經核准的測試環境並觀察 UI 行為，但不具備、也不一定需要應用程式原始碼權限的情境。設計上優先處理穩定且高價值的回歸情境，並將規格核准、風險判斷與後續處置保留在人工作業範圍內。</p>
-<div class="source-note">此 UTF-8 HTML 檢視頁由 <a href="architecture.md">architecture.md</a> 產生。</div>
-</article></main></body></html>
+<p>This layer demonstrates how AI-assisted analysis and workflow routing
+could be introduced without giving external tools direct control of the
+system under test.</p>
+<h2 id="design-rationale">Design Rationale</h2>
+<p>The architecture is suitable when QA has access to an approved test
+environment and observable UI behavior, but does not have or require
+application source-code access. It prioritizes stable, high-value
+regression scenarios and keeps specification approval and follow-up
+decisions under human control.</p>
+<div class="source-note">UTF-8 HTML view generated from <a href="architecture.md">architecture.md</a>.</div></article></main></body></html>

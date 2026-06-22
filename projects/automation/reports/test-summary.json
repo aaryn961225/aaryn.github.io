@@ -3,8 +3,8 @@
   "module": "ALL",
   "moduleName": "示範範圍內全部測試",
   "testType": "Specification-driven Black-box UI Automation",
-  "specification": null,
-  "task": null,
+  "specification": "specs/*.spec.md",
+  "task": "tasks/ALL.task.json",
   "orchestrationFlow": [
     "Prompt / requirement input",
     "Specification",
@@ -15,7 +15,7 @@
     "Phase 2 deterministic mock review",
     "Human review"
   ],
-  "generatedAt": "2026-06-21T10:01:38.946Z",
+  "generatedAt": "2026-06-22T15:31:09.817Z",
   "sourceReport": "reports/playwright-results.json",
   "playwrightReport": "playwright-report/index.html",
   "status": "passed",
@@ -23,7 +23,7 @@
   "passed": 3,
   "failed": 0,
   "skipped": 0,
-  "durationMs": 1977,
+  "durationMs": 13459,
   "failedCases": [],
   "aiAccessScope": [
     "test summary",
