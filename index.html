@@ -1453,7 +1453,9 @@
       width: 100%;
       max-width: 720px;
       max-height: 88vh;
-      overflow-y: auto;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 20px;
@@ -1468,10 +1470,11 @@
     }
 
     .modal-close {
-      position: sticky;
+      position: absolute;
       top: 14px;
+      right: 14px;
       z-index: 10;
-      margin: 14px 14px -46px auto;
+      margin: 0;
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -1494,7 +1497,9 @@
     }
 
     .modal-visual {
+      width: 100%;
       height: 140px;
+      flex-shrink: 0;
       border-radius: 20px 20px 0 0;
       display: flex;
       align-items: center;
@@ -1508,6 +1513,10 @@
     }
 
     .modal-content {
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
       padding: 24px 30px 30px;
     }
 
