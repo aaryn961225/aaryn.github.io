@@ -1880,7 +1880,8 @@
     }
 
     /* ---------- mobile fallback ---------- */
-    @media (max-width:1279px) {
+    @media (max-width:1279px),
+    (max-height:820px) {
       .stage-reveal {
         height: auto;
       }
@@ -6732,7 +6733,11 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
       }
 
       function update() {
-        if (window.innerWidth <= 1279) {
+        const useStackedLayout = window.matchMedia(
+          '(max-width: 1279px), (max-height: 820px)'
+        ).matches;
+
+        if (useStackedLayout) {
           applyStackedLayout();
           return;
         }
