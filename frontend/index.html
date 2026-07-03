@@ -1001,7 +1001,7 @@
     /* ---------- stage scaffold ---------- */
     .stage-reveal {
       position: relative;
-      height: 500vh;
+      height: 340vh;
     }
 
     .stage-pin {
@@ -3806,6 +3806,209 @@
         flex-direction: column;
       }
     }
+
+    /* ---------- richer Three.js interaction architecture ---------- */
+    .flow-step-card p b {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .flow-step-card p + p {
+      margin-top: 5px;
+    }
+
+    @media (min-width: 901px) {
+      .flow-step-grid .flow-step-card {
+        min-height: 235px;
+      }
+    }
+
+    body.theme-light .flow-step-card p b {
+      color: var(--text);
+    }
+
+
+    /* ---------- product user-flow detail ---------- */
+    .product-flow-lane .flow-step-grid {
+      padding: 14px;
+    }
+
+    .product-flow-card {
+      min-height: 220px;
+    }
+
+    .product-flow-card p {
+      margin-bottom: 8px;
+    }
+
+    .product-flow-card p b,
+    .product-flow-card .flow-trace b {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    body.theme-light .product-flow-card p b,
+    body.theme-light .product-flow-card .flow-trace b {
+      color: var(--text);
+    }
+
+    @media (min-width: 901px) {
+      .product-flow-lane .flow-step-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+
+    /* ---------- vertical alternating project timeline ---------- */
+    .timeline-spine {
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      top: 23%;
+      width: 2px;
+      height: 60%;
+      transform: translateX(-50%) scaleY(0);
+      transform-origin: top center;
+      border-radius: 999px;
+      background: linear-gradient(to bottom,
+        rgba(45,196,224,.88),
+        rgba(82,214,138,.70) 48%,
+        rgba(176,139,250,.82));
+      box-shadow: 0 0 16px rgba(45,196,224,.18),
+                  0 0 28px rgba(176,139,250,.12);
+      opacity: .82;
+      pointer-events: none;
+    }
+
+    .start-node {
+      top: 3.5%;
+      left: 50%;
+      transform: translateX(-50%);
+      gap: 10px;
+    }
+
+    .start-card {
+      order: 1;
+      width: 286px;
+      padding: 18px 22px 19px;
+      gap: 9px;
+    }
+
+    .start-dot {
+      order: 2;
+      margin-top: -1px;
+    }
+
+    .scroll-hint {
+      order: 3;
+      margin-top: 1px;
+    }
+
+    .start-sub {
+      max-width: 230px;
+      line-height: 1.55;
+    }
+
+    .start-tagline {
+      max-width: 225px;
+      line-height: 1.5;
+    }
+
+    .branches {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform: none;
+      display: block;
+    }
+
+    .branches .card {
+      position: absolute;
+      width: min(500px, 39vw);
+    }
+
+    #card1 {
+      top: 27%;
+      left: 5%;
+    }
+
+    #card2 {
+      top: 50%;
+      right: 5%;
+      left: auto;
+    }
+
+    #card4 {
+      top: 73%;
+      left: 5%;
+    }
+
+    .card-visual {
+      height: 82px;
+    }
+
+    .card-body {
+      padding: 15px 38px 17px;
+      gap: 6px;
+    }
+
+    .card-title {
+      font-size: 18px;
+    }
+
+    .card-sub {
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .card-highlight {
+      color: var(--text);
+      font-size: 10.5px;
+      font-weight: 650;
+      letter-spacing: .02em;
+      line-height: 1.5;
+    }
+
+    @media (max-width:1279px), (max-height:820px) {
+      .timeline-spine {
+        display: none;
+      }
+
+      .start-node {
+        top: auto;
+        left: auto;
+        transform: none;
+      }
+
+      .start-card {
+        width: auto;
+        padding: 14px 16px;
+      }
+
+      .start-dot,
+      .start-card,
+      .scroll-hint {
+        order: initial;
+      }
+
+      .branches {
+        position: static;
+        width: auto;
+        height: auto;
+      }
+
+      .branches .card,
+      #card1,
+      #card2,
+      #card4 {
+        position: static;
+        width: auto;
+        inset: auto;
+        margin: 0 0 18px;
+      }
+    }
+
   </style>
 </head>
 
@@ -3839,24 +4042,16 @@
         <svg class="route-svg" id="routeSvg" aria-hidden="true">
           <path id="path1" class="route-path"></path>
           <path id="path2" class="route-path"></path>
-          <path id="path3" class="route-path"></path>
           <path id="path4" class="route-path"></path>
-          <path id="cpath1" class="route-path converge-path"></path>
-          <path id="cpath2" class="route-path converge-path"></path>
-          <path id="cpath3" class="route-path converge-path"></path>
-          <path id="cpath4" class="route-path converge-path"></path>
         </svg>
 
         <div class="plus-node" id="plus1" style="--accent:#2dc4e0;">+</div>
         <div class="plus-node" id="plus2" style="--accent:#52d68a;">+</div>
-        <div class="plus-node" id="plus3" style="--accent:#ffb648;">+</div>
         <div class="plus-node" id="plus4" style="--accent:#b08bfa;">+</div>
 
         <div class="end-dot" id="dot1" style="--accent:#2dc4e0;"></div>
         <div class="end-dot" id="dot2" style="--accent:#52d68a;"></div>
-        <div class="end-dot" id="dot3" style="--accent:#ffb648;"></div>
         <div class="end-dot" id="dot4" style="--accent:#b08bfa;"></div>
-        <div class="end-dot" id="dot5" style="--accent:#007cc3;"></div>
         <!-- <div class="converge-label" id="convergeLabel">分析能力<br>延伸至自動化框架</div> -->
 
         <div class="start-node" id="startNode">
@@ -3882,6 +4077,8 @@
             <span>向下滑動，展開作品</span>
           </div>
         </div>
+
+        <div class="timeline-spine" id="timelineSpine" aria-hidden="true"></div>
 
         <h2 class="visually-hidden">作品集分支</h2>
         <div class="branches" id="branches">
@@ -3910,11 +4107,12 @@
             <div class="card-body">
               <h3 class="card-title">Data Visualization Dashboard</h3>
               <p class="card-sub">ECharts、Dashboard、資料管理與互動狀態呈現</p>
+              <p class="card-highlight">8 種互動圖表｜個人化配置｜RWD</p>
               <div class="card-tags">
                 <span class="tag">ECharts</span>
                 <span class="tag">Dashboard</span>
+                <span class="tag">RWD</span>
                 <span class="tag">localStorage</span>
-                <span class="tag">Responsive UI</span>
               </div>
             </div>
           </div>
@@ -3943,42 +4141,11 @@
             <div class="card-body">
               <h3 class="card-title">Three.js Interactive Prototype</h3>
               <p class="card-sub">3D 場景、球體操作與互動狀態流程</p>
+              <p class="card-highlight">球種切換｜蓄力丟球｜Behavior Tree｜Recovery</p>
               <div class="card-tags">
                 <span class="tag">Three.js</span>
                 <span class="tag">WebXR</span>
                 <span class="tag">State Flow</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="card3" tabindex="-1" role="button" aria-label="查看響應式互動網站作品詳情"
-            style="--accent:#ffb648;">
-            <div class="card-visual">
-              <svg class="card-icon-big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="12" rx="2"></rect>
-                <path d="M8 20h8"></path>
-                <path d="M12 16v4"></path>
-                <rect x="15" y="8" width="4" height="6" rx="1"></rect>
-              </svg>
-              <span class="card-num-badge">03</span>
-              <span class="card-stage-badge">RWD 實作</span>
-              <span class="card-icon-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M7 17L17 7"></path>
-                  <path d="M10 7h7v7"></path>
-                </svg>
-              </span>
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">Responsive Interactive Web</h3>
-              <p class="card-sub">多模組頁面、Modal、主題切換與跨裝置版型</p>
-              <div class="card-tags">
-                <span class="tag">HTML5</span>
-                <span class="tag">CSS3</span>
-                <span class="tag">JavaScript</span>
-                <span class="tag">RWD</span>
               </div>
             </div>
           </div>
@@ -3990,7 +4157,7 @@
                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 5l6.5 14 2-6 6-2L5 5z"></path>
               </svg>
-              <span class="card-num-badge">04</span>
+              <span class="card-num-badge">03</span>
               <span class="card-stage-badge is-outline">UI/UX Prototype</span>
               <span class="card-icon-badge">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -4003,6 +4170,7 @@
             <div class="card-body">
               <h3 class="card-title">UI/UX Product Prototype</h3>
               <p class="card-sub">需求拆解、User Flow 與可操作產品原型</p>
+              <p class="card-highlight">3 條核心流程｜7 個代表性介面</p>
               <div class="card-tags">
                 <span class="tag">Figma</span>
                 <span class="tag">User Flow</span>
@@ -4014,46 +4182,13 @@
 
         </div>
 
-        <div class="card card-final" id="card5" tabindex="-1" role="button"
-          aria-label="查看 AI 協作開發流程作品詳情" style="--accent:#007cc3;">
-          <div class="card-visual">
-            <svg class="card-icon-big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="5" cy="6" r="2.2"></circle>
-              <circle cx="19" cy="6" r="2.2"></circle>
-              <circle cx="12" cy="18" r="2.2"></circle>
-              <path d="M5 8.2V12a2 2 0 0 0 2 2h3"></path>
-              <path d="M19 8.2V12a2 2 0 0 0-2 2h-3"></path>
-            </svg>
-            <span class="card-num-badge">05</span>
-            <span class="card-stage-badge">AI 協作流程</span>
-            <span class="card-icon-badge">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M7 17L17 7"></path>
-                <path d="M10 7h7v7"></path>
-              </svg>
-            </span>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">AI-assisted Development</h3>
-            <p class="card-sub">需求拆解、程式生成、除錯、重構與人工驗證</p>
-            <div class="card-tags">
-              <span class="tag">GitHub Copilot</span>
-              <span class="tag">Claude Code</span>
-              <span class="tag">Playwright</span>
-              <span class="tag">Documentation</span>
-            </div>
-            <div class="final-merge-note">將需求分析、介面實作與品質驗證整合為可重複的 AI 協作開發流程</div>
-          </div>
-        </div>
+
 
       </div>
     </div>
   </section>
 
-  <!-- <p class="next-hint"><span class="next-hint-dot"></span>前四個作品呈現建立自動化前所需的分析能力；Automation Orchestrator
-    則是另一個可重複使用的執行框架範例。</p> -->
+  <!-- <p class="next-hint"><span class="next-hint-dot"></span>三個作品分別呈現資料視覺化、Three.js 互動與 UI/UX 產品原型。</p> -->
 
   <div class="modal-overlay" id="modalOverlay" aria-hidden="true" inert>
     <div class="modal-box" id="modalBox" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -4182,16 +4317,16 @@
 
       var CARD_DATA = {
         card1: {
-          plain: '重點說明：以 ECharts 建立可搜尋、可分類與可加入個人 Dashboard 的資料視覺化介面，並處理不同資料與畫面狀態。',
+          plain: '重點說明：以 ECharts 建立可搜尋、可分類、可加入個人 Dashboard 且支援 RWD 的資料視覺化介面，並處理不同資料與畫面狀態。',
           meta: {
             role: 'Front-end Visualization',
             type: 'Interactive Prototype',
             status: '8 個可互動圖表',
-            contribution: '負責圖表整合、介面設計、Dashboard 操作、localStorage 保存、Responsive Resize 與狀態呈現。'
+            contribution: '負責圖表整合、Dashboard 操作、RWD 版型、Responsive Resize、localStorage 保存與資料狀態呈現。'
           },
           context: '資料監控介面需要同時兼顧資訊層級、圖表可讀性、篩選操作與跨裝置呈現，不能只把資料直接畫成圖。',
           approach: '整合 Line、Area、Bar、Stacked Bar、Donut、Radar、Gauge 與 Scatter，加入搜尋、分類、Tooltip、Legend、Dashboard 排序與資料狀態。',
-          result: '完成 8 個可離線操作的 ECharts 實作，以及可保存設定的個人化 Dashboard、資料管理介面與 Loading／Empty／Success／Error 狀態展示。',
+          result: '完成 8 個可離線操作的 ECharts 實作，以及具 RWD 的個人化 Dashboard、資料管理介面與 Loading／Empty／Success／Error 狀態展示。',
           artifacts: [
             { tag: 'Visualization Library', type: 'ui-chart-library', text: '瀏覽 8 個可互動 ECharts，支援搜尋、分類、Tooltip、Legend、主題與 Responsive Resize。' },
             { tag: 'Personalized Dashboard', type: 'ui-dashboard', text: '將圖表加入 Dashboard、調整順序或移除，並以 localStorage 保存設定。' },
@@ -4213,25 +4348,10 @@
           result: '完成可切換球種、蓄力丟球與小狗自動追球的 Three.js Demo，並以狀態流程說明介面如何保持一致與可繼續操作。',
           artifacts: [
             { tag: '3D Demo', type: 'dog-demo', text: '載入可操作的 Three.js Demo，切換球種、蓄力丟球並觀察角色行為。' },
-            { tag: 'Interaction State', type: 'frontend-dog-state', text: '以簡化流程呈現輸入、物理物件、角色狀態與介面回饋的關係。' }
-          ]
-        },
-
-        card3: {
-          plain: '重點說明：本作品集本身即為一個多模組互動網站，包含開場動畫、Scroll Reveal、Modal、Tabs、深淺主題與 RWD 版型。',
-          meta: {
-            role: 'Front-end Implementation',
-            type: 'Responsive Multi-module Website',
-            status: '已部署 GitHub Pages',
-            contribution: '負責資訊架構、HTML／CSS／JavaScript 整合、動畫、Modal、主題切換、跨裝置版型與內容維護。'
-          },
-          context: '作品集需要同時容納多種互動 Demo，又要讓面試官能快速理解重點，因此需兼顧內容層級、操作引導與不同螢幕尺寸。',
-          approach: '使用原生 HTML、CSS、JavaScript 建立單頁互動架構，並透過共用元件、CSS Variables、Media Queries 與狀態控制維持一致性。',
-          result: '完成可於桌機、平板與手機使用的多模組網站，支援深淺主題、鍵盤操作、Reduced Motion、Modal 與嵌入式 Demo。',
-          artifacts: [
-            { tag: 'Interface Architecture', type: 'frontend-web-overview', text: '說明首頁路徑、作品卡、Modal、Tabs 與嵌入式 Demo 的介面結構。' },
-            { tag: 'Responsive & Theme', type: 'frontend-web-rwd', text: '整理 RWD、深淺主題、鍵盤操作與 Reduced Motion 的實作考量。' },
-            { tag: 'Quality Mindset', type: 'frontend-quality', text: '只保留與前端交付直接相關的品質檢核：RWD、表單、狀態、可用性與相容性。' }
+            { tag: 'Interaction Architecture', type: 'frontend-dog-state', text: '從事件輸入、狀態控制到 UI／物件／角色同步，呈現完整互動架構。' },
+            { tag: 'Behavior Tree', type: 'dog-tree', text: '以可點擊節點呈現小狗從待命、偵測、追球到叼回的行為決策。' },
+            { tag: 'Recovery Matrix', type: 'frontend-dog-recovery', text: '整理球出界、重複輸入、目標消失與逾時等例外的恢復策略。' },
+            { tag: 'Implementation Notes', type: 'frontend-dog-implementation', text: '說明輸入層、場景物件、狀態控制、角色行為與介面回饋的責任切分。' }
           ]
         },
 
@@ -4249,24 +4369,6 @@
           artifacts: [
             { tag: 'User Flow', type: 'frontend-vtrainer-flow', text: '以簡化方式呈現正常訓練、失敗重試與教練回饋三條主要路徑。' },
             { tag: 'Prototype', type: 'vtrainer-prototype', text: '播放操作影片並瀏覽主要畫面，檢視資訊架構與介面一致性。' }
-          ]
-        },
-
-        card5: {
-          plain: '重點說明：使用 GitHub Copilot、Claude Code 等 AI 工具協助需求拆解、程式生成、除錯、重構與文件整理，並由人工執行與驗證。',
-          meta: {
-            role: 'AI-assisted Developer / QA Validation',
-            type: 'Development Workflow',
-            status: '持續使用與整理',
-            contribution: '負責 Prompt 拆解、生成結果審查、瀏覽器除錯、程式重構、Playwright 驗證與 README 文件。'
-          },
-          context: 'AI 可以加速開發，但生成結果仍可能出現路徑錯誤、狀態遺漏、重複程式碼或無法執行的內容。',
-          approach: '先定義需求與限制，再要求 AI 產生小範圍修改；透過瀏覽器、Console、實際操作與測試結果檢查，再進行重構與文件化。',
-          result: '建立「需求拆解 → 生成初稿 → 人工 Review → 除錯重構 → 實際驗證 → 文件整理」的可重複協作流程，並保留 Playwright 執行證據。',
-          artifacts: [
-            { tag: 'AI Workflow', type: 'frontend-ai-workflow', text: '呈現從需求拆解到實際驗證的 AI 協作開發流程。' },
-            { tag: 'Review & Validation', type: 'frontend-ai-review', text: '說明不直接採用生成結果，而是以人工 Review、瀏覽器除錯與功能驗證確認品質。' },
-            { tag: 'Execution Evidence', type: 'frontend-playwright-evidence', text: '保留 Playwright HTML Report 與 README 連結，作為可執行成果證據。' }
           ]
         }
       };
@@ -5684,29 +5786,213 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
       }
 
       function renderFrontendDogState() {
-        var flow = [
-          ['01', '待命', '等待使用者選擇球種與輸入'],
-          ['02', '蓄力', '依按住時間更新力道與畫面回饋'],
-          ['03', '丟球', '生成球體並套用方向與物理參數'],
-          ['04', '偵測', '判斷有效落點並鎖定可追蹤目標'],
-          ['05', '追球', '同步角色方向、動畫與目標位置'],
-          ['06', '叼回', '將球附著角色並返回指定區域'],
-          ['07', '重置', '清除目標並回到下一輪可操作狀態']
+        var states = [
+          {
+            id: '01',
+            name: '待命 Idle',
+            trigger: '場景完成載入，或上一輪流程完成',
+            process: '清除前次目標、重置輸入與角色動畫',
+            feedback: '顯示可選球種與可操作的蓄力提示',
+            exit: '使用者按住操作區開始蓄力'
+          },
+          {
+            id: '02',
+            name: '蓄力 Charging',
+            trigger: 'Pointer Down',
+            process: '依按住時間更新 charge 值並限制上下限',
+            feedback: '蓄力條、數值或視覺強度即時更新',
+            exit: 'Pointer Up 或操作取消'
+          },
+          {
+            id: '03',
+            name: '丟球 Throwing',
+            trigger: 'Pointer Up 且輸入有效',
+            process: '依球種、方向與力道生成球體及物理參數',
+            feedback: '蓄力歸零、球體進入場景、操作暫時鎖定',
+            exit: '球體落點可被判定'
+          },
+          {
+            id: '04',
+            name: '偵測 Detecting',
+            trigger: '球體進入可判定範圍',
+            process: '檢查場內／場外、目標有效性與追蹤條件',
+            feedback: '有效目標進入追蹤；無效目標提供恢復狀態',
+            exit: '鎖定目標或進入 Recovery'
+          },
+          {
+            id: '05',
+            name: '追球 Chasing',
+            trigger: '有效目標已鎖定',
+            process: '同步更新角色朝向、位置、動畫與目標座標',
+            feedback: '角色移動與追球動畫保持一致',
+            exit: '進入距離容差、目標失效或追球逾時'
+          },
+          {
+            id: '06',
+            name: '叼回 Returning',
+            trigger: '角色到達目標球',
+            process: '球體附著至角色節點，角色轉向並返回',
+            feedback: '球與角色同步移動，避免懸空或物理衝突',
+            exit: '角色回到指定放球區'
+          },
+          {
+            id: '07',
+            name: '重置 Reset',
+            trigger: '球已放下或流程被安全終止',
+            process: '解除附著、清除目標引用、計時器與輸入鎖',
+            feedback: '恢復球種與蓄力操作，準備下一輪',
+            exit: '回到 Idle'
+          }
         ];
-        var steps = flow.map(function (item) {
-          return '<div class="flow-step-card"><span class="case-id">STATE-' + item[0] + '</span><strong>' + item[1] + '</strong><p>' + item[2] + '</p><span class="flow-trace">UI、物件與角色狀態同步</span></div>';
+
+        var cards = states.map(function (item) {
+          return '' +
+            '<div class="flow-step-card">' +
+              '<span class="case-id">STATE-' + item.id + '</span>' +
+              '<strong>' + item.name + '</strong>' +
+              '<p><b>Trigger：</b>' + item.trigger + '</p>' +
+              '<p><b>State Update：</b>' + item.process + '</p>' +
+              '<p><b>UI Feedback：</b>' + item.feedback + '</p>' +
+              '<span class="flow-trace">Exit → ' + item.exit + '</span>' +
+            '</div>';
         }).join('');
-        var recovery =
-          '<div class="artifact-grid">' +
-          '<div class="artifact-grid-item"><strong>球出界</strong><span>不啟動追球，清除無效目標並恢復可操作狀態。</span></div>' +
-          '<div class="artifact-grid-item"><strong>無效輸入</strong><span>取消本次操作、重置蓄力與輸入鎖，避免畫面卡住。</span></div>' +
-          '<div class="artifact-grid-item"><strong>目標消失</strong><span>停止追蹤舊物件並返回待命，不保留失效引用。</span></div>' +
-          '<div class="artifact-grid-item"><strong>流程完成</strong><span>解除球體附著並清除前一輪狀態，允許再次丟球。</span></div>' +
+
+        var transitionFlow =
+          '<div class="artifact-flow">' +
+            '<span class="artifact-flow-step">Idle</span><span class="artifact-flow-arrow">→</span>' +
+            '<span class="artifact-flow-step">Charging</span><span class="artifact-flow-arrow">→</span>' +
+            '<span class="artifact-flow-step">Throwing</span><span class="artifact-flow-arrow">→</span>' +
+            '<span class="artifact-flow-step">Detecting</span><span class="artifact-flow-arrow">→</span>' +
+            '<span class="artifact-flow-step">Chasing</span><span class="artifact-flow-arrow">→</span>' +
+            '<span class="artifact-flow-step">Returning</span><span class="artifact-flow-arrow">→</span>' +
+            '<span class="artifact-flow-step">Reset</span><span class="artifact-flow-arrow">→</span>' +
+            '<span class="artifact-flow-step">Idle</span>' +
           '</div>';
+
+        var synchronization =
+          '<div class="artifact-grid">' +
+            '<div class="artifact-grid-item"><strong>Input Layer</strong><span>Pointer Down／Up、球種選擇、蓄力值與操作鎖；避免單次操作重複觸發。</span></div>' +
+            '<div class="artifact-grid-item"><strong>Object Layer</strong><span>球體 ID、模型、位置、速度、場內判定與生命週期；確保目標仍存在且有效。</span></div>' +
+            '<div class="artifact-grid-item"><strong>Character Layer</strong><span>小狗的 idle、detect、chase、carry、return 動畫與座標；由同一狀態來源驅動。</span></div>' +
+            '<div class="artifact-grid-item"><strong>UI Layer</strong><span>蓄力條、選取狀態、Loading／可操作提示與錯誤回饋；即時反映系統狀態。</span></div>' +
+          '</div>';
+
+        var metrics =
+          '<div class="decision-summary">' +
+            '<div class="metric-card"><strong>7</strong><span>主要互動狀態</span></div>' +
+            '<div class="metric-card"><strong>4</strong><span>同步責任層</span></div>' +
+            '<div class="metric-card"><strong>4+</strong><span>Recovery 路徑</span></div>' +
+            '<div class="metric-card"><strong>1</strong><span>可重複操作循環</span></div>' +
+          '</div>';
+
         return shell(
-          'Interaction State Flow',
-          'Three.js 互動狀態與 Recovery',
-          '<div class="flow-step-grid">' + steps + '</div><section class="analysis-section"><div class="analysis-section-head"><div><h4>Recovery Design</h4><p>只保留會直接影響使用者操作與介面一致性的例外處理。</p></div></div>' + recovery + '</section>'
+          'Interaction Architecture',
+          'Three.js 互動流程、狀態責任與同步設計',
+          metrics +
+          '<section class="analysis-section">' +
+            '<div class="analysis-section-head"><div><h4>End-to-end State Transition</h4><p>每個狀態都有明確的進入條件、更新責任、畫面回饋與離開條件。</p></div></div>' +
+            transitionFlow +
+          '</section>' +
+          '<section class="analysis-section">' +
+            '<div class="analysis-section-head"><div><h4>State Details</h4><p>避免只描述「小狗會追球」，而是拆解使用者輸入、場景物件與角色行為如何同步。</p></div></div>' +
+            '<div class="flow-step-grid">' + cards + '</div>' +
+          '</section>' +
+          '<section class="analysis-section">' +
+            '<div class="analysis-section-head"><div><h4>State Synchronization</h4><p>以單一互動狀態協調四個責任層，降低畫面顯示與實際物件狀態不一致的情況。</p></div></div>' +
+            synchronization +
+          '</section>'
+        );
+      }
+
+
+      function renderFrontendDogRecovery() {
+        var rows = [
+          ['球落在場外', 'Detecting', '標記球體為無效，不建立追蹤目標', '顯示可再次操作的狀態，不讓角色追出邊界', 'Reset → Idle'],
+          ['未形成有效丟球', 'Charging／Throwing', '取消本次生成，清除 charge 與操作鎖', '蓄力條歸零，可立即重新輸入', 'Idle'],
+          ['短時間重複 Pointer Up', 'Throwing', '使用提交鎖，只接受第一次有效事件', '僅產生一顆球，畫面不重複播放', 'Detecting'],
+          ['追球期間目標消失', 'Chasing', '清除失效 targetBallId，停止動畫與移動', '角色回復待命，不停留在錯誤方向', 'Reset → Idle'],
+          ['追球超過時間門檻', 'Chasing', '終止追蹤、清除計時器與目標引用', '提供可恢復回饋，允許重新丟球', 'Reset → Idle'],
+          ['叼回流程完成', 'Returning', '解除球體附著並恢復物理狀態', '球放回指定區域，操作重新啟用', 'Reset → Idle']
+        ];
+
+        var tableRows = rows.map(function (row) {
+          return '<tr>' +
+            '<td><strong style="color:var(--text)">' + row[0] + '</strong></td>' +
+            '<td><span class="status-pill designed">' + row[1] + '</span></td>' +
+            '<td>' + row[2] + '</td>' +
+            '<td>' + row[3] + '</td>' +
+            '<td><span class="coverage-mark">' + row[4] + '</span></td>' +
+          '</tr>';
+        }).join('');
+
+        return shell(
+          'Recovery Matrix',
+          '讓例外路徑回到可操作狀態，而不是只顯示錯誤',
+          '<div class="data-table-wrap">' +
+            '<table class="data-table">' +
+              '<thead><tr><th>Trigger</th><th>Current State</th><th>System Handling</th><th>User Feedback</th><th>Next State</th></tr></thead>' +
+              '<tbody>' + tableRows + '</tbody>' +
+            '</table>' +
+          '</div>' +
+          '<section class="analysis-section">' +
+            '<div class="analysis-section-head"><div><h4>Recovery Principles</h4><p>Recovery 不只清除錯誤，也必須確保下一次互動可以重新開始。</p></div></div>' +
+            '<div class="artifact-checklist">' +
+              '<div class="artifact-check-item"><span class="artifact-check-icon">1</span><span>清除失效物件引用、計時器與事件鎖，避免下一輪讀取舊狀態。</span><span class="artifact-status">Cleanup</span></div>' +
+              '<div class="artifact-check-item"><span class="artifact-check-icon">2</span><span>角色動畫、座標與 UI 提示同時回復，避免畫面看似待命但程式仍在追球。</span><span class="artifact-status">Sync</span></div>' +
+              '<div class="artifact-check-item"><span class="artifact-check-icon">3</span><span>所有例外都有明確 Next State，不留下無限 Loading 或不可操作中間態。</span><span class="artifact-status">Transition</span></div>' +
+              '<div class="artifact-check-item"><span class="artifact-check-icon">4</span><span>完成 Recovery 後可立即再次選球、蓄力與丟球，維持流程可重入。</span><span class="artifact-status">Re-entry</span></div>' +
+            '</div>' +
+          '</section>'
+        );
+      }
+
+      function renderFrontendDogImplementation() {
+        var architecture =
+          '<div class="artifact-flow">' +
+            '<span class="artifact-flow-step">Pointer / Selector</span><span class="artifact-flow-arrow">→</span>' +
+            '<span class="artifact-flow-step">Interaction Controller</span><span class="artifact-flow-arrow">→</span>' +
+            '<span class="artifact-flow-step">Three.js Scene</span><span class="artifact-flow-arrow">→</span>' +
+            '<span class="artifact-flow-step">Dog Behavior</span><span class="artifact-flow-arrow">→</span>' +
+            '<span class="artifact-flow-step">UI Feedback</span>' +
+          '</div>';
+
+        var responsibilities =
+          '<div class="artifact-grid">' +
+            '<div class="artifact-grid-item"><strong>Input Controller</strong><span>接收 Pointer 事件、球種與蓄力，負責輸入鎖與有效性檢查。</span></div>' +
+            '<div class="artifact-grid-item"><strong>Interaction State</strong><span>集中保存 phase、ballType、charge、targetBallId、dogState 與 recoveryReason。</span></div>' +
+            '<div class="artifact-grid-item"><strong>Scene / Physics</strong><span>負責球體建立、位置更新、邊界判斷、附著與移除等物件生命週期。</span></div>' +
+            '<div class="artifact-grid-item"><strong>Behavior Controller</strong><span>依目標與目前狀態控制角色轉向、追球、叼回、動畫與逾時。</span></div>' +
+            '<div class="artifact-grid-item"><strong>Presentation Layer</strong><span>顯示球種選取、蓄力、操作提示、載入與 Recovery 回饋。</span></div>' +
+            '<div class="artifact-grid-item"><strong>Asset Boundary</strong><span>3D 模型與部分媒體採既有素材；作品重點為互動整合、狀態設計與介面呈現。</span></div>' +
+          '</div>';
+
+        var code =
+          '<div class="code-panel">' +
+            '<div class="code-panel-head"><span>State shape · architecture example</span></div>' +
+            '<pre><code>const interactionState = {\n' +
+'  phase: "idle",\n' +
+'  ballType: "tennis",\n' +
+'  charge: 0,\n' +
+'  targetBallId: null,\n' +
+'  dogState: "idle",\n' +
+'  inputLocked: false,\n' +
+'  recoveryReason: null\n' +
+'};</code></pre>' +
+          '</div>';
+
+        return shell(
+          'Implementation Notes',
+          '責任切分、狀態資料與既有素材使用範圍',
+          '<section class="analysis-section">' +
+            '<div class="analysis-section-head"><div><h4>Event & Data Flow</h4><p>輸入事件先進入狀態控制，再驅動場景、角色與 UI，避免各區塊自行修改狀態。</p></div></div>' +
+            architecture +
+          '</section>' +
+          '<section class="analysis-section">' +
+            '<div class="analysis-section-head"><div><h4>Responsibility Split</h4><p>以單一責任切分互動邏輯，便於除錯、擴充球種與新增 Recovery。</p></div></div>' +
+            responsibilities +
+          '</section>' +
+          code +
+          '<div class="self-audit-notice"><strong>Contribution Boundary</strong>此作品的 3D 模型與部分媒體使用既有素材；重點成果為場景整合、操作流程、狀態拆解、互動回饋與品質驗證。</div>'
         );
       }
 
@@ -5765,28 +6051,186 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
       }
 
       function renderFrontendVtrainerFlow() {
-        var groups = [
+        var learnerFlow = [
           {
-            title: '學員訓練',
-            steps: ['登入', '選擇模式', '錄影', '辨識', '評分結果', '個人紀錄']
+            step: '01',
+            page: 'Login',
+            action: '輸入帳號並登入',
+            system: '驗證帳號與角色，建立登入狀態',
+            ui: '錯誤提示、Loading、登入成功導向'
           },
           {
-            title: '失敗與重試',
-            steps: ['權限遭拒', '輸入不符', '上傳中斷', '顯示錯誤', '重新操作']
+            step: '02',
+            page: 'Training Setup',
+            action: '選擇訓練模式',
+            system: '載入對應規則與裝置需求',
+            ui: '選取狀態、模式說明、開始按鈕'
           },
           {
-            title: '教練回饋',
-            steps: ['完成訓練', '教練查看', '新增評語', '學員通知', '分享／排行']
+            step: '03',
+            page: 'Recording',
+            action: '授權相機並錄製動作',
+            system: '確認權限、錄影長度與媒體格式',
+            ui: '預覽、錄影狀態、時間與重新錄製'
+          },
+          {
+            step: '04',
+            page: 'Recognition',
+            action: '送出影片進行辨識',
+            system: '上傳影片並顯示處理進度',
+            ui: '進度回饋、不可重複提交、失敗入口'
+          },
+          {
+            step: '05',
+            page: 'Score Result',
+            action: '查看評分與動作指標',
+            system: '整理總分、指標與訓練結果',
+            ui: '分數層級、指標圖表、下一步操作'
+          },
+          {
+            step: '06',
+            page: 'Training History',
+            action: '保存並回看紀錄',
+            system: '建立單筆紀錄並更新列表',
+            ui: '日期、模式、分數、回饋狀態'
           }
         ];
-        var sections = groups.map(function (group) {
-          var flow = group.steps.map(function (step, index) {
-            return '<span class="artifact-flow-step">' + step + '</span>' +
-              (index < group.steps.length - 1 ? '<span class="artifact-flow-arrow">→</span>' : '');
+
+        var recoveryFlow = [
+          {
+            step: 'A',
+            page: 'Permission',
+            action: '拒絕相機權限',
+            system: '停止錄影流程，不建立無效任務',
+            ui: '說明授權方式並提供返回或重試'
+          },
+          {
+            step: 'B',
+            page: 'Validation',
+            action: '影片長度或格式不符',
+            system: '於送出前阻擋不符合的輸入',
+            ui: '指出問題欄位與重新錄製入口'
+          },
+          {
+            step: 'C',
+            page: 'Upload',
+            action: '上傳期間網路中斷',
+            system: '保留可重試狀態，不建立重複紀錄',
+            ui: '明確失敗原因與重新送出按鈕'
+          },
+          {
+            step: 'D',
+            page: 'Recognition Error',
+            action: '辨識失敗或逾時',
+            system: '停止等待並清除不完整結果',
+            ui: '錯誤狀態、返回與再次嘗試'
+          }
+        ];
+
+        var coachFlow = [
+          {
+            step: '01',
+            page: 'Completed Training',
+            action: '學員完成一次訓練',
+            system: '將完成紀錄加入可回饋清單',
+            ui: '顯示待回饋狀態'
+          },
+          {
+            step: '02',
+            page: 'Coach Review',
+            action: '教練查看學員紀錄',
+            system: '依角色與資源範圍載入資料',
+            ui: '影片、分數、歷史表現與評語區'
+          },
+          {
+            step: '03',
+            page: 'Feedback',
+            action: '教練新增評語',
+            system: '保存作者、時間與內容',
+            ui: '輸入狀態、成功回饋與版本資訊'
+          },
+          {
+            step: '04',
+            page: 'Notification',
+            action: '學員查看新回饋',
+            system: '更新未讀／已讀狀態',
+            ui: '通知標記與完整評語內容'
+          }
+        ];
+
+        function renderLane(title, role, description, items) {
+          var cards = items.map(function (item) {
+            return '' +
+              '<div class="flow-step-card product-flow-card">' +
+                '<span class="case-id">' + role + '-' + item.step + '</span>' +
+                '<strong>' + item.page + '</strong>' +
+                '<p><b>User Action</b><br>' + item.action + '</p>' +
+                '<p><b>System Response</b><br>' + item.system + '</p>' +
+                '<span class="flow-trace"><b>UI：</b>' + item.ui + '</span>' +
+              '</div>';
           }).join('');
-          return '<section class="analysis-section"><div class="analysis-section-head"><div><h4>' + group.title + '</h4><p>聚焦使用者可理解的頁面與操作順序。</p></div></div><div class="artifact-flow">' + flow + '</div></section>';
-        }).join('');
-        return shell('User Flow', '從需求概念整理成可操作產品流程', sections);
+
+          return '' +
+            '<section class="analysis-section product-flow-lane">' +
+              '<div class="analysis-section-head">' +
+                '<div>' +
+                  '<h4>' + title + '</h4>' +
+                  '<p>' + description + '</p>' +
+                '</div>' +
+                '<span class="run-guide-label">' + role + '</span>' +
+              '</div>' +
+              '<div class="flow-step-grid">' + cards + '</div>' +
+            '</section>';
+        }
+
+        var metrics =
+          '<div class="decision-summary">' +
+            '<div class="metric-card"><strong>3</strong><span>主要使用路徑</span></div>' +
+            '<div class="metric-card"><strong>2</strong><span>核心使用角色</span></div>' +
+            '<div class="metric-card"><strong>7</strong><span>代表性介面</span></div>' +
+            '<div class="metric-card"><strong>4</strong><span>主要例外狀態</span></div>' +
+          '</div>';
+
+        var architecture =
+          '<section class="analysis-section">' +
+            '<div class="analysis-section-head">' +
+              '<div>' +
+                '<h4>Product Flow Architecture</h4>' +
+                '<p>從角色、頁面、使用者行為、系統回應與 UI 狀態五個層次拆解，不只列出頁面順序。</p>' +
+              '</div>' +
+            '</div>' +
+            '<div class="artifact-grid">' +
+              '<div class="artifact-grid-item"><strong>Role</strong><span>學員負責訓練與查看結果；教練負責檢視與回饋。</span></div>' +
+              '<div class="artifact-grid-item"><strong>Page</strong><span>Login、Setup、Recording、Recognition、Score、History、Coach Review。</span></div>' +
+              '<div class="artifact-grid-item"><strong>System State</strong><span>授權、驗證、上傳、辨識、保存、通知與錯誤恢復。</span></div>' +
+              '<div class="artifact-grid-item"><strong>UI State</strong><span>Loading、Disabled、Error、Success、Empty、Unread 與 Retry。</span></div>' +
+            '</div>' +
+          '</section>';
+
+        return shell(
+          'User Flow & Interface States',
+          '從使用者操作、系統反應到 UI 狀態的產品流程',
+          metrics +
+          architecture +
+          renderLane(
+            'Learner Training Flow',
+            'LEARNER',
+            '完成一次訓練所經過的主要頁面、系統處理與畫面回饋。',
+            learnerFlow
+          ) +
+          renderLane(
+            'Failure & Retry Flow',
+            'RECOVERY',
+            '將權限、輸入、網路與辨識失敗設計成可理解、可重新操作的流程。',
+            recoveryFlow
+          ) +
+          renderLane(
+            'Coach Feedback Flow',
+            'COACH',
+            '呈現學員完成訓練後，教練回饋與學員接收通知的跨角色流程。',
+            coachFlow
+          )
+        );
       }
 
       function renderFrontendAiWorkflow() {
@@ -5856,6 +6300,8 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
         else if (art.type === 'automation-playwright') html += renderAutomationPlaywright();
         else if (art.type === 'automation-mock') html += renderAutomationMock();
         else if (art.type === 'frontend-dog-state') html += renderFrontendDogState();
+        else if (art.type === 'frontend-dog-recovery') html += renderFrontendDogRecovery();
+        else if (art.type === 'frontend-dog-implementation') html += renderFrontendDogImplementation();
         else if (art.type === 'frontend-web-overview') html += renderFrontendWebOverview();
         else if (art.type === 'frontend-web-rwd') html += renderFrontendWebRwd();
         else if (art.type === 'frontend-quality') html += renderFrontendQuality();
@@ -6765,230 +7211,180 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
       });
     })();
 
-    // ===== scroll-driven reveal: four branches converge into automation =====
+    // ===== scroll-driven reveal: vertical alternating project timeline =====
     (function () {
       var stageReveal = document.getElementById('stageReveal');
       var stageInner = document.getElementById('stageInner');
-      var startNode = document.getElementById('startNode');
-      var branches = document.getElementById('branches');
-      var finalCard = document.getElementById('card5');
       var scrollHint = document.getElementById('scrollHint');
-      var startDot = document.getElementById('startDot');
-      var finalDot = document.getElementById('dot5');
-      //var convergeLabel = document.getElementById('convergeLabel');
-      if (!stageReveal) { return; }
+      var timelineSpine = document.getElementById('timelineSpine');
+      if (!stageReveal || !stageInner) return;
 
-      var START_CARD_W = 172;
-      var BRANCH_GAP = 105;
-      var BRANCHES_W = 420;
-      var FINAL_GAP = 115;
-      var FINAL_W = 400;
-      var COMPOSITION_W = START_CARD_W + BRANCH_GAP + BRANCHES_W + FINAL_GAP + FINAL_W;
-
-      var cardIds = ['card1', 'card2', 'card3', 'card4'];
-      var pathIds = ['path1', 'path2', 'path3', 'path4'];
-      var plusIds = ['plus1', 'plus2', 'plus3', 'plus4'];
-      var dotIds = ['dot1', 'dot2', 'dot3', 'dot4'];
-      var cpathIds = ['cpath1', 'cpath2', 'cpath3', 'cpath4'];
-
-      var branchSegments = [[0.10, 0.27], [0.24, 0.41], [0.38, 0.55], [0.52, 0.69]];
-      var convergeSegments = [[0.68, 0.84], [0.71, 0.87], [0.74, 0.90], [0.77, 0.93]];
-
-      var pathsReady = false;
+      var cardIds = ['card1', 'card2', 'card4'];
+      var pathIds = ['path1', 'path2', 'path4'];
+      var plusIds = ['plus1', 'plus2', 'plus4'];
+      var dotIds = ['dot1', 'dot2', 'dot4'];
+      var revealSegments = [[0.12,0.38],[0.37,0.64],[0.62,0.89]];
       var pathLens = [];
-      var convergeLens = [];
-      var usingStackedLayout = false;
+      var pathsReady = false;
+      var stackedMode = false;
 
-      function applyStackedLayout() {
-        usingStackedLayout = true;
-        startNode.style.left = '';
-        startNode.style.transform = '';
-        branches.style.left = '';
-        finalCard.style.left = '';
-        //convergeLabel.style.left = '';
-        scrollHint.classList.remove('is-hidden');
+      function clamp01(v) {
+        return Math.max(0, Math.min(1, v));
+      }
 
-        cardIds.forEach(function (id) {
+      function relPoint(el, side) {
+        var r = el.getBoundingClientRect();
+        var c = stageInner.getBoundingClientRect();
+        return {
+          x: side === 'left'
+            ? r.left - c.left
+            : side === 'right'
+              ? r.right - c.left
+              : r.left + r.width / 2 - c.left,
+          y: r.top + r.height / 2 - c.top
+        };
+      }
+
+      function setBranchPath(path, start, end, direction) {
+        var dx = Math.max(55, Math.abs(end.x - start.x) * .58);
+        var c1 = { x: start.x + dx * direction, y: start.y };
+        var c2 = { x: end.x - dx * direction, y: end.y };
+        path.setAttribute(
+          'd',
+          'M ' + start.x + ' ' + start.y +
+          ' C ' + c1.x + ' ' + c1.y +
+          ', ' + c2.x + ' ' + c2.y +
+          ', ' + end.x + ' ' + end.y
+        );
+        return path.getTotalLength();
+      }
+
+      function applyStacked() {
+        stackedMode = true;
+        if (timelineSpine) timelineSpine.style.transform = '';
+        cardIds.forEach(function(id) {
           var card = document.getElementById(id);
           card.style.opacity = '';
           card.style.transform = '';
           card.style.pointerEvents = '';
           card.tabIndex = 0;
         });
-        finalCard.style.opacity = '';
-        finalCard.style.transform = '';
-        finalCard.style.pointerEvents = '';
-        finalCard.tabIndex = 0;
-        finalCard.classList.remove('is-ready');
-
-        plusIds.concat(dotIds).forEach(function (id) {
-          var node = document.getElementById(id);
-          node.style.opacity = '';
+        plusIds.concat(dotIds).forEach(function(id) {
+          document.getElementById(id).style.opacity = '';
         });
-        finalDot.style.opacity = '';
-        //convergeLabel.style.opacity = '';
       }
 
-      function leaveStackedLayout() {
-        if (!usingStackedLayout) { return; }
-        usingStackedLayout = false;
-        startNode.style.left = '';
-        startNode.style.transform = '';
-        branches.style.left = '';
-        finalCard.style.left = '';
-        //convergeLabel.style.left = '';
-
-        cardIds.forEach(function (id) {
+      function leaveStacked() {
+        if (!stackedMode) return;
+        stackedMode = false;
+        cardIds.forEach(function(id) {
           var card = document.getElementById(id);
           card.style.opacity = '';
           card.style.transform = '';
           card.style.pointerEvents = '';
           card.tabIndex = -1;
         });
-        finalCard.style.opacity = '';
-        finalCard.style.transform = '';
-        finalCard.style.pointerEvents = '';
-        finalCard.tabIndex = -1;
-        finalCard.classList.remove('is-ready');
         resetGeometry();
       }
 
-      function clamp01(v) { return Math.max(0, Math.min(1, v)); }
-
-      function relPoint(el, side) {
-        var r = el.getBoundingClientRect();
-        var c = stageInner.getBoundingClientRect();
-        return {
-          x: side === 'left' ? (r.left - c.left) : (r.right - c.left),
-          y: (r.top + r.height / 2) - c.top
-        };
-      }
-
-      function pointOnCubic(p0, p1, p2, p3, t) {
-        var mt = 1 - t;
-        return {
-          x: mt * mt * mt * p0.x + 3 * mt * mt * t * p1.x + 3 * mt * t * t * p2.x + t * t * t * p3.x,
-          y: mt * mt * mt * p0.y + 3 * mt * mt * t * p1.y + 3 * mt * t * t * p2.y + t * t * t * p3.y
-        };
-      }
-
-      function setCurve(path, p0, p3, bend, plus) {
-        var dx = Math.max(54, (p3.x - p0.x) * bend);
-        var p1 = { x: p0.x + dx, y: p0.y };
-        var p2 = { x: p3.x - dx, y: p3.y };
-        path.setAttribute('d', 'M ' + p0.x + ' ' + p0.y + ' C ' + p1.x + ' ' + p1.y + ', ' + p2.x + ' ' + p2.y + ', ' + p3.x + ' ' + p3.y);
-        if (plus) {
-          var mid = pointOnCubic(p0, p1, p2, p3, 0.5);
-          plus.style.left = mid.x + 'px';
-          plus.style.top = mid.y + 'px';
-        }
-        return path.getTotalLength();
-      }
-
-      function setDesktopLayout() {
-        var stageRect = stageInner.getBoundingClientRect();
-        var centerPx = stageRect.width / 2;
-        var compLeft = Math.max(22, (stageRect.width - COMPOSITION_W) / 2);
-        return { stageRect: stageRect, centerPx: centerPx, compLeft: compLeft };
-      }
-
       function computeGeometry() {
-        var start = relPoint(startDot, 'right');
-        var finalEnd = relPoint(finalCard, 'left');
+        var stageRect = stageInner.getBoundingClientRect();
+        var spineX = stageRect.width / 2;
 
-        for (var i = 0; i < 4; i++) {
-          var card = document.getElementById(cardIds[i]);
-          var path = document.getElementById(pathIds[i]);
-          var plus = document.getElementById(plusIds[i]);
-          var dot = document.getElementById(dotIds[i]);
-          var branchEnd = relPoint(card, 'left');
+        cardIds.forEach(function(cardId, index) {
+          var card = document.getElementById(cardId);
+          var cardRect = card.getBoundingClientRect();
+          var container = stageInner.getBoundingClientRect();
+          var centerY = cardRect.top + cardRect.height / 2 - container.top;
+          var isLeft = index !== 1;
+          var start = { x: spineX, y: centerY };
+          var end = relPoint(card, isLeft ? 'right' : 'left');
+          var path = document.getElementById(pathIds[index]);
 
-          pathLens[i] = setCurve(path, start, branchEnd, 0.48, plus);
-          path.style.strokeDasharray = String(pathLens[i]);
-          path.style.strokeDashoffset = String(pathLens[i]);
-          dot.style.left = branchEnd.x + 'px';
-          dot.style.top = branchEnd.y + 'px';
+          pathLens[index] = setBranchPath(
+            path,
+            start,
+            end,
+            isLeft ? -1 : 1
+          );
+          path.style.strokeDasharray = String(pathLens[index]);
+          path.style.strokeDashoffset = String(pathLens[index]);
 
-          var convergeStart = relPoint(card, 'right');
-          var cpath = document.getElementById(cpathIds[i]);
-          convergeLens[i] = setCurve(cpath, convergeStart, finalEnd, 0.46);
-          cpath.style.strokeDasharray = String(convergeLens[i]);
-          cpath.style.strokeDashoffset = String(convergeLens[i]);
-        }
+          var plus = document.getElementById(plusIds[index]);
+          plus.style.left = start.x + 'px';
+          plus.style.top = start.y + 'px';
 
-        finalDot.style.left = finalEnd.x + 'px';
-        finalDot.style.top = finalEnd.y + 'px';
+          var dot = document.getElementById(dotIds[index]);
+          dot.style.left = end.x + 'px';
+          dot.style.top = end.y + 'px';
+        });
+
         pathsReady = true;
       }
 
       function update() {
-        const useStackedLayout = window.matchMedia(
-          '(max-width: 1279px), (max-height: 820px)'
+        var stacked = window.matchMedia(
+          '(max-width:1279px), (max-height:820px)'
         ).matches;
 
-        if (useStackedLayout) {
-          applyStackedLayout();
+        if (stacked) {
+          applyStacked();
           return;
         }
-        leaveStackedLayout();
+
+        leaveStacked();
 
         var rect = stageReveal.getBoundingClientRect();
         var total = rect.height - window.innerHeight;
-        var p = total > 0 ? clamp01(-rect.top / total) : 0;
-        var layout = setDesktopLayout();
+        var progress = total > 0 ? clamp01(-rect.top / total) : 0;
 
-        var anchorProgress = clamp01(p / 0.07);
-        var curLeftPx = layout.centerPx + (layout.compLeft - layout.centerPx) * anchorProgress;
-        var curTX = -50 * (1 - anchorProgress);
-        startNode.style.left = curLeftPx + 'px';
-        startNode.style.transform = 'translate(' + curTX + '%, -50%)';
-
-        branches.style.left = (layout.compLeft + START_CARD_W + BRANCH_GAP) + 'px';
-        finalCard.style.left = (layout.compLeft + START_CARD_W + BRANCH_GAP + BRANCHES_W + FINAL_GAP) + 'px';
-        //convergeLabel.style.left = (layout.compLeft + START_CARD_W + BRANCH_GAP + BRANCHES_W) + 'px';
-
-        if (p > 0.02) { scrollHint.classList.add('is-hidden'); }
-        else { scrollHint.classList.remove('is-hidden'); }
-
-        if (!pathsReady && p > 0.09) { computeGeometry(); }
-
-        if (pathsReady) {
-          for (var i = 0; i < 4; i++) {
-            var seg = branchSegments[i];
-            var branchP = clamp01((p - seg[0]) / (seg[1] - seg[0]));
-            var path = document.getElementById(pathIds[i]);
-            path.style.strokeDashoffset = String(pathLens[i] * (1 - branchP));
-
-            var card = document.getElementById(cardIds[i]);
-            card.style.opacity = String(branchP);
-            card.style.transform = 'translateX(' + (18 * (1 - branchP)) + 'px)';
-            card.style.pointerEvents = branchP > 0.45 ? 'auto' : 'none';
-            card.tabIndex = branchP > 0.45 ? 0 : -1;
-            document.getElementById(plusIds[i]).style.opacity = String(Math.min(1, branchP * 3));
-            document.getElementById(dotIds[i]).style.opacity = String(branchP);
-
-            var cseg = convergeSegments[i];
-            var convergeP = clamp01((p - cseg[0]) / (cseg[1] - cseg[0]));
-            var cpath = document.getElementById(cpathIds[i]);
-            cpath.style.strokeDashoffset = String(convergeLens[i] * (1 - convergeP));
-          }
-
-          var finalP = clamp01((p - 0.84) / 0.13);
-          finalCard.style.opacity = String(finalP);
-          finalCard.style.transform = 'translateY(-50%) translateX(' + (24 * (1 - finalP)) + 'px)';
-          finalCard.style.pointerEvents = finalP > 0.45 ? 'auto' : 'none';
-          finalCard.tabIndex = finalP > 0.45 ? 0 : -1;
-          finalDot.style.opacity = String(finalP);
-          //convergeLabel.style.opacity = String(finalP);
-          finalCard.classList.toggle('is-ready', finalP > 0.8);
+        if (timelineSpine) {
+          var spineProgress = clamp01((progress - .04) / .82);
+          timelineSpine.style.transform =
+            'translateX(-50%) scaleY(' + spineProgress + ')';
         }
+
+        if (progress > .025) {
+          scrollHint.classList.add('is-hidden');
+        } else {
+          scrollHint.classList.remove('is-hidden');
+        }
+
+        if (!pathsReady && progress > .08) {
+          computeGeometry();
+        }
+        if (!pathsReady) return;
+
+        cardIds.forEach(function(cardId, index) {
+          var seg = revealSegments[index];
+          var p = clamp01((progress - seg[0]) / (seg[1] - seg[0]));
+
+          var path = document.getElementById(pathIds[index]);
+          path.style.strokeDashoffset =
+            String(pathLens[index] * (1 - p));
+
+          var card = document.getElementById(cardId);
+          var direction = index === 1 ? 1 : -1;
+          card.style.opacity = String(p);
+          card.style.transform =
+            'translateX(' + (direction * 28 * (1 - p)) + 'px)';
+          card.style.pointerEvents = p > .48 ? 'auto' : 'none';
+          card.tabIndex = p > .48 ? 0 : -1;
+
+          document.getElementById(
+            plusIds[index]
+          ).style.opacity = String(Math.min(1, p * 2.8));
+
+          document.getElementById(
+            dotIds[index]
+          ).style.opacity = String(p);
+        });
       }
 
       function resetGeometry() {
         pathsReady = false;
         pathLens = [];
-        convergeLens = [];
-        document.querySelectorAll('.route-path').forEach(function (path) {
+        document.querySelectorAll('.route-path').forEach(function(path) {
           path.removeAttribute('d');
           path.style.strokeDasharray = '';
           path.style.strokeDashoffset = '';
@@ -6996,21 +7392,33 @@ Then 畫面應顯示可理解的錯誤與重試方式，且不得提供無效的
       }
 
       var ticking = false;
-      function onScroll() {
-        if (!ticking) {
-          requestAnimationFrame(function () { update(); ticking = false; });
-          ticking = true;
-        }
+      function schedule() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function() {
+          update();
+          ticking = false;
+        });
       }
 
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', function () {
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', function() {
         resetGeometry();
         update();
       });
 
-      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { resetGeometry(); update(); }); }
-      else { window.addEventListener('load', function () { resetGeometry(); update(); }); }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function() {
+          resetGeometry();
+          update();
+        });
+      } else {
+        window.addEventListener('load', function() {
+          resetGeometry();
+          update();
+        });
+      }
+
       update();
     })();
 
