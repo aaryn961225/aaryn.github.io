@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="阮靜慧｜前端與可視化工程師作品集。聚焦 JavaScript、RWD、Three.js、ECharts、Dashboard UI 與 AI 協作開發。" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>阮靜慧｜Front-end Visualization Portfolio</title>
+  <style>
+    :root {
+      --bg: #07101d;
+      --bg-soft: #0b1728;
+      --surface: rgba(15, 31, 52, 0.82);
+      --surface-strong: #10233b;
+      --surface-light: #f6f8fb;
+      --text: #f4f7fb;
+      --text-soft: #a9b7c9;
+      --ink: #142033;
+      --ink-soft: #52627a;
+      --line: rgba(255, 255, 255, 0.11);
+      --line-dark: #dbe3ec;
+      --accent: #42b9ff;
+      --accent-2: #70f0cb;
+      --accent-3: #8da8ff;
+      --danger: #ff7f89;
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(66, 185, 255, 0.16), transparent 33%),
+        radial-gradient(circle at 88% 10%, rgba(112, 240, 203, 0.10), transparent 28%),
+        var(--bg);
+      font-family: Inter, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+      line-height: 1.65;
+      letter-spacing: 0.01em;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: -80px;
+      z-index: 9999;
+      padding: 10px 16px;
+      border-radius: 10px;
+      color: var(--ink);
+      background: #fff;
+      transition: top .2s ease;
+    }
+    .skip-link:focus { top: 16px; }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 14px 0;
+      background: rgba(7, 16, 29, .72);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #03111c;
+      font-weight: 900;
+      box-shadow: 0 10px 26px rgba(66,185,255,.22);
+    }
+    .brand small { display: block; color: var(--text-soft); font-weight: 500; font-size: 11px; letter-spacing: .08em; }
+    .nav-links { display: flex; gap: 24px; align-items: center; color: var(--text-soft); font-size: 14px; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+    .nav-cta {
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(66,185,255,.38);
+      color: #d9f3ff !important;
+      background: rgba(66,185,255,.09);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 760px;
+      display: grid;
+      align-items: center;
+      padding: 96px 0 72px;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(360px, .85fr);
+      gap: 54px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid rgba(112,240,203,.28);
+      border-radius: 999px;
+      color: #bdf8e8;
+      background: rgba(112,240,203,.07);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 16px var(--accent-2); }
+    h1 {
+      margin: 24px 0 22px;
+      font-size: clamp(46px, 7vw, 82px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    h1 span {
+      display: block;
+      margin-top: 12px;
+      font-size: clamp(27px, 3.4vw, 44px);
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .hero-copy {
+      max-width: 710px;
+      color: var(--text-soft);
+      font-size: clamp(17px, 1.8vw, 21px);
+    }
+    .hero-copy strong { color: var(--text); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 48px;
+      padding: 0 19px;
+      border-radius: 13px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      font-size: 14px;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #03111c; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 14px 34px rgba(66,185,255,.2); }
+    .btn-secondary { color: var(--text); border-color: var(--line); background: rgba(255,255,255,.045); }
+    .btn-ghost { color: var(--text-soft); border-color: rgba(255,255,255,.08); }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 38px;
+    }
+    .metric {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.035);
+    }
+    .metric strong { display: block; color: var(--text); font-size: 17px; }
+    .metric span { color: var(--text-soft); font-size: 12px; }
+
+    .dashboard-preview {
+      position: relative;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(19,42,69,.92), rgba(8,20,35,.92));
+      box-shadow: var(--shadow);
+      transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
+    }
+    .preview-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .dots { display: flex; gap: 6px; }
+    .dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.24); }
+    .preview-status { color: #a9f5df; font-size: 11px; font-weight: 800; }
+    .preview-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+    .preview-kpi { padding: 13px; border-radius: 13px; background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.07); }
+    .preview-kpi span { color: var(--text-soft); font-size: 10px; }
+    .preview-kpi strong { display: block; margin-top: 4px; font-size: 18px; }
+    .chart-box { position: relative; height: 220px; margin-top: 12px; border-radius: 16px; background: rgba(1,9,17,.34); border: 1px solid rgba(255,255,255,.06); overflow: hidden; }
+    .chart-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 100% 44px, 58px 100%; }
+    .line-chart { position: absolute; inset: 26px 20px 26px 20px; }
+    .line-chart svg { width: 100%; height: 100%; overflow: visible; }
+    .preview-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    .mini-panel { padding: 14px; min-height: 104px; border-radius: 15px; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.065); }
+    .mini-panel h3 { margin: 0 0 10px; font-size: 12px; color: var(--text-soft); }
+    .status-row { display: flex; justify-content: space-between; gap: 10px; margin: 7px 0; font-size: 11px; }
+    .status-pill { padding: 2px 7px; border-radius: 999px; font-weight: 800; }
+    .ok { color: #baf8e6; background: rgba(112,240,203,.12); }
+    .warn { color: #ffd59b; background: rgba(255,184,92,.13); }
+
+    section { padding: 92px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 34px; }
+    .section-kicker { color: var(--accent); font-size: 12px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    h2 { margin: 9px 0 0; font-size: clamp(34px, 5vw, 56px); line-height: 1.12; letter-spacing: -0.035em; }
+    .section-head p { max-width: 540px; margin: 0; color: var(--text-soft); }
+
+    .light-section { color: var(--ink); background: var(--surface-light); }
+    .light-section .section-head p, .light-section .muted { color: var(--ink-soft); }
+
+    .project-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+    .project-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 390px;
+      padding: 26px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line-dark);
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 15px 44px rgba(17,35,56,.08);
+    }
+    .project-card.large { grid-column: span 7; }
+    .project-card.medium { grid-column: span 5; }
+    .project-card.half { grid-column: span 6; }
+    .project-card::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -70px;
+      top: -70px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(66,185,255,.14), transparent 68%);
+      pointer-events: none;
+    }
+    .project-number { color: #8da0b5; font-size: 12px; font-weight: 900; letter-spacing: .12em; }
+    .project-card h3 { margin: 22px 0 10px; font-size: 27px; line-height: 1.2; }
+    .project-card p { margin: 0; color: var(--ink-soft); }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+    .tag { padding: 6px 9px; border-radius: 8px; background: #eef4f8; color: #33516a; font-size: 11px; font-weight: 800; }
+    .project-highlights { display: grid; gap: 9px; margin: 0 0 22px; padding: 0; list-style: none; color: #33465c; font-size: 14px; }
+    .project-highlights li { display: flex; gap: 9px; align-items: flex-start; }
+    .project-highlights li::before { content: ""; flex: 0 0 auto; width: 7px; height: 7px; margin-top: 8px; border-radius: 50%; background: var(--accent); }
+    .project-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: auto; }
+    .project-actions a { padding: 9px 12px; border-radius: 10px; border: 1px solid #d8e2ec; color: #263d53; font-size: 12px; font-weight: 900; }
+    .project-actions a.primary-link { color: #062037; border-color: #a8dcf9; background: #dff4ff; }
+    .project-visual { position: relative; height: 118px; margin: 4px 0 18px; border-radius: 14px; background: linear-gradient(135deg, #0c2138, #153c5f); overflow: hidden; }
+    .bars { position: absolute; inset: 18px; display: flex; gap: 7px; align-items: end; }
+    .bars i { flex: 1; min-height: 18px; border-radius: 5px 5px 2px 2px; background: linear-gradient(var(--accent), rgba(66,185,255,.28)); }
+    .node-map { position: absolute; inset: 0; }
+    .node-map i { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 0 6px rgba(112,240,203,.12); }
+    .node-map i:nth-child(1){ left:16%; top:52%; }.node-map i:nth-child(2){ left:42%; top:24%; }.node-map i:nth-child(3){ left:66%; top:58%; }.node-map i:nth-child(4){ left:82%; top:29%; }
+    .node-map svg { position:absolute; inset:0; width:100%; height:100%; }
+
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+    .process-card { position: relative; padding: 24px; min-height: 220px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.035); }
+    .process-card .step { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; color: #03111c; background: var(--accent); font-size: 12px; font-weight: 900; }
+    .process-card h3 { margin: 22px 0 9px; font-size: 18px; }
+    .process-card p { margin: 0; color: var(--text-soft); font-size: 14px; }
+    .process-card:not(:last-child)::after { content: "→"; position: absolute; right: -13px; top: 50%; z-index: 2; transform: translateY(-50%); color: #54718c; font-size: 19px; }
+
+    .capability-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; }
+    .capability-panel { padding: 30px; border-radius: var(--radius-xl); background: #fff; border: 1px solid var(--line-dark); box-shadow: 0 12px 38px rgba(15,36,57,.06); }
+    .capability-panel h3 { margin: 0 0 18px; font-size: 26px; }
+    .skill-groups { display: grid; gap: 18px; }
+    .skill-group strong { display: block; margin-bottom: 9px; font-size: 13px; color: #203a52; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-list span { padding: 7px 10px; border: 1px solid #dce5ed; border-radius: 999px; color: #4d6073; background: #fafcff; font-size: 12px; font-weight: 700; }
+    .learning-box { padding: 23px; border-radius: 18px; color: #daf4ff; background: linear-gradient(145deg, #0b2943, #0e1f32); }
+    .learning-box h4 { margin: 0 0 10px; font-size: 17px; }
+    .learning-box p { margin: 0; color: #a9c0d3; font-size: 14px; }
+    .principles { display: grid; gap: 12px; margin-top: 20px; }
+    .principle { display: flex; gap: 12px; padding: 14px; border-radius: 14px; background: #f4f8fb; }
+    .principle b { color: #163d5c; }
+    .principle p { margin: 3px 0 0; color: var(--ink-soft); font-size: 13px; }
+    .principle-mark { display: grid; place-items: center; flex: 0 0 auto; width: 34px; height: 34px; border-radius: 11px; color: #095075; background: #dff4ff; font-weight: 900; }
+
+    .contact-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 30px;
+      padding: 50px;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at 90% 20%, rgba(112,240,203,.12), transparent 30%),
+        linear-gradient(145deg, rgba(17,43,70,.94), rgba(8,21,36,.94));
+      box-shadow: var(--shadow);
+    }
+    .contact-card h2 { margin: 0 0 14px; }
+    .contact-card p { max-width: 680px; margin: 0; color: var(--text-soft); }
+    .contact-actions { display: flex; flex-direction: column; gap: 10px; min-width: 220px; }
+
+    footer { padding: 28px 0 40px; color: #7f90a5; font-size: 12px; }
+    .footer-row { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); padding-top: 24px; }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 920px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { min-height: auto; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .dashboard-preview { max-width: 650px; transform: none; }
+      .project-card.large, .project-card.medium, .project-card.half { grid-column: span 12; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .process-card::after { display: none; }
+      .capability-grid { grid-template-columns: 1fr; }
+      .contact-card { grid-template-columns: 1fr; padding: 34px; }
+      .contact-actions { flex-direction: row; flex-wrap: wrap; }
+    }
+
+    @media (max-width: 620px) {
+      .container { width: min(calc(100% - 28px), var(--max)); }
+      .brand small { display: none; }
+      .hero { padding-top: 72px; }
+      .hero-metrics { grid-template-columns: 1fr; }
+      .preview-kpis { grid-template-columns: 1fr; }
+      .preview-row { grid-template-columns: 1fr; }
+      .dashboard-preview { padding: 13px; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      section { padding: 72px 0; }
+      .process-grid { grid-template-columns: 1fr; }
+      .project-card { padding: 22px; }
+      .contact-card { padding: 26px; }
+      .contact-actions { flex-direction: column; }
+      .footer-row { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至主要內容</a>
+
+  <div class="nav-wrap">
+    <div class="container">
+      <nav aria-label="主要導覽">
+        <a class="brand" href="#top" aria-label="回到頁首">
+          <span class="brand-mark">R</span>
+          <span>阮靜慧<small>FRONT-END · VISUALIZATION · QA MINDSET</small></span>
+        </a>
+        <div class="nav-links">
+          <a href="#projects">作品</a>
+          <a href="#workflow">AI 協作</a>
+          <a href="#skills">技能</a>
+          <a class="nav-cta" href="mailto:b04207009@gmail.com">聯絡我</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main">
+    <header class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <span class="eyebrow">Front-end Visualization Engineer</span>
+          <h1>把複雜資料，<span>轉化為清楚可操作的介面。</span></h1>
+          <p class="hero-copy">
+            我是阮靜慧，具備 <strong>UI/UX、JavaScript、RWD、Three.js、ECharts 與軟體品質驗證</strong>經驗。
+            擅長從需求、使用者流程與資料狀態出發，製作互動式介面、Dashboard 與可視化工具，並使用 AI 工具協助程式碼生成、除錯、重構與技術文件整理。
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">查看精選作品 <span aria-hidden="true">↓</span></a>
+            <a class="btn btn-secondary" href="https://github.com/aaryn961225/aaryn961225.github.io" target="_blank" rel="noreferrer">GitHub Repository</a>
+            <a class="btn btn-ghost" href="../">QA 主作品集</a>
+          </div>
+          <div class="hero-metrics" aria-label="核心能力摘要">
+            <div class="metric"><strong>Visualization</strong><span>ECharts · Three.js · Dashboard UI</span></div>
+            <div class="metric"><strong>Web Interface</strong><span>HTML · CSS · JavaScript · RWD</span></div>
+            <div class="metric"><strong>AI Collaboration</strong><span>Copilot · Claude Code · Human Review</span></div>
+          </div>
+        </div>
+
+        <div class="dashboard-preview reveal" aria-label="資料監控儀表板示意圖">
+          <div class="preview-top">
+            <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <span class="preview-status">● LIVE DATA PREVIEW</span>
+          </div>
+          <div class="preview-kpis">
+            <div class="preview-kpi"><span>Production Output</span><strong>8,420</strong></div>
+            <div class="preview-kpi"><span>Equipment Uptime</span><strong>97.8%</strong></div>
+            <div class="preview-kpi"><span>Open Alerts</span><strong>03</strong></div>
+          </div>
+          <div class="chart-box">
+            <div class="chart-grid"></div>
+            <div class="line-chart">
+              <svg viewBox="0 0 500 150" role="img" aria-label="折線圖示意">
+                <defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#42b9ff" stop-opacity=".32"/><stop offset="1" stop-color="#42b9ff" stop-opacity="0"/></linearGradient></defs>
+                <path d="M0 126 C55 118 64 82 115 92 C167 102 188 38 242 55 C297 72 333 20 382 42 C430 63 457 29 500 18 L500 150 L0 150 Z" fill="url(#area)"/>
+                <path d="M0 126 C55 118 64 82 115 92 C167 102 188 38 242 55 C297 72 333 20 382 42 C430 63 457 29 500 18" fill="none" stroke="#42b9ff" stroke-width="4" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="preview-row">
+            <div class="mini-panel">
+              <h3>設備狀態</h3>
+              <div class="status-row"><span>Line A-01</span><span class="status-pill ok">Online</span></div>
+              <div class="status-row"><span>Line B-04</span><span class="status-pill warn">Inspect</span></div>
+            </div>
+            <div class="mini-panel">
+              <h3>即時資料設計重點</h3>
+              <div class="status-row"><span>Loading / Empty</span><span>✓</span></div>
+              <div class="status-row"><span>Error / Recovery</span><span>✓</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="light-section" id="projects">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">Selected Work</div>
+            <h2>精選前端與可視化作品</h2>
+          </div>
+          <p>將現有 QA、UI/UX 與互動作品重新以「介面實作、資料呈現、可視化與品質驗證」角度整理，並清楚標示可直接開啟的 Demo。</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card large reveal">
+            <span class="project-number">01 · DATA VISUALIZATION</span>
+            <h3>Visualization Library & Dashboard UI</h3>
+            <p>以 ECharts、統計卡片與管理介面呈現多種資料型態，包含搜尋、篩選、資料狀態、CSV 匯出與個人化 Dashboard。</p>
+            <div class="project-visual" aria-hidden="true"><div class="bars"><i style="height:32%"></i><i style="height:55%"></i><i style="height:44%"></i><i style="height:81%"></i><i style="height:67%"></i><i style="height:91%"></i><i style="height:72%"></i></div></div>
+            <div class="project-tags"><span class="tag">ECharts</span><span class="tag">JavaScript</span><span class="tag">Dashboard UI</span><span class="tag">RWD</span><span class="tag">localStorage</span></div>
+            <ul class="project-highlights">
+              <li>互動式離線圖表、資訊層級與視覺狀態設計</li>
+              <li>搜尋、篩選、排序、移除與持久化操作</li>
+              <li>Loading、Empty、Success、Error、Disabled 等介面狀態</li>
+            </ul>
+            <div class="project-actions">
+              <a class="primary-link" href="../projects/ui-charts/">開啟 Live Demo</a>
+              <a href="https://github.com/aaryn961225/aaryn961225.github.io/tree/main/projects/ui-charts" target="_blank" rel="noreferrer">查看原始碼</a>
+            </div>
+          </article>
+
+          <article class="project-card medium reveal">
+            <span class="project-number">02 · 3D INTERACTION</span>
+            <h3>Three.js 3D Interactive Prototype</h3>
+            <p>可操作的小狗撿球 3D 情境，展示場景控制、互動狀態與操作回饋，也延伸行為樹與風險分析設計。</p>
+            <div class="project-visual" aria-hidden="true">
+              <div class="node-map">
+                <svg viewBox="0 0 300 120"><path d="M52 65 L126 34 L199 72 L246 39" fill="none" stroke="#42b9ff" stroke-width="2" stroke-dasharray="5 5"/></svg>
+                <i></i><i></i><i></i><i></i>
+              </div>
+            </div>
+            <div class="project-tags"><span class="tag">Three.js</span><span class="tag">JavaScript</span><span class="tag">3D UI</span><span class="tag">Interaction</span></div>
+            <ul class="project-highlights">
+              <li>3D 模型、相機與互動操作整合</li>
+              <li>狀態、例外與使用者操作回饋設計</li>
+              <li>以視覺化方式呈現複雜流程與節點關係</li>
+            </ul>
+            <div class="project-actions">
+              <a class="primary-link" href="../projects/dog/views/case-3d.html">開啟 3D Demo</a>
+              <a href="https://github.com/aaryn961225/aaryn961225.github.io/tree/main/projects/dog" target="_blank" rel="noreferrer">查看原始碼</a>
+            </div>
+          </article>
+
+          <article class="project-card half reveal">
+            <span class="project-number">03 · REPORT INTERFACE</span>
+            <h3>Playwright HTML Report</h3>
+            <p>以自動化測試結果展示狀態標籤、統計摘要、步驟明細與報告導覽，可作為高資訊密度管理介面的 UI 參考。</p>
+            <div class="project-tags"><span class="tag">Playwright</span><span class="tag">Report UI</span><span class="tag">Status Design</span><span class="tag">GitHub Pages</span></div>
+            <ul class="project-highlights">
+              <li>Pass／Fail 與執行摘要視覺層級</li>
+              <li>詳細步驟、錯誤資訊與報表導覽</li>
+              <li>已部署至 GitHub Pages，可直接檢視</li>
+            </ul>
+            <div class="project-actions">
+              <a class="primary-link" href="../projects/automation/playwright-report/">開啟報告</a>
+              <a href="../projects/automation/RUN_GUIDE.html">查看執行指南</a>
+            </div>
+          </article>
+
+          <article class="project-card half reveal">
+            <span class="project-number">04 · RESPONSIVE WEB APP</span>
+            <h3>Interactive QA Portfolio</h3>
+            <p>整合多模組、Tab、互動元件、文件與 Demo 的完整靜態網站，展示複雜資訊架構、RWD 與跨模組內容整合。</p>
+            <div class="project-tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">RWD</span><span class="tag">UI Architecture</span></div>
+            <ul class="project-highlights">
+              <li>多模組導覽與大量資訊的可讀性設計</li>
+              <li>互動元件、狀態切換與內容呈現</li>
+              <li>以品質驗證思維檢查流程與介面完整性</li>
+            </ul>
+            <div class="project-actions">
+              <a class="primary-link" href="../">開啟完整作品集</a>
+              <a href="https://github.com/aaryn961225/aaryn961225.github.io" target="_blank" rel="noreferrer">查看 Repository</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">AI-assisted Workflow</div>
+            <h2>AI 協作，但不跳過人工驗證</h2>
+          </div>
+          <p>使用 GitHub Copilot、Claude Code 協助生成、除錯、重構與文件整理；所有輸出仍透過實際執行、瀏覽器檢查與功能驗證確認品質。</p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card reveal"><span class="step">01</span><h3>需求拆解</h3><p>先整理目標、資料來源、狀態與邊界，將模糊需求轉為可執行任務。</p></article>
+          <article class="process-card reveal"><span class="step">02</span><h3>Prompt 與生成</h3><p>指定技術限制、檔案結構與驗收條件，讓 AI 產出可檢查的程式與文件。</p></article>
+          <article class="process-card reveal"><span class="step">03</span><h3>Review 與修正</h3><p>閱讀錯誤訊息、檢查資料與互動邏輯，重構不穩定或不易維護的內容。</p></article>
+          <article class="process-card reveal"><span class="step">04</span><h3>實際驗證</h3><p>以瀏覽器、RWD、功能情境與測試結果確認輸出，不直接採用未驗證程式。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="light-section" id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">Capabilities</div>
+            <h2>技能與工作方式</h2>
+          </div>
+          <p>我的差異化不是只做畫面，而是同時理解需求、使用者流程、資料狀態與品質驗證，協助介面更完整、更可靠。</p>
+        </div>
+
+        <div class="capability-grid">
+          <div class="capability-panel reveal">
+            <h3>技術與工具</h3>
+            <div class="skill-groups">
+              <div class="skill-group"><strong>Front-end</strong><div class="skill-list"><span>HTML5</span><span>CSS3 / SCSS</span><span>JavaScript</span><span>jQuery</span><span>RWD</span><span>Git / GitHub</span></div></div>
+              <div class="skill-group"><strong>Visualization</strong><div class="skill-list"><span>ECharts</span><span>Three.js</span><span>WebXR</span><span>Dashboard UI</span><span>Flow Visualization</span></div></div>
+              <div class="skill-group"><strong>UX & Quality</strong><div class="skill-list"><span>Figma</span><span>Wireframe</span><span>Prototype</span><span>UI State Design</span><span>SQL Validation</span><span>Playwright</span></div></div>
+              <div class="skill-group"><strong>AI Collaboration</strong><div class="skill-list"><span>GitHub Copilot</span><span>Claude Code</span><span>Prompt Design</span><span>Debugging</span><span>Documentation</span></div></div>
+            </div>
+          </div>
+
+          <div class="capability-panel reveal">
+            <div class="learning-box">
+              <h4>持續深化中</h4>
+              <p>React／Vue、TypeScript、API 模組化、WebSocket 即時資料、Docker 與 CI/CD 基礎。履歷與作品僅標示已實際操作或能說明的程度。</p>
+            </div>
+            <div class="principles">
+              <div class="principle"><span class="principle-mark">1</span><div><b>先理解，再實作</b><p>從使用情境、資料流與例外狀態拆解介面需求。</p></div></div>
+              <div class="principle"><span class="principle-mark">2</span><div><b>清楚呈現資料</b><p>透過層級、圖表與狀態設計降低理解成本。</p></div></div>
+              <div class="principle"><span class="principle-mark">3</span><div><b>完成後持續驗證</b><p>以 QA 思維檢查功能、RWD、錯誤狀態與資料一致性。</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-card reveal">
+          <div>
+            <div class="section-kicker">Contact</div>
+            <h2>期待參與前端、Dashboard 與資料可視化開發</h2>
+            <p>尋找初階前端與可視化工程機會，期望結合 UI/UX、Three.js、資料呈現、AI 協作與品質驗證能力，投入工業數位化、IoT 或管理系統介面開發。</p>
+          </div>
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="mailto:b04207009@gmail.com">Email 聯絡</a>
+            <a class="btn btn-secondary" href="https://github.com/aaryn961225" target="_blank" rel="noreferrer">GitHub Profile</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>© <span id="year"></span> 阮靜慧 · Front-end Visualization Portfolio</span>
+      <span>Designed with UI/UX thinking · Verified with QA mindset</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const revealElements = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealElements.forEach((element) => observer.observe(element));
+    } else {
+      revealElements.forEach((element) => element.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
